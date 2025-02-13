@@ -1,4 +1,4 @@
-# Notices for HARMAN-Automotive/androidVehicleConnectSDK
+# Notices for eclipse-ecsp/androidVehicleConnectSDK
 
 This content is produced and maintained by the Eclipse Connected Services Platform Project.
 
@@ -6,7 +6,7 @@ This content is produced and maintained by the Eclipse Connected Services Platfo
 
 ## Trademarks
 
-HARMAN-Automotive/androidVehicleConnectSDK is a trademark of the Eclipse Foundation.
+eclipse-ecsp/androidVehicleConnectSDK is a trademark of the Eclipse Foundation.
 
 ## Copyright
 
@@ -26,7 +26,7 @@ SPDX-License-Identifier: Apache-2.0
 
 The project maintains the following source code repositories:
 
-https://github.com/HARMAN-Automotive/androidVehicleConnectSDK
+https://github.com/eclipse-ecsp/androidVehicleConnectSDK
 
 ## Third-party Content
 
