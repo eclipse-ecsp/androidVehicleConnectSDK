@@ -1,0 +1,52 @@
+name: License Compliance
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: read
+  contents: write
+
+jobs:
+  check-licenses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+          
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        # with:
+        #   build-scan-publish: true
+        #   build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        #   build-scan-terms-of-use-agree: "yes"
+      - name: Allow dash.sh to be executed
+        run: chmod +x ./eclipse-dash/dash.sh
+      - name: Generate List of dependencies
+        run: ./eclipse-dash/dash.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      - name: Archive SDK Third Party Report file
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LICENSE_INFO_SDK_THIRD_PARTY_DEPENDENCIES
+          path: SDK_NOTICE.md
+
+      - name: Archive SDK TEST APP Third Party Report file
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LICENSE_INFO_SDK_TEST_APP_THIRD_PARTY_DEPENDENCIES
+          path: SDK_TEST_NOTICE.md
