@@ -115,9 +115,17 @@ class ROModuleTestClass {
             header,
             endPoint.body
         )
-        activity.getRoHistory()
+        val roRepository = spy(RoRepository())
+        roRepository.retrofitManager = retrofitManager
+        val responseJsonElement =
+            Response.error<JsonElement>(500, "Server error".toResponseBody(null))
+
         runBlocking {
-            val result = RoRepository().retrofitManager.sendRequest(customEndPoint)
+            `when`(roRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
+                responseJsonElement
+            )
+            roRepository.getRemoteOperationHistory(customEndPoint) {}
+            val result = roRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertNotEquals(
                 200, result?.code()
             )
@@ -169,9 +177,17 @@ class ROModuleTestClass {
             endPoint.header,
             endPoint.body
         )
+        val roRepository = spy(RoRepository())
+        roRepository.retrofitManager = retrofitManager
+        val responseJsonElement =
+            Response.error<JsonElement>(500, "Server error".toResponseBody(null))
+
         runBlocking {
-            activity.checkRoRequest()
-            val result = RoRepository().retrofitManager.sendRequest(customEndPoint)
+            `when`(roRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
+                responseJsonElement
+            )
+            roRepository.checkRemoteOperationRequestStatus(customEndPoint) {}
+            val result = roRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertNotEquals(
                 200, result?.code()
             )
