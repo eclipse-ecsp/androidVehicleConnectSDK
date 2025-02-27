@@ -48,6 +48,8 @@ dependencies {
     implementation("net.openid:appauth:0.11.1")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.concurrent:concurrent-futures:1.1.0")
+    implementation("androidx.lifecycle:lifecycle-common:2.7.0")
 
     implementation("com.google.dagger:dagger:2.55")
     implementation("com.google.dagger:dagger-android:2.55")
