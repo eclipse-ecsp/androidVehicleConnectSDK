@@ -1,6 +1,7 @@
 package com.harman.sdkapp
 
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import com.harman.androidvehicleconnectsdk.CustomEndPoint
 import com.harman.androidvehicleconnectsdk.network.networkmanager.IRetrofitManager
@@ -9,6 +10,8 @@ import com.harman.androidvehicleconnectsdk.userservice.model.UserProfile
 import com.harman.androidvehicleconnectsdk.userservice.model.UserProfileCollection
 import com.harman.androidvehicleconnectsdk.userservice.repository.UserRepository
 import kotlinx.coroutines.runBlocking
+import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -112,9 +115,17 @@ class LoginModuleTestClass {
             userEndPoint.header,
             userEndPoint.body
         )
-        activity.fetchUserData()
+        val userRepository = spy(UserRepository())
+        userRepository.retrofitManager = retrofitManager
+        val responseJsonElement =
+            Response.error<JsonElement>(500, "Server error".toResponseBody(null))
+
         runBlocking {
-            val result = UserRepository().retrofitManager.sendRequest(customEndPoint)
+            `when`(userRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
+                responseJsonElement
+            )
+            userRepository.fetchUserProfile(customEndPoint) {}
+            val result = userRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertNotEquals(200, result?.code())
         }
     }

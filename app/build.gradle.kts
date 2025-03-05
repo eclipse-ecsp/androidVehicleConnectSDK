@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.harman.sdkapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.harman.sdkapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -45,23 +45,23 @@ android {
 dependencies {
 
     implementation(project(":androidVehicleConnectSDK"))
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:3.12.4")
-    testImplementation("org.mockito:mockito-inline:2.13.0")
-    testImplementation("org.powermock:powermock-module-junit4:2.0.0-beta.5")
-    testImplementation("org.powermock:powermock-api-mockito2:2.0.0-beta.5")
+    testImplementation("org.mockito:mockito-core:5.15.2")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+    testImplementation("org.powermock:powermock-module-junit4:2.0.9")
+    testImplementation("org.powermock:powermock-api-mockito2:2.0.9")
     testImplementation("androidx.test:rules:1.6.1")
-    testImplementation("androidx.test:runner:1.6.1")
-    testImplementation("org.robolectric:robolectric:4.11.1")
+    testImplementation("androidx.test:runner:1.6.2")
+    testImplementation("org.robolectric:robolectric:4.14.1")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation ("com.google.code.gson:gson:2.12.1")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation(kotlin("reflect"))
 
