@@ -30,6 +30,12 @@ data class AssociatedDeviceInfo(
     @SerializedName("message") val mMessage: String?,
     @SerializedName("data") val mAssociationInfo: AssociationInfo?
 ) {
+    /**
+     * represents to hold the Association details
+     *
+     * @property mAssociationID holds association id
+     * @property mAssociationStatus holds association status
+     */
     data class AssociationInfo(
         @SerializedName("associationID") val mAssociationID: Long,
         @SerializedName("associationStatus") val mAssociationStatus: String?

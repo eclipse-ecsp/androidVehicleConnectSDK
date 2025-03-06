@@ -19,7 +19,14 @@ package com.harman.androidvehicleconnectsdk.network
 /**
  * RequestMethod sealed class is used to set the Request method for API call
  *
- * @property method
+ * @param method - represents the API method
+ *
+ * @property Delete - method used to call delete API
+ * @property Get - method used to call Get API
+ * @property Patch - method used to call Patch API
+ * @property Post - method used to call Post API
+ * @property Put - method used to call Put API
+ *
  */
 sealed class RequestMethod(val method: String) {
     data object Delete : RequestMethod("DELETE")

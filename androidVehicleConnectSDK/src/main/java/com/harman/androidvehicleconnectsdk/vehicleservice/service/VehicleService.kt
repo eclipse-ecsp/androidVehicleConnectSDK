@@ -165,28 +165,65 @@ class VehicleService : VehicleServiceInterface {
  *
  */
 interface VehicleServiceInterface {
+    /**
+     * Represents to get the associated device list
+     *
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun associatedDeviceList(customMessage: (CustomMessage<DeviceAssociationListData>) -> Unit)
+
+    /**
+     * Represents to verify the IMEI of device
+     *
+     * @param imeiNumber holds device IMEI number
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun verifyDeviceImei(
         imeiNumber: String,
         customMessage: (CustomMessage<DeviceVerificationData>) -> Unit
     )
 
+    /**
+     * Represents to do device association
+     *
+     * @param imeiNumber holds device IMEI number
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun associateDevice(
         imeiNumber: String,
         customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit
     )
 
+    /**
+     * Represents to get the vehicle profile details
+     *
+     * @param deviceId holds device id
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun getVehicleProfile(
         deviceId: String,
         customMessage: (CustomMessage<VehicleProfileData>) -> Unit
     )
 
+    /**
+     * Represents to update the vehicle profile details
+     *
+     * @param deviceId holds device id
+     * @param postVehicleAttributeData holds device [PostVehicleAttributeData]
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun updateVehicleProfile(
         deviceId: String,
         postVehicleAttributeData: PostVehicleAttributeData,
         customMessage: (CustomMessage<String>) -> Unit
     )
 
+    /**
+     * Represents to do termination of a vehicle
+     *
+     * @param terminateDeviceData holds the device data of terminating device
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun terminateVehicle(
         terminateDeviceData: TerminateDeviceData,
         customMessage: (CustomMessage<String>) -> Unit

@@ -58,9 +58,20 @@ class RetrofitManager @Inject constructor() : IRetrofitManager {
  *
  */
 interface IRetrofitManager {
+    /**
+     * function represent to send the API request
+     *
+     * @param endPoint
+     * @return Response<JsonElement> as result
+     */
     suspend fun sendRequest(endPoint: EndPoint): Response<JsonElement>?
 
     companion object {
+        /**
+         * Used to initialize the RetrofitManager
+         *
+         * @return IRetrofitManager interface object
+         */
         fun getRetrofitManager(): IRetrofitManager = RetrofitManager()
     }
 }

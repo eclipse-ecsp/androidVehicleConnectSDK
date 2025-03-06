@@ -140,17 +140,42 @@ class RoService : RoServiceInterface {
 }
 
 interface RoServiceInterface {
+    /**
+     * represents to api the update API for ro state
+     *
+     * @param userId holds the user id value
+     * @param vehicleId holds the vehicleId value
+     * @param percent holds the percent value
+     * @param duration holds the duration value
+     * @param remoteOperationState holds the remote Operation State value
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun updateROStateRequest(userId: String, vehicleId: String, percent: Int?=null, duration: Int?=null,
         remoteOperationState: RemoteOperationState,
         customMessage: (CustomMessage<RoStatusResponse>) -> Unit
     )
 
+    /**
+     * represents to get the RO history request
+     *
+     * @param userId holds the user id value
+     * @param vehicleId holds the vehicleId value
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun getRemoteOperationHistory(
         userId: String,
         vehicleId: String,
         customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit
     )
 
+    /**
+     * represents to check the RO request status
+     *
+     * @param userId holds the user id value
+     * @param vehicleId holds the vehicleId value
+     * @param roRequestId holds the ro request id
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun checkRemoteOperationRequestStatus(
         userId: String,
         vehicleId: String,

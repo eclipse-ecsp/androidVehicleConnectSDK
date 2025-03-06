@@ -206,6 +206,11 @@ class AppAuthProvider(
         }
     }
 
+    /**
+     * Represents the signing out feature
+     *
+     * @param result the higher order function used to hold the response
+     */
     override suspend fun signOut(result: (CustomMessage<Any>) -> Unit) {}
 
     /**
@@ -215,15 +220,28 @@ class AppAuthProvider(
     override fun disposeService() {
         authorizationService?.dispose()
     }
-
-    override var accessToken: String = AppDataStorage.getAppPrefInstance()?.accessToken ?: ""
-    override var refreshToken: String = AppDataStorage.getAppPrefInstance()?.refreshToken ?: ""
-    override var tokenType: String = AppDataStorage.getAppPrefInstance()?.tokenType ?: ""
-    override var scope: String = ""
-    override var accessTokenExpirationDate: Long = 0
-    override var additionalParameters: HashMap<Any, Any> = HashMap()
-    
     /**
-* To Do: Did not find the logic to clear any stored token from shared preference or any storage.
-*/
+     * Represents access token of the application
+     */
+    override var accessToken: String = AppDataStorage.getAppPrefInstance()?.accessToken ?: ""
+    /**
+     * Represents refresh token of the application
+     */
+    override var refreshToken: String = AppDataStorage.getAppPrefInstance()?.refreshToken ?: ""
+    /**
+     * Represents token type
+     */
+    override var tokenType: String = AppDataStorage.getAppPrefInstance()?.tokenType ?: ""
+    /**
+     * Represents token scope
+     */
+    override var scope: String = ""
+    /**
+     * Represents access token expiry date
+     */
+    override var accessTokenExpirationDate: Long = 0
+    /**
+     * Represents additional parameters which can be used
+     */
+    override var additionalParameters: HashMap<Any, Any> = HashMap()
 }

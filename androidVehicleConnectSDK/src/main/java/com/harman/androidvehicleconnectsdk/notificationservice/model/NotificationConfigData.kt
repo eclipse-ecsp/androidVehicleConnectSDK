@@ -18,10 +18,27 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+/**
+ * Represents the NotificationConfigData model class to configure the notification details
+ *
+ * @property channels list of channel data
+ * @property enabled boolean value
+ * @property group by default it is "all"
+ */
 data class NotificationConfigData(@SerializedName("channels") var channels: ArrayList<ChannelData>,
                                   @SerializedName("enabled") var enabled: Boolean,
                                   @SerializedName("group") var group: String? = "all"
 )
+
+/**
+ * Represents the ChannelData model class
+ *
+ * @property deviceTokens holds firebase device token
+ * @property enabled boolean value
+ * @property type by default type is "push"
+ * @property service by default service is "gcm"
+ * @property appPlatform by default appPlatform is "android"
+ */
 data class ChannelData(@SerializedName("deviceTokens") var deviceTokens: ArrayList<String>,
                        @SerializedName("enabled") var enabled: Boolean,
                        @SerializedName("type") var type: String? = "push",

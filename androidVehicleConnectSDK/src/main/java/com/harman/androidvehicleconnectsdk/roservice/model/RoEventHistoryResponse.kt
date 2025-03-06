@@ -30,6 +30,15 @@ data class RoEventHistoryResponse(
     @SerializedName("roStatus") var roStatus: String
 )
 
+/**
+ * Represents the RoEventData model class value
+ *
+ * @property eventID holds the event id value
+ * @property version holds the version value
+ * @property timestamp holds the timestamp value
+ * @property requestId holds the request id value
+ * @property data holds the data value
+ */
 data class RoEventData(
     @SerializedName("EventID") var eventID: String?,
     @SerializedName("Version") var version: String?,
@@ -37,7 +46,13 @@ data class RoEventData(
     @SerializedName("RequestId") var requestId: String?,
     @SerializedName("Data") var data: RoData?
 ) {
-
+    /**
+     * Represents the RoData model class value
+     *
+     * @property mState state of the Ro event
+     * @property roRequestId request id of ro event
+     * @property mDuration total duration of ro event
+     */
     data class RoData(
         @SerializedName("state") var mState: String?,
         @SerializedName("roRequestId") var roRequestId: String?,

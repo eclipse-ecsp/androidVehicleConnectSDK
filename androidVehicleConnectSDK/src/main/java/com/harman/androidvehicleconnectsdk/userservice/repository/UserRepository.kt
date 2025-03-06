@@ -135,18 +135,43 @@ class UserRepository @Inject constructor() : IUserRepository {
  * This interface contains sign in, sign up , sign out and user profile fetching functions
  */
 interface IUserRepository {
+    /**
+     * Represents to do SIGN IN using SDK UI
+     *
+     * @param activity holds application activity
+     * @param requestCode holds activity result request code
+     * @param launcher holds [ActivityResultLauncher] object
+     */
     fun signInWithAppAuth(
         activity: Activity,
         requestCode: Int,
         launcher: ActivityResultLauncher<Intent>
     )
 
+    /**
+     * represents to do SIGN UP using SDK UI
+     *
+     * @param activity holds application activity
+     * @param requestCode holds activity result request code
+     * @param launcher holds [ActivityResultLauncher] object
+     */
     fun signUpWithAppAuth(
         activity: Activity,
         requestCode: Int,
         launcher: ActivityResultLauncher<Intent>
     )
-
+    /**
+     * represents to do SIGN OUT using SDK UI
+     *
+     * @param result emits the [CustomMessage] using higher order function
+     */
     fun signOutWithAppAuth(result: (CustomMessage<Any>) -> Unit)
+
+    /**
+     * Represents to fetch the user profile data
+     *
+     * @param customEndPoint End points of API
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun fetchUserProfile(customEndPoint: CustomEndPoint, customMessage: (CustomMessage<UserProfile>) -> Unit)
 }

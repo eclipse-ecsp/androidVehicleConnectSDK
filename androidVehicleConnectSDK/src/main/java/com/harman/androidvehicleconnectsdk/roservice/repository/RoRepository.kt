@@ -109,15 +109,34 @@ class RoRepository @Inject constructor() : RoRepositoryInterface {
  *
  */
 interface RoRepositoryInterface {
+    /**
+     * represents to update the RO state
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the CustomMessage<AlertAnalysisData> value as response
+     */
     suspend fun updateROStateRequest(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<RoStatusResponse>) -> Unit
     )
 
+    /**
+     * represents to get the RO history
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the CustomMessage<List<RoEventHistoryResponse>> value as response
+     */
     suspend fun getRemoteOperationHistory(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit
     )
+
+    /**
+     * represents to check the status of RO request
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the CustomMessage<RoEventHistoryResponse> value as response
+     */
     suspend fun checkRemoteOperationRequestStatus(
        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit

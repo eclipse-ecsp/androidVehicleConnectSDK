@@ -81,6 +81,12 @@ interface NotificationRepoInterface {
         customMessage: (CustomMessage<String>) -> Unit
     )
 
+    /**
+     * Represents to call the notification alert history api
+     *
+     * @param customEndPoint data class of customEndPoint
+     * @param customMessage higher order function to emit the CustomMessage<AlertAnalysisData> value
+     */
     suspend fun notificationAlertHistory(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<AlertAnalysisData>) -> Unit

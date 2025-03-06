@@ -17,7 +17,7 @@ package com.harman.androidvehicleconnectsdk.roservice.model
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 /**
- * RemoteOperationState sealed class is used to hold the values of Remote operation state values
+ * RemoteOperationState sealed class is used to hold the values of Remote operation state
  *
  * @property state RO state value
  * @property roEndPoint base url end point

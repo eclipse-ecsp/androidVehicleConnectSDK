@@ -111,6 +111,13 @@ interface AuthInterface {
     ) {/* default implementation */ }
 
     companion object {
+        /**
+         * Reference to app Auth interface, user can directly call this function initialize the AuthInterface
+         *
+         * @param context represents the application context
+         * @param launcher represents the ActivityResultLauncher of the application
+         * @return AuthInterface object
+         */
         @JvmStatic
         fun appAuthInterface(
             context: Context,

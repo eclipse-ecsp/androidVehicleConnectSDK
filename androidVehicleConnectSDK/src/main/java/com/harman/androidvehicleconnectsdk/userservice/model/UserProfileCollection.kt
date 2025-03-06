@@ -26,6 +26,11 @@ import com.google.gson.annotations.SerializedName
  */
 data class UserProfileCollection(@SerializedName("messages") val mMessages: List<Message>,
                                  @SerializedName("results") val userProfileList: List<UserProfile>){
+    /**
+     * Holds the Message values which contains key as string
+     *
+     * @property mKey holds the string value
+     */
     data class Message(@SerializedName("key") val mKey: String)
 }
 

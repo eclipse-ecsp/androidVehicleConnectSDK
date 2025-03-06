@@ -171,27 +171,63 @@ class VehicleRepository @Inject constructor() : VehicleRepoInterface {
  * VehicleRepoInterface is implemented by VehicleRepository to override the functions available for vehicle services
  */
 interface VehicleRepoInterface {
+    /**
+     * Represent to call associated device list API
+     *
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun associatedDeviceList(customMessage: (CustomMessage<DeviceAssociationListData>) -> Unit)
+
+    /**
+     * Represent to call device imei verification API
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun verifyDeviceImei(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<DeviceVerificationData>) -> Unit
     )
 
+    /**
+     * Represent to call vehicle profile GET API
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun getVehicleProfile(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<VehicleProfileData>) -> Unit
     )
 
+    /**
+     * Represents to call device associate API
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun associateDevice(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit
     )
 
+    /**
+     * Represents to call vehicle profile data updating API
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun updateVehicleProfile(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<String>) -> Unit
     )
 
+    /**
+     * Represents to call device termination API
+     *
+     * @param customEndPoint holds the end point of API
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun terminateDevice(
         customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<String>) -> Unit

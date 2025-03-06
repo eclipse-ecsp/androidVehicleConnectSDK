@@ -90,9 +90,31 @@ class UserService(private val activity: Activity) : UserServiceInterface {
  * This interface has sign in, sign up , sign out and user profile fetching functions
  */
 interface UserServiceInterface {
+    /**
+     * Represents to do SIGN IN
+     *
+     * @param requestCode holds activity result request code
+     * @param launcher holds [ActivityResultLauncher] object
+     */
     fun signInWithAppAuth(requestCode : Int, launcher : ActivityResultLauncher<Intent>)
+    /**
+     * Represents to do SIGN UP
+     *
+     * @param requestCode holds activity result request code
+     * @param launcher holds [ActivityResultLauncher] object
+     */
     fun signUpWithAppAuth(requestCode : Int, launcher : ActivityResultLauncher<Intent>)
+    /**
+     * Represents to do SIGN OUT
+     *
+     * @param result emits the [CustomMessage] using higher order function
+     */
     fun signOutWithAppAuth(result: (CustomMessage<Any>) -> Unit)
+    /**
+     * Represents to fetch the user profile data
+     *
+     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     */
     suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit)
     companion object {
         /**
