@@ -13,12 +13,14 @@
         <activity
             android:name=".ui.UiApplication"
             android:exported="true"
-            android:theme="@style/Theme.DK_SDK">
+            android:theme="@style/Theme.DK_SDK"
+            android:permission="android.permission.INTERNET">
         </activity>
 
         <activity
             android:name="net.openid.appauth.RedirectUriReceiverActivity"
             tools:node="replace"
+            android:permission="android.permission.INTERNET"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

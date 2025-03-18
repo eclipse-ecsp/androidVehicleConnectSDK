@@ -93,7 +93,7 @@ class RefreshTokenAuthenticator : Authenticator {
             iRetrofitManager.sendRequest(endPoint)
         }
         try {
-            val tokenData = Gson().fromJson<TokenData>(job.await()?.body().toString())
+            val tokenData = Gson().fromJson<TokenData?>(job.await()?.body().toString())
             if (tokenData != null) {
                 AuthManager.authInterface?.accessToken = tokenData.mAccessToken!!
                 AuthManager.authInterface?.refreshToken = tokenData.mRefreshToken!!

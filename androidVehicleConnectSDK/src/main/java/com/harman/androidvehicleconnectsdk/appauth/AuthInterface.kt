@@ -103,7 +103,7 @@ interface AuthInterface {
      * @param result parsed response is holds and serve
      */
     fun getAuthServices(
-        response: AuthorizationResponse,
+        response: AuthorizationResponse?,
         result: (
             tokenResponse: TokenResponse?,
             authorizationException: AuthorizationException?

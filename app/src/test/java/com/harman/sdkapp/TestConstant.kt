@@ -25,4 +25,5 @@ object TestConstant {
     const val HEADER_AUTHORIZATION = "Authorization"
     const val SuccessTestToken = "dummy"
     const val FailureTestToken = "test_token"
+    const val BASE_URL = "https://localhost.com"
 }

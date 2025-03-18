@@ -62,62 +62,63 @@ class UiApplication : ComponentActivity() {
         activityLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result: ActivityResult ->
-                if (result.resultCode == RESULT_OK) {
-                    DebugPrint.d("AppAuth", "Entered RESULT OK")
-                    val data = result.data
-                    //success
-                    val response = data?.let { AuthorizationResponse.fromIntent(it) }
-                    if (response != null) {
-                        authInterface?.getAuthServices(response) { tokenResponse, authException ->
-                            if (tokenResponse != null) {
-                                setCallBackValue(CustomMessage(Status.Success), tokenResponse)
-                                DebugPrint.d("AppAuth", "Entered RESULT OK -> success")
-                            }
-                            if (authException != null)
-                                setCallBackValue(
-                                    CustomMessage(
-                                        Status.Failure,
-                                        CustomError.Generic(
-                                            authException.error
-                                                ?: CustomError.NetworkError.UnAuthorized.message
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        DebugPrint.d("AppAuth", "Entered RESULT OK")
+                        val data = result.data
+                        //success
+                        data?.let { AuthorizationResponse.fromIntent(it)?.let { authRes ->
+                            authInterface?.getAuthServices(authRes) { tokenResponse, authException ->
+                                if (tokenResponse != null) {
+                                    setCallBackValue(CustomMessage(Status.Success), tokenResponse)
+                                    DebugPrint.d("AppAuth", "Entered RESULT OK -> success")
+                                }
+                                if (authException != null)
+                                    setCallBackValue(
+                                        CustomMessage(
+                                            Status.Failure,
+                                            CustomError.Generic(
+                                                authException.error
+                                                    ?: CustomError.NetworkError.UnAuthorized.message
+                                            )
                                         )
                                     )
-                                )
-                        }
-                    }
-                    //exception
-                    val exception = data?.let { AuthorizationException.fromIntent(data) }
-                    if (exception != null) {
-                        setCallBackValue(
-                            CustomMessage(
-                                Status.Failure,
-                                CustomError.Generic(
-                                    exception.error
-                                        ?: CustomError.NetworkError.UnAuthorized.message
+                            }
+                        } }
+                        //exception
+                        data?.let { AuthorizationException.fromIntent(data).let {exception ->
+                            setCallBackValue(
+                                CustomMessage(
+                                    Status.Failure,
+                                    CustomError.Generic(
+                                        exception?.error
+                                            ?: CustomError.NetworkError.UnAuthorized.message
+                                    )
                                 )
                             )
-                        )
-                        DebugPrint.d("AppAuth", "Entered RESULT OK -> exception")
+                            DebugPrint.d("AppAuth", "Entered RESULT OK -> exception")
+                        } }
                     }
-                } else if (result.resultCode == RESULT_CANCELED) {
-                    setCallBackValue(
-                        CustomMessage(
-                            Status.Failure,
-                            CustomError.Generic(CustomError.NetworkError.UnAuthorized.message)
-                        )
-                    )
-                } else {
-                    setCallBackValue(
-                        CustomMessage(
-                            Status.Failure,
-                            CustomError.Generic(CustomError.NetworkError.UnAuthorized.message)
-                        )
-                    )
-
+                    RESULT_CANCELED -> { setErrorCallBack() }
+                    else -> { setErrorCallBack() }
                 }
             }
         authInterface = AuthInterface.appAuthInterface(this, activityLauncher!!)
         launchCoroutineAction()
+    }
+
+    /**
+     * Function is to set error message in callback
+     *
+     */
+    private fun setErrorCallBack(){
+        setCallBackValue(
+            CustomMessage(
+                Status.Failure,
+                CustomError.Generic(CustomError.NetworkError.UnAuthorized.message)
+            )
+        )
+
     }
 
     /**
@@ -130,12 +131,7 @@ class UiApplication : ComponentActivity() {
             setCallBackValue(
                 CustomMessage(
                     Status.Failure,
-                    CustomError.Generic(
-                        if (exception.cause != null)
-                            exception.cause.toString()
-                        else
-                            exception.stackTraceToString()
-                    )
+                    CustomError.Generic(exception.toString())
                 )
             )
         }
@@ -143,26 +139,20 @@ class UiApplication : ComponentActivity() {
             if (intent != null && intent.hasExtra(ACTION_KEY)) {
                 when (intent.getStringExtra(ACTION_KEY)) {
                     SIGN_IN -> {
-                        authInterface?.signIn {
-                            if (!it.status.requestStatus) {
-                                setCallBackValue(it)
-                            }
+                        authInterface?.signIn {msg ->
+                            msg.status.requestStatus.let { setCallBackValue(msg) }
                         }
                     }
 
                     SIGN_UP -> {
-                        authInterface?.signUp {
-                            if (!it.status.requestStatus) {
-                                setCallBackValue(it)
-                            }
+                        authInterface?.signUp {msg ->
+                            msg.status.requestStatus.let { setCallBackValue(msg) }
                         }
                     }
 
                     SIGN_OUT -> {
-                        authInterface?.signOut {
-                            if (!it.status.requestStatus) {
-                                setCallBackValue(it)
-                            }
+                        authInterface?.signOut {msg ->
+                            msg.status.requestStatus.let { setCallBackValue(msg) }
                         }
                     }
 

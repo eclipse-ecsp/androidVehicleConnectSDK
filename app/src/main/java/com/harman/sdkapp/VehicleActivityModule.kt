@@ -43,8 +43,8 @@ class VehicleActivityModule : ComponentActivity(), AuthInterface {
 
     fun configureEnvironment() {
         val envData = Environment(
-            "ENV", "dummy", "dummy", "https://localhost.com",
-            "https://localhost.com", "https://localhost.com", "https://localhost.com", "auth://authorization",
+            "ENV", "dummy", "dummy", BASE_URL,
+            BASE_URL, BASE_URL, BASE_URL, "auth://authorization",
             arrayListOf("scope1", "scope2","scope3", "scope4", "scope5", "scope5" )
         )
         EnvironmentManager.configure(envData)
