@@ -57,7 +57,7 @@ class RetrofitManager @Inject constructor() : IRetrofitManager {
  * IRetrofitManager interface which is implemented by RetrofitManager class
  *
  */
-interface IRetrofitManager {
+fun interface IRetrofitManager {
     /**
      * function represent to send the API request
      *

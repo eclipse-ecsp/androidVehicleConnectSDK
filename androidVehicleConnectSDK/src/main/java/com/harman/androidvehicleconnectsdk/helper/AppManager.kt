@@ -101,7 +101,7 @@ object AppManager {
                 CustomMessage::class.java
             )
 
-            else -> @Suppress("DEPRECATION") intent.getParcelableExtra(CUSTOM_MESSAGE_VALUE) as? CustomMessage<*>
+            else -> intent.getParcelableExtra(CUSTOM_MESSAGE_VALUE) as? CustomMessage<*>
         }
     }
 

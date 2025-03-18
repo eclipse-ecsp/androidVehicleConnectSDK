@@ -32,3 +32,5 @@ internal inline fun <reified T> Gson.dataToJson(data: T): String = toJson(data)
  */
 internal inline fun <reified T> Gson.fromJson(json: String): T =
     fromJson(json, object : TypeToken<T>() {}.type)
+
+const val BASE_URL = "https://localhost.com"

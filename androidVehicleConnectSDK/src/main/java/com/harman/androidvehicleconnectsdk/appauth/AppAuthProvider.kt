@@ -45,7 +45,7 @@ import net.openid.appauth.TokenResponse
  */
 class AppAuthProvider(
     private val context: Context,
-    private val launcher: ActivityResultLauncher<Intent>?=null,
+    private val launcher: ActivityResultLauncher<Intent>? = null,
 ) : AuthInterface {
 
     private var environmentData: Environment? = null
@@ -101,7 +101,7 @@ class AppAuthProvider(
             environmentData?.clientSecret != null
         ) {
             try {
-                environmentData.let {
+                environmentData?.let {
                     val appAuthConfiguration = OAuthServiceUtilities.getAppAuthConfiguration()
                     val authParams = OAuthServiceUtilities.getParametersMap(it!!.clientSecret!!)
                     val signInServiceConfiguration =
@@ -144,7 +144,7 @@ class AppAuthProvider(
             environmentData?.clientSecret != null
         ) {
             try {
-                environmentData.let {
+                environmentData?.let {
 
                     val appAuthConfiguration = OAuthServiceUtilities.getAppAuthConfiguration()
                     val authParams = OAuthServiceUtilities.getParametersMap(it!!.clientSecret!!)
@@ -187,7 +187,7 @@ class AppAuthProvider(
      * @param result is holding TokenResponse and AuthorizationException after parsing
      */
     override fun getAuthServices(
-        response: AuthorizationResponse,
+        response: AuthorizationResponse?,
         result: (
             tokenResponse: TokenResponse?,
             authorizationException: AuthorizationException?
@@ -196,22 +196,17 @@ class AppAuthProvider(
         if (environmentData != null && environmentData!!.clientSecret != null) {
             val parametersMap = HashMap<String, String>()
             parametersMap[CLIENT_SECRET] = environmentData?.clientSecret!!
-            authorizationService?.performTokenRequest(
-                response.createTokenExchangeRequest(
-                    parametersMap
-                )
-            ) { res, ex ->
-                result(res, ex)
+            response?.createTokenExchangeRequest(
+                parametersMap
+            )?.let {
+                authorizationService?.performTokenRequest(
+                    it
+                ) { res, ex ->
+                    result(res, ex)
+                }
             }
         }
     }
-
-    /**
-     * Represents the signing out feature
-     *
-     * @param result the higher order function used to hold the response
-     */
-    override suspend fun signOut(result: (CustomMessage<Any>) -> Unit) {}
 
     /**
      * This function is to dispose the authorizationService of oAuth service,
@@ -220,26 +215,32 @@ class AppAuthProvider(
     override fun disposeService() {
         authorizationService?.dispose()
     }
+
     /**
      * Represents access token of the application
      */
     override var accessToken: String = AppDataStorage.getAppPrefInstance()?.accessToken ?: ""
+
     /**
      * Represents refresh token of the application
      */
     override var refreshToken: String = AppDataStorage.getAppPrefInstance()?.refreshToken ?: ""
+
     /**
      * Represents token type
      */
     override var tokenType: String = AppDataStorage.getAppPrefInstance()?.tokenType ?: ""
+
     /**
      * Represents token scope
      */
     override var scope: String = ""
+
     /**
      * Represents access token expiry date
      */
     override var accessTokenExpirationDate: Long = 0
+
     /**
      * Represents additional parameters which can be used
      */

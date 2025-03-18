@@ -103,6 +103,6 @@ sealed class VehicleEndPoint(val name: String) : EndPoint {
     override var body: Any? = when (this.name) {
         DEVICE_ASSOCIATION -> AssociationData()
         UPDATE_VEHICLE_PROFILE, TERMINATE_DEVICE -> Any()
-        else -> {}
+        else -> Any()
     }
 }
