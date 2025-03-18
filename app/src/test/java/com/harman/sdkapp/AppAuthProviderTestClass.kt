@@ -5,6 +5,7 @@ import com.harman.androidvehicleconnectsdk.environment.Environment
 import com.harman.androidvehicleconnectsdk.environment.EnvironmentManager
 import com.harman.androidvehicleconnectsdk.helper.Constant
 import com.harman.androidvehicleconnectsdk.ui.UiApplication
+import com.harman.sdkapp.TestConstant.BASE_URL
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,8 +37,8 @@ class AppAuthProviderTestClass {
     fun setUp() {
         MockitoAnnotations.openMocks(this)
         val envData = Environment(
-            "TEST_ENV", "DUMMY", "dummy", "https://localhost.com",
-            "https://localhost.com", "https://localhost.com", "https://localhost.com", "auth://authorization",
+            "TEST_ENV", "DUMMY", "dummy", BASE_URL,
+            BASE_URL, BASE_URL, BASE_URL, "auth://authorization",
             arrayListOf("scope1", "scope2","scope3", "scope4", "scope5", "scope5" )
         )
         envData.toString()
@@ -53,8 +54,8 @@ class AppAuthProviderTestClass {
     @Test
     fun signIn_env_not_configured_test_case() {
         val envData = Environment(
-            "ENV", null, null, "https://localhost.com",
-            "https://localhost.com", "https://localhost.com", "https://localhost.com", "auth://authorization",
+            "ENV", null, null, BASE_URL,
+            BASE_URL, BASE_URL, BASE_URL, "auth://authorization",
             arrayListOf("scope1", "scope2","scope3", "scope4", "scope5", "scope5" )
         )
         EnvironmentManager.configure(envData)
