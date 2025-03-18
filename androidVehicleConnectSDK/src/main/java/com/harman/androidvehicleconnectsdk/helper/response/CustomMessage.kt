@@ -36,6 +36,9 @@ data class CustomMessage<T>(
 ) : Parcelable {
     @kotlinx.parcelize.IgnoredOnParcel
     var response: T? = null
+    /**
+     * Represents to set the response with generic class type
+     */
     internal fun setResponseData(value: T) {
         response = value
     }

@@ -18,6 +18,13 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+/**
+ * Represent to hold device termination data
+ *
+ * @property serialNumber holds serial number of device
+ * @property deviceId holds device id
+ * @property imei holds device IMEI
+ */
 data class TerminateDeviceData(
     @SerializedName("serialNumber") var serialNumber: String,
     @SerializedName("deviceId") var deviceId: String,

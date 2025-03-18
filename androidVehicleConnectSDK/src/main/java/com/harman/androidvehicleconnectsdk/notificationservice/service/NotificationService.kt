@@ -107,6 +107,15 @@ class NotificationService : NotificationServiceInterface {
 }
 
 interface NotificationServiceInterface {
+    /**
+     * Interface to update the notification configuration
+     *
+     * @param userId holds user id
+     * @param vehicleId holds vehicle Id
+     * @param contactId holds contact Id
+     * @param notificationConfigList holds notification Config List
+     * @param customMessage holds customMessage
+     */
     suspend fun updateNotificationConfig(
         userId: String,
         vehicleId: String,
@@ -115,6 +124,18 @@ interface NotificationServiceInterface {
         customMessage: (CustomMessage<String>) -> Unit
     )
 
+    /**
+     * function is to get the notification alert history API
+     *
+     * @param deviceId holds device id
+     * @param alertTypes holds alert types
+     * @param since holds since date value
+     * @param till holds till date value
+     * @param size holds size value
+     * @param page holds page value
+     * @param readStatus holds read status of the alert
+     * @param customMessage custom message will emit the CustomMessage<AlertAnalysisData> response
+     */
     suspend fun notificationAlertHistory(
         deviceId: String,
         alertTypes: List<String>,

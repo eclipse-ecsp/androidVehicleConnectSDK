@@ -32,16 +32,27 @@ sealed class NotificationEndPoint(val name: String) : EndPoint {
         private const val NOTIFICATION_ALERT = "NotificationAlert"
         private const val NOTIFICATION_CONFIG = "NotificationConfig"
     }
-
+    /**
+     * Sealed class object represent as NotificationAlert API
+     */
     data object NotificationAlert : NotificationEndPoint(NOTIFICATION_ALERT)
+    /**
+     * Sealed class object represent as NotificationConfig API
+     */
     data object NotificationConfig : NotificationEndPoint(NOTIFICATION_CONFIG)
 
+    /**
+     * Setting the Base url from environment details based on the selected sealed class object
+     */
     override var baseUrl: String? = when (this.name) {
         NOTIFICATION_ALERT,
         NOTIFICATION_CONFIG -> EnvironmentManager.environment()?.baseUrl.toString()
 
         else -> ""
     }
+    /**
+     * Setting the path based on the selected sealed class object
+     */
     override var path: String? = when (this.name) {
         NOTIFICATION_CONFIG -> {
             "/v1/users/${USER_ID}/vehicles/${VEHICLE_ID}/contacts/${CONTACT_ID}/notifications/config"
@@ -50,11 +61,16 @@ sealed class NotificationEndPoint(val name: String) : EndPoint {
         NOTIFICATION_ALERT -> "/v3/devices/${DEVICE_ID}/alerts/${ALERT_TYPE}"
         else -> ""
     }
+    /**
+     * Setting the method based on the selected sealed class object
+     */
     override var method: RequestMethod? = when (this.name) {
         NOTIFICATION_CONFIG -> RequestMethod.Patch
         else -> RequestMethod.Get
     }
-
+    /**
+     * Setting the headers based on the selected sealed class object
+     */
     override var header: HashMap<String, String>? = when (this.name) {
         NOTIFICATION_ALERT, NOTIFICATION_CONFIG -> {
             HashMap<String, String>().apply {
@@ -65,6 +81,8 @@ sealed class NotificationEndPoint(val name: String) : EndPoint {
 
         else -> HashMap()
     }
-
+    /**
+     * Setting the body
+     */
     override var body: Any?= Any()
 }

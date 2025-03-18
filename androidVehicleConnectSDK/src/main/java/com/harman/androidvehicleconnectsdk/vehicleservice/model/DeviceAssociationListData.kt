@@ -38,6 +38,28 @@ data class MetaData(
     @SerializedName("userVehicleAuthStatus")
     val userVehicleAuthStatus: String? = null
 ): Parcelable
+
+/**
+ * Represents to hold the Associated device detail
+ *
+ * @property mAssociationId holds device associated id
+ * @property mSerialNumber holds device serial number
+ * @property mAssociationStatus holds device association status
+ * @property mDeviceId holds device id
+ * @property mAssociatedOn holds device associated date
+ * @property mDisassociatedOn holds device disassociated date
+ * @property mImei holds device IMEI
+ * @property mSsid holds device SSID
+ * @property mIccid holds device ICCID
+ * @property mMsisdn holds device MSISDN
+ * @property mImsi holds device IMSI
+ * @property mBssid holds device BSSID
+ * @property mSoftwareVersion holds device software version value
+ * @property mDeviceType holds device type
+ * @property mSimStatus holds device sim status
+ * @property mVin holds device vin details
+ * @property metaData holds device meta data
+ */
 @Parcelize
 data class AssociatedDevice(
     @SerializedName("associationId")

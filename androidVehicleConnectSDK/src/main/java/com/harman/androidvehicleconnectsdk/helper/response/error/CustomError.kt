@@ -45,10 +45,25 @@ sealed class CustomError(var message: String) : Parcelable {
         data class Unknown(var unknownMessage: String) : NetworkError(unknownMessage), Parcelable
     }
 
+    /**
+     * Represents error message says Invalid Intent
+     */
     data object InvalidIntent : CustomError(WRONG_INTENT)
+    /**
+     * Represents error message says Invalid Request
+     */
     data object InvalidRequest : CustomError(INVALID_REQUEST)
+    /**
+     * Represents error message says failed refresh token
+     */
     data object RefreshTokenFailed : CustomError(REFRESH_TOKEN_FAILED_ERROR)
+    /**
+     * Represents error message says environment is not configured correctly
+     */
     data object EnvironmentNotConfigured : CustomError(ENVIRONMENT_NOT_CONFIGURED)
+    /**
+     * Represents error message says server error occurred
+     */
     data object ServerError : CustomError(SERVER_ERROR)
     @Parcelize
     data class Generic(val genericMessage: String? = null) : CustomError(genericMessage ?: "")

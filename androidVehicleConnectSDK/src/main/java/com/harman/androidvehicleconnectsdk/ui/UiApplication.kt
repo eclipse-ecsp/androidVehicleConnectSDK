@@ -121,7 +121,7 @@ class UiApplication : ComponentActivity() {
     }
 
     /**
-     * This function is to trigger the function available under AuthInterface
+     * Represents to trigger the function available under AuthInterface like SIGN IN, SIGN OUT and SIGN OUT
      *
      */
     private fun launchCoroutineAction() {
