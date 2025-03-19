@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.notificationservice.model
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,8 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * Represents the NotificationConfigData model class to configure the notification details
  *
@@ -25,9 +24,10 @@ import com.google.gson.annotations.SerializedName
  * @property enabled boolean value
  * @property group by default it is "all"
  */
-data class NotificationConfigData(@SerializedName("channels") var channels: ArrayList<ChannelData>,
-                                  @SerializedName("enabled") var enabled: Boolean,
-                                  @SerializedName("group") var group: String? = "all"
+data class NotificationConfigData(
+    @SerializedName("channels") var channels: ArrayList<ChannelData>,
+    @SerializedName("enabled") var enabled: Boolean,
+    @SerializedName("group") var group: String? = "all",
 )
 
 /**
@@ -39,8 +39,10 @@ data class NotificationConfigData(@SerializedName("channels") var channels: Arra
  * @property service by default service is "gcm"
  * @property appPlatform by default appPlatform is "android"
  */
-data class ChannelData(@SerializedName("deviceTokens") var deviceTokens: ArrayList<String>,
-                       @SerializedName("enabled") var enabled: Boolean,
-                       @SerializedName("type") var type: String? = "push",
-                       @SerializedName("service") var service: String? = "gcm",
-                       @SerializedName("appPlatform") var appPlatform: String? = "android")
+data class ChannelData(
+    @SerializedName("deviceTokens") var deviceTokens: ArrayList<String>,
+    @SerializedName("enabled") var enabled: Boolean,
+    @SerializedName("type") var type: String? = "push",
+    @SerializedName("service") var service: String? = "gcm",
+    @SerializedName("appPlatform") var appPlatform: String? = "android",
+)

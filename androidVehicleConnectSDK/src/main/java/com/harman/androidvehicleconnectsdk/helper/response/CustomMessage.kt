@@ -1,10 +1,4 @@
 package com.harman.androidvehicleconnectsdk.helper.response
-
-import android.os.Parcelable
-import com.harman.androidvehicleconnectsdk.helper.response.error.CustomError
-import com.harman.androidvehicleconnectsdk.helper.response.error.Status
-import kotlinx.parcelize.Parcelize
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -21,6 +15,11 @@ import kotlinx.parcelize.Parcelize
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import android.os.Parcelable
+import com.harman.androidvehicleconnectsdk.helper.response.error.CustomError
+import com.harman.androidvehicleconnectsdk.helper.response.error.Status
+import kotlinx.parcelize.Parcelize
+
 /**
  * CustomMessage data class holds the value of response data, error data and status,
  * which will be serve to application
@@ -32,10 +31,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CustomMessage<T>(
     var status: Status,
-    var error: CustomError? = null
+    var error: CustomError? = null,
 ) : Parcelable {
     @kotlinx.parcelize.IgnoredOnParcel
     var response: T? = null
+
     /**
      * Represents to set the response with generic class type
      */

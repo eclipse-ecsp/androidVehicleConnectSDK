@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.vehicleservice.model
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,8 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * Represent to hold device termination data
  *
@@ -28,5 +27,5 @@ import com.google.gson.annotations.SerializedName
 data class TerminateDeviceData(
     @SerializedName("serialNumber") var serialNumber: String,
     @SerializedName("deviceId") var deviceId: String,
-    @SerializedName("imei") var imei: String
+    @SerializedName("imei") var imei: String,
 )

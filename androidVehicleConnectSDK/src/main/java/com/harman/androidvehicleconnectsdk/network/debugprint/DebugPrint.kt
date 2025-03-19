@@ -16,10 +16,6 @@ package com.harman.androidvehicleconnectsdk.network.debugprint
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-/**
- * DebugPrint class is used to print the SDK Logs
- *
- */
 object DebugPrint {
     private var iLogger: IDebugPrint? = null
 
@@ -40,7 +36,10 @@ object DebugPrint {
      * @param callerTag TAG is used to print the log
      * @param message Value which is need to log
      */
-    fun d(callerTag: String?, message: Any?) {
+    fun d(
+        callerTag: String?,
+        message: Any?,
+    ) {
         if (iLogger != null) {
             iLogger!!.d("SDK_$callerTag", message)
         }
@@ -52,7 +51,10 @@ object DebugPrint {
      * @param callerTag TAG is used to print the log
      * @param message Value which is need to log
      */
-    fun e(callerTag: String?, message: Any?) {
+    fun e(
+        callerTag: String?,
+        message: Any?,
+    ) {
         if (iLogger != null) {
             iLogger!!.e("SDK_$callerTag", message)
         }

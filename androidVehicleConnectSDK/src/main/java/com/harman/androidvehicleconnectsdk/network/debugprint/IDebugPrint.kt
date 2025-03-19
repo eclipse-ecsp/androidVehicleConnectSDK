@@ -1,4 +1,5 @@
 package com.harman.androidvehicleconnectsdk.network.debugprint
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -15,12 +16,14 @@ package com.harman.androidvehicleconnectsdk.network.debugprint
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-
-/**
- * Interface implemented by DebugPrintLogger class
- *
- */
 interface IDebugPrint {
-    fun d(callerTag: String?, message: Any?)
-    fun e(callerTag: String?, message: Any?)
+    fun d(
+        callerTag: String?,
+        message: Any?,
+    )
+
+    fun e(
+        callerTag: String?,
+        message: Any?,
+    )
 }

@@ -1,15 +1,4 @@
 package com.harman.androidvehicleconnectsdk.network.networkmanager
-
-import com.google.gson.JsonElement
-import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.PATCH
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Url
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -26,6 +15,16 @@ import retrofit2.http.Url
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.JsonElement
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Url
+
 /**
  * IRetrofitService interface is used by the retrofit service
  *
@@ -38,7 +37,9 @@ interface IRetrofitService {
      * @return Response<JsonElement> object as result of API trigger
      */
     @GET
-    suspend fun getRequest(@Url endPointPath: String): Response<JsonElement>
+    suspend fun getRequest(
+        @Url endPointPath: String,
+    ): Response<JsonElement>
 
     /**
      * This function is to do the POST request without the body to retrofit
@@ -48,7 +49,7 @@ interface IRetrofitService {
      */
     @POST
     suspend fun postRequestWithOutBody(
-        @Url endPointPath: String
+        @Url endPointPath: String,
     ): Response<JsonElement>
 
     /**
@@ -59,7 +60,7 @@ interface IRetrofitService {
      * @return Response<JsonElement> object as result of API trigger
      */
     @POST
-    suspend fun  postRequestWithBody(
+    suspend fun postRequestWithBody(
         @Url endPointPath: String,
         @Body data: Any? = null,
     ): Response<JsonElement>
@@ -72,9 +73,9 @@ interface IRetrofitService {
      * @return Response<JsonElement> object as result of API trigger
      */
     @PUT
-    suspend fun  putRequest(
+    suspend fun putRequest(
         @Url endPointPath: String,
-        @Body data: Any? = null
+        @Body data: Any? = null,
     ): Response<JsonElement>
 
     /**
@@ -87,7 +88,7 @@ interface IRetrofitService {
     @DELETE
     suspend fun deleteRequest(
         @Url endPointPath: String,
-        @Body data: Any? = null
+        @Body data: Any? = null,
     ): Response<JsonElement>
 
     /**
@@ -100,6 +101,6 @@ interface IRetrofitService {
     @PATCH
     suspend fun patchRequest(
         @Url endPointPath: String,
-        @Body data: Any? = null
+        @Body data: Any? = null,
     ): Response<JsonElement>
 }

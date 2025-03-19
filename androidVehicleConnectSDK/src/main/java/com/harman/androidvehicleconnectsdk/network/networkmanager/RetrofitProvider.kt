@@ -1,18 +1,4 @@
 package com.harman.androidvehicleconnectsdk.network.networkmanager
-
-import com.google.gson.Gson
-import com.harman.androidvehicleconnectsdk.appauth.RefreshTokenAuthenticator
-import com.harman.androidvehicleconnectsdk.helper.Constant
-import com.harman.androidvehicleconnectsdk.helper.sharedpref.AppDataStorage
-import com.harman.androidvehicleconnectsdk.network.EndPoint
-import com.harman.androidvehicleconnectsdk.network.debugprint.DebugPrint
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -29,6 +15,19 @@ import java.util.concurrent.TimeUnit
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.Gson
+import com.harman.androidvehicleconnectsdk.appauth.RefreshTokenAuthenticator
+import com.harman.androidvehicleconnectsdk.helper.Constant
+import com.harman.androidvehicleconnectsdk.helper.sharedpref.AppDataStorage
+import com.harman.androidvehicleconnectsdk.network.EndPoint
+import com.harman.androidvehicleconnectsdk.network.debugprint.DebugPrint
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
 /**
  * RetrofitProvider is a singleton class which have functions related
  * to create the retrofit client and loggers
@@ -61,11 +60,11 @@ object RetrofitProvider {
      * @return OkHttpClient instance
      */
     private fun getOkHttpClient(endPoint: EndPoint): OkHttpClient {
-
-        val builder: OkHttpClient.Builder = OkHttpClient.Builder()
-            .authenticator(RefreshTokenAuthenticator())
-            .addInterceptor(getHeadersInterceptor(endPoint))
-            .addInterceptor(loggingInterceptor())
+        val builder: OkHttpClient.Builder =
+            OkHttpClient.Builder()
+                .authenticator(RefreshTokenAuthenticator())
+                .addInterceptor(getHeadersInterceptor(endPoint))
+                .addInterceptor(loggingInterceptor())
         return builder.connectTimeout(TIME_OUT, TimeUnit.SECONDS).build()
     }
 
@@ -81,7 +80,7 @@ object RetrofitProvider {
             val request = originalRequest.newBuilder()
             request.header(
                 Constant.HEADER_AUTHORIZATION,
-                "${AppDataStorage.getAppPrefInstance()?.tokenType} ${AppDataStorage.getAppPrefInstance()?.accessToken ?: ""}"
+                "${AppDataStorage.getAppPrefInstance()?.tokenType} ${AppDataStorage.getAppPrefInstance()?.accessToken ?: ""}",
             )
             for (key in endPoint.header?.keys!!) {
                 request.header(key, endPoint.header!![key].toString())
@@ -90,14 +89,16 @@ object RetrofitProvider {
             chain.proceed(request.build())
         }
     }
+
     /**
      * This function is used to create the logger Interceptor instance
      * @return Interceptor instance
      */
     private fun loggingInterceptor(): Interceptor {
-        val interceptor = HttpLoggingInterceptor { message: String? ->
-            DebugPrint.d(TAG, message ?: "")
-        }
+        val interceptor =
+            HttpLoggingInterceptor { message: String? ->
+                DebugPrint.d(TAG, message ?: "")
+            }
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         return interceptor
     }

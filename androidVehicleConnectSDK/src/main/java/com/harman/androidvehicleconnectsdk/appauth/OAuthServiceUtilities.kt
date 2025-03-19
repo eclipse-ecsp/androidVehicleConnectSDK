@@ -29,10 +29,9 @@ import java.util.Locale
  * OAuthServiceUtilities is a kotlin singleton class which has method to configure the OAuth service
  */
 object OAuthServiceUtilities {
-
     private const val AUTHORIZATION_GRANT = "grant"
     private const val LOCALE = "locale"
-    private const val vAuthorizationGrant = "authorization_code"
+    private const val AUTHORIZATION_CODE = "authorization_code"
 
     /**
      * This function is used to whitelist the browsers which application launch the Authentication page
@@ -47,8 +46,8 @@ object OAuthServiceUtilities {
                     VersionedBrowserMatcher.FIREFOX_BROWSER,
                     VersionedBrowserMatcher.SAMSUNG_BROWSER,
                     VersionedBrowserMatcher.CHROME_CUSTOM_TAB,
-                    VersionedBrowserMatcher.SAMSUNG_CUSTOM_TAB
-                )
+                    VersionedBrowserMatcher.SAMSUNG_CUSTOM_TAB,
+                ),
             )
             .build()
     }
@@ -61,7 +60,7 @@ object OAuthServiceUtilities {
      */
     fun getParametersMap(clientSecretId: String): HashMap<String, String> {
         val parametersMap = HashMap<String, String>()
-        parametersMap[AUTHORIZATION_GRANT] = vAuthorizationGrant
+        parametersMap[AUTHORIZATION_GRANT] = AUTHORIZATION_CODE
         parametersMap[CLIENT_SECRET] = clientSecretId
         parametersMap[LOCALE] = Locale.getDefault().language
         return parametersMap

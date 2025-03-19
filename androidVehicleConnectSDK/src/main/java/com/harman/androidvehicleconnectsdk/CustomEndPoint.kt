@@ -1,8 +1,4 @@
 package com.harman.androidvehicleconnectsdk
-
-import com.harman.androidvehicleconnectsdk.network.EndPoint
-import com.harman.androidvehicleconnectsdk.network.RequestMethod
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -19,6 +15,9 @@ import com.harman.androidvehicleconnectsdk.network.RequestMethod
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.harman.androidvehicleconnectsdk.network.EndPoint
+import com.harman.androidvehicleconnectsdk.network.RequestMethod
+
 /**
  * CustomEndPoint data class is used to set the customized end points for retrofit service
  * This class is implementing EndPoint Interface to get the mandatory functions
@@ -34,5 +33,5 @@ data class CustomEndPoint(
     override var path: String?,
     override var method: RequestMethod?,
     override var header: HashMap<String, String>?,
-    override var body: Any?
+    override var body: Any?,
 ) : EndPoint

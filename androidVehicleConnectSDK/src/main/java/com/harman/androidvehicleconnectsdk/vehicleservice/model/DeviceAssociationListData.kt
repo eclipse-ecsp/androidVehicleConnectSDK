@@ -1,9 +1,4 @@
 package com.harman.androidvehicleconnectsdk.vehicleservice.model
-
-import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -20,6 +15,10 @@ import kotlinx.parcelize.Parcelize
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
 /**
  * DeviceAssociationListData data class hold the data of associated device list
  *
@@ -31,13 +30,14 @@ import kotlinx.parcelize.Parcelize
 data class DeviceAssociationListData(
     @SerializedName("code") val code: String,
     @SerializedName("message") val message: String,
-    @SerializedName("data") val data: List<AssociatedDevice>
-): Parcelable
+    @SerializedName("data") val data: List<AssociatedDevice>,
+) : Parcelable
+
 @Parcelize
 data class MetaData(
     @SerializedName("userVehicleAuthStatus")
-    val userVehicleAuthStatus: String? = null
-): Parcelable
+    val userVehicleAuthStatus: String? = null,
+) : Parcelable
 
 /**
  * Represents to hold the Associated device detail
@@ -95,5 +95,5 @@ data class AssociatedDevice(
     @SerializedName("vin")
     val mVin: String? = null,
     @SerializedName("metadata")
-    var metaData: MetaData? = null
+    var metaData: MetaData? = null,
 ) : Parcelable

@@ -1,9 +1,4 @@
 package com.harman.androidvehicleconnectsdk.notificationservice.model
-
-import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -20,6 +15,9 @@ import kotlinx.parcelize.Parcelize
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 /**
  * Represents the AlertAnalysisData model class
@@ -29,7 +27,7 @@ import kotlinx.parcelize.Parcelize
  */
 data class AlertAnalysisData(
     @SerializedName("pagination") var pagination: AlertPaginationData,
-    @SerializedName("alerts") var alertList: List<AlertData>?
+    @SerializedName("alerts") var alertList: List<AlertData>?,
 ) {
     /**
      * Represents the AlertPaginationData model class
@@ -41,7 +39,7 @@ data class AlertAnalysisData(
     data class AlertPaginationData(
         @SerializedName("page") var page: Int,
         @SerializedName("size") var size: Int,
-        @SerializedName("total") var total: AlertPaginationTotal
+        @SerializedName("total") var total: AlertPaginationTotal,
     )
 
     /**
@@ -52,7 +50,7 @@ data class AlertAnalysisData(
      */
     data class AlertPaginationTotal(
         @SerializedName("records") var records: Int,
-        @SerializedName("pages") var pages: Int
+        @SerializedName("pages") var pages: Int,
     )
 }
 
@@ -79,8 +77,8 @@ data class AlertData(
     @SerializedName("payload") var payload: PayLoadData?,
     @SerializedName("alertMessage") var alertMessage: String?,
     @SerializedName("read") var read: Boolean,
-    @SerializedName("deleted") var deleted: Boolean
-) :Parcelable
+    @SerializedName("deleted") var deleted: Boolean,
+) : Parcelable
 
 /**
  * Represents the PayLoadData model class
@@ -101,8 +99,8 @@ data class PayLoadData(
     @SerializedName("BenchMode") var benchMode: Int?,
     @SerializedName("Timezone") var timezone: Int?,
     @SerializedName("Timestamp") var timestamp: Long?,
-    @SerializedName("pdid") var pdId: String?
-) :Parcelable
+    @SerializedName("pdid") var pdId: String?,
+) : Parcelable
 
 /**
  * Represents the DataItem model class which is available in PayLoadData
@@ -121,8 +119,8 @@ data class DataItem(
     @SerializedName("longitude") var longitude: Double?,
     @SerializedName("tripid") var tripId: String?,
     @SerializedName("brand") var brand: String?,
-    @SerializedName("status") var status: String?
-) :Parcelable
+    @SerializedName("status") var status: String?,
+) : Parcelable
 
 /**
  * Represents the AlertDataPropertiesData model class value
@@ -139,7 +137,5 @@ data class AlertDataPropertiesData(
     @SerializedName("longitude") var longitude: Double?,
     @SerializedName("tripid") var tripId: String?,
     @SerializedName("brand") var brand: String?,
-    @SerializedName("status") var status: String?
-) :Parcelable
-
-
+    @SerializedName("status") var status: String?,
+) : Parcelable

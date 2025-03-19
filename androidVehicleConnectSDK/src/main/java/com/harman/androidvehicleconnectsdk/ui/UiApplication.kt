@@ -60,47 +60,55 @@ class UiApplication : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result: ActivityResult ->
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
                 when (result.resultCode) {
                     RESULT_OK -> {
                         DebugPrint.d("AppAuth", "Entered RESULT OK")
                         val data = result.data
-                        //success
-                        data?.let { AuthorizationResponse.fromIntent(it)?.let { authRes ->
-                            authInterface?.getAuthServices(authRes) { tokenResponse, authException ->
-                                if (tokenResponse != null) {
-                                    setCallBackValue(CustomMessage(Status.Success), tokenResponse)
-                                    DebugPrint.d("AppAuth", "Entered RESULT OK -> success")
-                                }
-                                if (authException != null)
-                                    setCallBackValue(
-                                        CustomMessage(
-                                            Status.Failure,
-                                            CustomError.Generic(
-                                                authException.error
-                                                    ?: CustomError.NetworkError.UnAuthorized.message
-                                            )
+                        // success
+                        data?.let {
+                            AuthorizationResponse.fromIntent(it)?.let { authRes ->
+                                authInterface?.getAuthServices(authRes) { tokenResponse, authException ->
+                                    if (tokenResponse != null) {
+                                        setCallBackValue(CustomMessage(Status.Success), tokenResponse)
+                                        DebugPrint.d("AppAuth", "Entered RESULT OK -> success")
+                                    }
+                                    if (authException != null) {
+                                        setCallBackValue(
+                                            CustomMessage(
+                                                Status.Failure,
+                                                CustomError.Generic(
+                                                    authException.error
+                                                        ?: CustomError.NetworkError.UnAuthorized.message,
+                                                ),
+                                            ),
                                         )
-                                    )
+                                    }
+                                }
                             }
-                        } }
-                        //exception
-                        data?.let { AuthorizationException.fromIntent(data).let {exception ->
-                            setCallBackValue(
-                                CustomMessage(
-                                    Status.Failure,
-                                    CustomError.Generic(
-                                        exception?.error
-                                            ?: CustomError.NetworkError.UnAuthorized.message
-                                    )
+                        }
+                        // exception
+                        data?.let {
+                            AuthorizationException.fromIntent(data).let { exception ->
+                                setCallBackValue(
+                                    CustomMessage(
+                                        Status.Failure,
+                                        CustomError.Generic(
+                                            exception?.error
+                                                ?: CustomError.NetworkError.UnAuthorized.message,
+                                        ),
+                                    ),
                                 )
-                            )
-                            DebugPrint.d("AppAuth", "Entered RESULT OK -> exception")
-                        } }
+                                DebugPrint.d("AppAuth", "Entered RESULT OK -> exception")
+                            }
+                        }
                     }
-                    RESULT_CANCELED -> { setErrorCallBack() }
-                    else -> { setErrorCallBack() }
+                    RESULT_CANCELED -> {
+                        setErrorCallBack()
+                    }
+                    else -> {
+                        setErrorCallBack()
+                    }
                 }
             }
         authInterface = AuthInterface.appAuthInterface(this, activityLauncher!!)
@@ -111,14 +119,13 @@ class UiApplication : ComponentActivity() {
      * Function is to set error message in callback
      *
      */
-    private fun setErrorCallBack(){
+    private fun setErrorCallBack() {
         setCallBackValue(
             CustomMessage(
                 Status.Failure,
-                CustomError.Generic(CustomError.NetworkError.UnAuthorized.message)
-            )
+                CustomError.Generic(CustomError.NetworkError.UnAuthorized.message),
+            ),
         )
-
     }
 
     /**
@@ -126,32 +133,33 @@ class UiApplication : ComponentActivity() {
      *
      */
     private fun launchCoroutineAction() {
-        val exception = CoroutineExceptionHandler { _, exception ->
-            DebugPrint.e("AppAuth Provider Error: ", exception.cause.toString())
-            setCallBackValue(
-                CustomMessage(
-                    Status.Failure,
-                    CustomError.Generic(exception.toString())
+        val exception =
+            CoroutineExceptionHandler { _, exception ->
+                DebugPrint.e("AppAuth Provider Error: ", exception.cause.toString())
+                setCallBackValue(
+                    CustomMessage(
+                        Status.Failure,
+                        CustomError.Generic(exception.toString()),
+                    ),
                 )
-            )
-        }
+            }
         CoroutineScope(IO).launch(exception) {
             if (intent != null && intent.hasExtra(ACTION_KEY)) {
                 when (intent.getStringExtra(ACTION_KEY)) {
                     SIGN_IN -> {
-                        authInterface?.signIn {msg ->
+                        authInterface?.signIn { msg ->
                             msg.status.requestStatus.let { setCallBackValue(msg) }
                         }
                     }
 
                     SIGN_UP -> {
-                        authInterface?.signUp {msg ->
+                        authInterface?.signUp { msg ->
                             msg.status.requestStatus.let { setCallBackValue(msg) }
                         }
                     }
 
                     SIGN_OUT -> {
-                        authInterface?.signOut {msg ->
+                        authInterface?.signOut { msg ->
                             msg.status.requestStatus.let { setCallBackValue(msg) }
                         }
                     }
@@ -160,8 +168,8 @@ class UiApplication : ComponentActivity() {
                         setCallBackValue(
                             CustomMessage(
                                 Status.Failure,
-                                CustomError.InvalidIntent
-                            )
+                                CustomError.InvalidIntent,
+                            ),
                         )
                     }
                 }
@@ -169,8 +177,8 @@ class UiApplication : ComponentActivity() {
                 setCallBackValue(
                     CustomMessage(
                         Status.Failure,
-                        CustomError.InvalidIntent
-                    )
+                        CustomError.InvalidIntent,
+                    ),
                 )
                 return@launch
             }
@@ -185,14 +193,19 @@ class UiApplication : ComponentActivity() {
      * @param value is CustomMessage data class which contains the status
      * @param tokenResponse is the authentication response value contains the token details
      */
-    private fun setCallBackValue(value: CustomMessage<Any>, tokenResponse: TokenResponse? = null) {
+    private fun setCallBackValue(
+        value: CustomMessage<Any>,
+        tokenResponse: TokenResponse? = null,
+    ) {
         runBlocking {
-            if (tokenResponse != null)
+            if (tokenResponse != null) {
                 setAuthTokenState(tokenResponse)
+            }
         }
-        val intent = Intent().apply {
-            putExtra(CUSTOM_MESSAGE_VALUE, value)
-        }
+        val intent =
+            Intent().apply {
+                putExtra(CUSTOM_MESSAGE_VALUE, value)
+            }
         setResult(getIntent().getIntExtra(REQUEST_CODE, 0), intent)
         finish()
     }

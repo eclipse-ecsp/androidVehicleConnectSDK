@@ -28,7 +28,6 @@ import javax.inject.Inject
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 class NotificationService : NotificationServiceInterface {
-
     @Inject
     lateinit var notificationRepoInterface: NotificationRepoInterface
 
@@ -50,21 +49,23 @@ class NotificationService : NotificationServiceInterface {
         vehicleId: String,
         contactId: String?,
         notificationConfigList: ArrayList<NotificationConfigData>,
-        customMessage: (CustomMessage<String>) -> Unit
+        customMessage: (CustomMessage<String>) -> Unit,
     ) {
         val endPoint = NotificationEndPoint.NotificationConfig
         val path = "${
             endPoint.path?.replace(Constant.USER_ID, userId)?.replace(Constant.VEHICLE_ID, vehicleId)?.replace(
-                Constant.CONTACT_ID, contactId?: Constant.CONTACT_SELF
+                Constant.CONTACT_ID,
+                contactId ?: Constant.CONTACT_SELF,
             )
         }"
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl,
-            path,
-            endPoint.method,
-            endPoint.header,
-            notificationConfigList
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl,
+                path,
+                endPoint.method,
+                endPoint.header,
+                notificationConfigList,
+            )
         notificationRepoInterface.updateNotificationConfig(customEndPoint, customMessage)
     }
 
@@ -88,22 +89,25 @@ class NotificationService : NotificationServiceInterface {
         size: Int?,
         page: Int?,
         readStatus: String?,
-        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit
+        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
     ) {
         val endPoint = NotificationEndPoint.NotificationAlert
         val path = "${
             (endPoint.path?.replace(Constant.DEVICE_ID, deviceId))?.replace(
                 Constant.ALERT_TYPE,
-                TextUtils.join(",", alertTypes)
+                TextUtils.join(",", alertTypes),
             )
         }?since=$since&until=$till&size=${size ?: 1}&page=${page ?: 1}&readstatus=${readStatus ?: "all"}"
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl?:"",
-            path, endPoint.method, endPoint.header, endPoint.body
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                path,
+                endPoint.method,
+                endPoint.header,
+                endPoint.body,
+            )
         notificationRepoInterface.notificationAlertHistory(customEndPoint, customMessage)
     }
-
 }
 
 interface NotificationServiceInterface {
@@ -121,7 +125,7 @@ interface NotificationServiceInterface {
         vehicleId: String,
         contactId: String?,
         notificationConfigList: ArrayList<NotificationConfigData>,
-        customMessage: (CustomMessage<String>) -> Unit
+        customMessage: (CustomMessage<String>) -> Unit,
     )
 
     /**
@@ -144,7 +148,7 @@ interface NotificationServiceInterface {
         size: Int?,
         page: Int?,
         readStatus: String?,
-        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit
+        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
     )
 
     companion object {

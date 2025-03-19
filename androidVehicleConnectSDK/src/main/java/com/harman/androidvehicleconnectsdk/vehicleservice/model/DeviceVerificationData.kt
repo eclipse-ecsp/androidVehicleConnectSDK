@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.vehicleservice.model
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,8 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * DeviceVerificationData data class is holding the Device verification status
  *
@@ -26,8 +25,13 @@ import com.google.gson.annotations.SerializedName
  */
 data class DeviceVerificationData(
     @SerializedName("messages") val mDeviceVerificationMessages: DeviceVerificationMessages?,
-    @SerializedName("results") val mVerificationStatus: VerificationStatus?
+    @SerializedName("results") val mVerificationStatus: VerificationStatus?,
 ) {
-    data class DeviceVerificationMessages(@SerializedName("key") val key: String)
-    data class VerificationStatus(@SerializedName("isVerified") val isVerified: Boolean)
+    data class DeviceVerificationMessages(
+        @SerializedName("key") val key: String,
+    )
+
+    data class VerificationStatus(
+        @SerializedName("isVerified") val isVerified: Boolean,
+    )
 }

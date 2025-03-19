@@ -1,12 +1,4 @@
 package com.harman.androidvehicleconnectsdk.network.networkmanager
-
-import com.google.gson.JsonElement
-import com.harman.androidvehicleconnectsdk.network.EndPoint
-import com.harman.androidvehicleconnectsdk.network.RequestMethod
-import retrofit2.Response
-import javax.inject.Inject
-import javax.inject.Singleton
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -23,35 +15,47 @@ import javax.inject.Singleton
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.JsonElement
+import com.harman.androidvehicleconnectsdk.network.EndPoint
+import com.harman.androidvehicleconnectsdk.network.RequestMethod
+import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
+
 /**
  * RetrofitManager class is used to do the generic request call to retrofit service
  *
  */
 @Singleton
-class RetrofitManager @Inject constructor() : IRetrofitManager {
-    /**
-     * This function is used to send the request to to retrofit service
-     *
-     * @param endPoint EndPoint interface which holds the necessary data to do retrofit call
-     * @return Response<JsonObject> object as result of API trigger
-     */
-    override suspend fun sendRequest(endPoint: EndPoint): Response<JsonElement>? {
-        val retrofitService =
-            RetrofitProvider.getRetrofitClient(endPoint)?.create(IRetrofitService::class.java)
-        return when (endPoint.method) {
-            RequestMethod.Get ->  retrofitService?.getRequest(endPoint.path?: "")
-            RequestMethod.Post -> {
-                if (endPoint.body == null) retrofitService?.postRequestWithOutBody(endPoint.path?: "")
-                else retrofitService?.postRequestWithBody(endPoint.path?: "", endPoint.body)
-            }
+class RetrofitManager
+    @Inject
+    constructor() : IRetrofitManager {
+        /**
+         * This function is used to send the request to to retrofit service
+         *
+         * @param endPoint EndPoint interface which holds the necessary data to do retrofit call
+         * @return Response<JsonObject> object as result of API trigger
+         */
+        override suspend fun sendRequest(endPoint: EndPoint): Response<JsonElement>? {
+            val retrofitService =
+                RetrofitProvider.getRetrofitClient(endPoint)?.create(IRetrofitService::class.java)
+            return when (endPoint.method) {
+                RequestMethod.Get -> retrofitService?.getRequest(endPoint.path ?: "")
+                RequestMethod.Post -> {
+                    if (endPoint.body == null) {
+                        retrofitService?.postRequestWithOutBody(endPoint.path ?: "")
+                    } else {
+                        retrofitService?.postRequestWithBody(endPoint.path ?: "", endPoint.body)
+                    }
+                }
 
-            RequestMethod.Put -> retrofitService?.putRequest(endPoint.path?: "", endPoint.body)
-            RequestMethod.Patch -> retrofitService?.patchRequest(endPoint.path?: "", endPoint.body)
-            RequestMethod.Delete -> retrofitService?.deleteRequest(endPoint.path?: "", endPoint.body)
-            else -> retrofitService?.getRequest(endPoint.path?: "")
+                RequestMethod.Put -> retrofitService?.putRequest(endPoint.path ?: "", endPoint.body)
+                RequestMethod.Patch -> retrofitService?.patchRequest(endPoint.path ?: "", endPoint.body)
+                RequestMethod.Delete -> retrofitService?.deleteRequest(endPoint.path ?: "", endPoint.body)
+                else -> retrofitService?.getRequest(endPoint.path ?: "")
+            }
         }
     }
-}
 
 /**
  * IRetrofitManager interface which is implemented by RetrofitManager class

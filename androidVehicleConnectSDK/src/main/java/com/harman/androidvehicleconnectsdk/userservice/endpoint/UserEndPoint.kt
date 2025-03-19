@@ -43,73 +43,86 @@ sealed class UserEndPoint(val name: String) : EndPoint {
     }
 
     data object SignIn : UserEndPoint(SIGN_IN)
+
     data object SignUp : UserEndPoint(SIGN_UP)
+
     data object AuthToken : UserEndPoint(AUTH_TOKEN)
+
     data object RefreshToken : UserEndPoint(REFRESH_TOKEN)
+
     data object Profile : UserEndPoint(PROFILE)
+
     /**
      * Endpoint interface implementation method to set the path (end point of base url)
      */
-    override var path: String? = when (this.name) {
-        SIGN_IN -> "/oauth2/authorize"
-        SIGN_UP -> "/sign-up/"
-        AUTH_TOKEN -> "/oauth2/token"
-        REFRESH_TOKEN -> {
-            val grantType = "${GRANT_TYPE_KEY}=${GRANT_TYPE_VALUE}"
-            "/oauth2/token?$grantType&${GRANT_TYPE_VALUE}="
+    override var path: String? =
+        when (this.name) {
+            SIGN_IN -> "/oauth2/authorize"
+            SIGN_UP -> "/sign-up/"
+            AUTH_TOKEN -> "/oauth2/token"
+            REFRESH_TOKEN -> {
+                val grantType = "${GRANT_TYPE_KEY}=${GRANT_TYPE_VALUE}"
+                "/oauth2/token?$grantType&${GRANT_TYPE_VALUE}="
+            }
+
+            PROFILE -> "/v1/users/self"
+            else -> ""
         }
 
-        PROFILE -> "/v1/users/self"
-        else -> ""
-    }
     /**
      * Endpoint interface implementation method to set the base url for User related calls
      */
-    override var baseUrl: String? = when (this.name) {
-        SIGN_IN -> EnvironmentManager.environment()?.signinUrl.toString()
-        REFRESH_TOKEN -> EnvironmentManager.environment()?.signinUrl.toString()
-        SIGN_UP -> EnvironmentManager.environment()?.signupUrl.toString()
-        PROFILE -> EnvironmentManager.environment()?.profileUrl.toString()
-        else -> ""
-    }
+    override var baseUrl: String? =
+        when (this.name) {
+            SIGN_IN -> EnvironmentManager.environment()?.signinUrl.toString()
+            REFRESH_TOKEN -> EnvironmentManager.environment()?.signinUrl.toString()
+            SIGN_UP -> EnvironmentManager.environment()?.signupUrl.toString()
+            PROFILE -> EnvironmentManager.environment()?.profileUrl.toString()
+            else -> ""
+        }
+
     /**
      * Endpoint interface implementation method to set the Request method
      */
-    override var method: RequestMethod? = when (this.name) {
-        REFRESH_TOKEN -> RequestMethod.Post
-        else -> {
-            RequestMethod.Get
+    override var method: RequestMethod? =
+        when (this.name) {
+            REFRESH_TOKEN -> RequestMethod.Post
+            else -> {
+                RequestMethod.Get
+            }
         }
-    }
+
     /**
      * Endpoint interface implementation method to set the headers
      */
-    override var header: HashMap<String, String>? = when (this.name) {
-        REFRESH_TOKEN -> {
-            HashMap<String, String>().apply {
-                val headerValue =
-                    "${EnvironmentManager.environment()?.clientId}:${EnvironmentManager.environment()?.clientSecret}"
-                val encodedHeaderValue = android.util.Base64.encodeToString(
-                    headerValue.toByteArray(),
-                    android.util.Base64.DEFAULT
-                ).trim()
-                put(HEADER_AUTHORIZATION, "Basic $encodedHeaderValue")
-                put(HEADER_CONTENT_TYPE_KEY, HEADER_CONTENT_TYPE_VALUE)
+    override var header: HashMap<String, String>? =
+        when (this.name) {
+            REFRESH_TOKEN -> {
+                HashMap<String, String>().apply {
+                    val headerValue =
+                        "${EnvironmentManager.environment()?.clientId}:${EnvironmentManager.environment()?.clientSecret}"
+                    val encodedHeaderValue =
+                        android.util.Base64.encodeToString(
+                            headerValue.toByteArray(),
+                            android.util.Base64.DEFAULT,
+                        ).trim()
+                    put(HEADER_AUTHORIZATION, "Basic $encodedHeaderValue")
+                    put(HEADER_CONTENT_TYPE_KEY, HEADER_CONTENT_TYPE_VALUE)
+                }
             }
+
+            PROFILE -> {
+                HashMap<String, String>().apply {
+                    put(Constant.HEADER_ACCEPT, Constant.HEADER_APPLICATION_JSON)
+                    put(Constant.HEADER_ACCEPT_LANGUAGE, getLocale())
+                }
+            }
+
+            else -> HashMap()
         }
 
-        PROFILE -> {
-            HashMap<String, String>().apply {
-                put(Constant.HEADER_ACCEPT, Constant.HEADER_APPLICATION_JSON)
-                put(Constant.HEADER_ACCEPT_LANGUAGE, getLocale())
-            }
-        }
-
-        else -> HashMap()
-    }
     /**
      * Endpoint interface implementation method to set the body
      */
-    override var body: Any?= Any()
-
+    override var body: Any? = Any()
 }

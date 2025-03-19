@@ -42,7 +42,7 @@ class RepositoryModule {
      */
     @Singleton
     @Provides
-    fun provideVehicleServiceRepo(): VehicleRepoInterface{
+    fun provideVehicleServiceRepo(): VehicleRepoInterface {
         return VehicleRepository()
     }
 
@@ -53,7 +53,7 @@ class RepositoryModule {
      */
     @Singleton
     @Provides
-    fun provideRetrofitManager(): IRetrofitManager{
+    fun provideRetrofitManager(): IRetrofitManager {
         return RetrofitManager()
     }
 
@@ -64,7 +64,7 @@ class RepositoryModule {
      */
     @Singleton
     @Provides
-    fun provideRoRepository(): RoRepositoryInterface{
+    fun provideRoRepository(): RoRepositoryInterface {
         return RoRepository()
     }
 
@@ -75,7 +75,7 @@ class RepositoryModule {
      */
     @Singleton
     @Provides
-    fun provideUserRepository(): IUserRepository{
+    fun provideUserRepository(): IUserRepository {
         return UserRepository()
     }
 
@@ -86,7 +86,7 @@ class RepositoryModule {
      */
     @Singleton
     @Provides
-    fun provideNotificationRepository(): NotificationRepoInterface{
+    fun provideNotificationRepository(): NotificationRepoInterface {
         return NotificationRepository()
     }
 }

@@ -6,6 +6,7 @@ plugins {
     id("kotlin-parcelize")
     id("org.jetbrains.dokka")
     id("org.cyclonedx.bom")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 android {
@@ -23,7 +24,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -35,6 +36,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    ktlint {
+        android = true
+        ignoreFailures = false
+        reporters {
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.HTML)
+        }
     }
 }
 

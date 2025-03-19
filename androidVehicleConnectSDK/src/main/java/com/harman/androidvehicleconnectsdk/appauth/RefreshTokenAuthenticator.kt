@@ -19,15 +19,15 @@ package com.harman.androidvehicleconnectsdk.appauth
 import com.google.gson.Gson
 import com.harman.androidvehicleconnectsdk.CustomEndPoint
 import com.harman.androidvehicleconnectsdk.environment.EnvironmentManager
-import com.harman.androidvehicleconnectsdk.helper.Constant.HEADER_AUTHORIZATION
 import com.harman.androidvehicleconnectsdk.helper.AppManager
+import com.harman.androidvehicleconnectsdk.helper.Constant.HEADER_AUTHORIZATION
 import com.harman.androidvehicleconnectsdk.helper.fromJson
 import com.harman.androidvehicleconnectsdk.helper.sharedpref.AppDataStorage
 import com.harman.androidvehicleconnectsdk.network.debugprint.DebugPrint
 import com.harman.androidvehicleconnectsdk.network.networkmanager.IRetrofitManager
 import com.harman.androidvehicleconnectsdk.network.networkmanager.RetrofitProvider.retryCount
-import com.harman.androidvehicleconnectsdk.userservice.model.TokenData
 import com.harman.androidvehicleconnectsdk.userservice.endpoint.UserEndPoint
+import com.harman.androidvehicleconnectsdk.userservice.model.TokenData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.async
@@ -58,15 +58,18 @@ class RefreshTokenAuthenticator : Authenticator {
      * @param response response body of okhttp3 service
      * @return Http request of okhttp3 service
      */
-    override fun authenticate(route: Route?, response: Response): Request? {
-        return if(retryCount <=5) {
+    override fun authenticate(
+        route: Route?,
+        response: Response,
+    ): Request? {
+        return if (retryCount <= 5) {
             runBlocking {
                 getUpdatedToken()
             }
             response.request.newBuilder()
                 .header(
                     HEADER_AUTHORIZATION,
-                    "${AppDataStorage.getAppPrefInstance()?.tokenType} ${AppDataStorage.getAppPrefInstance()?.accessToken ?: ""}"
+                    "${AppDataStorage.getAppPrefInstance()?.tokenType} ${AppDataStorage.getAppPrefInstance()?.accessToken ?: ""}",
                 )
                 .build()
         } else {
@@ -81,17 +84,19 @@ class RefreshTokenAuthenticator : Authenticator {
      */
     private suspend fun getUpdatedToken() {
         val iRetrofitManager = IRetrofitManager.getRetrofitManager()
-        val job = CoroutineScope(IO).async {
-            val userEndPoint = UserEndPoint.RefreshToken
-            val endPoint = CustomEndPoint(
-                EnvironmentManager.environment()?.signinUrl.toString(),
-                userEndPoint.path + AppDataStorage.getAppPrefInstance()?.refreshToken,
-                userEndPoint.method,
-                userEndPoint.header,
-                userEndPoint.body
-            )
-            iRetrofitManager.sendRequest(endPoint)
-        }
+        val job =
+            CoroutineScope(IO).async {
+                val userEndPoint = UserEndPoint.RefreshToken
+                val endPoint =
+                    CustomEndPoint(
+                        EnvironmentManager.environment()?.signinUrl.toString(),
+                        userEndPoint.path + AppDataStorage.getAppPrefInstance()?.refreshToken,
+                        userEndPoint.method,
+                        userEndPoint.header,
+                        userEndPoint.body,
+                    )
+                iRetrofitManager.sendRequest(endPoint)
+            }
         try {
             val tokenData = Gson().fromJson<TokenData?>(job.await()?.body().toString())
             if (tokenData != null) {
@@ -101,7 +106,7 @@ class RefreshTokenAuthenticator : Authenticator {
                 AuthManager.authInterface?.accessTokenExpirationDate =
                     tokenData.mExpiresIn
                 AppManager.isRefreshTokenFailed.postValue(false)
-            } else{
+            } else {
                 retryCount += 1
                 DebugPrint.e("REFRESH_TOKEN", "Refresh token failed: ${retryCount + 1} times")
                 if (retryCount > 5) {
@@ -110,7 +115,7 @@ class RefreshTokenAuthenticator : Authenticator {
                 }
             }
         } catch (e: Exception) {
-            DebugPrint.e("REFRESH_TOKEN", "Refresh token failed: ${retryCount+1} times")
+            DebugPrint.e("REFRESH_TOKEN", "Refresh token failed: ${retryCount + 1} times")
             retryCount += 1
             DebugPrint.e(TAG, e.printStackTrace())
         }

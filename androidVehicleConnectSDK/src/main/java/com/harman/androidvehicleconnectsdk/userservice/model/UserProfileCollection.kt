@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.userservice.model
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,20 +15,26 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * UserProfileCollection data class is used to hold the User profile data response
  *
  * @property mMessages key value from API response
  * @property userProfileList List of User profile data class
  */
-data class UserProfileCollection(@SerializedName("messages") val mMessages: List<Message>,
-                                 @SerializedName("results") val userProfileList: List<UserProfile>){
+data class UserProfileCollection(
+    @SerializedName("messages") val mMessages: List<Message>,
+    @SerializedName("results") val userProfileList: List<UserProfile>,
+) {
     /**
      * Holds the Message values which contains key as string
      *
      * @property mKey holds the string value
      */
-    data class Message(@SerializedName("key") val mKey: String)
+    data class Message(
+        @SerializedName("key") val mKey: String,
+    )
 }
 
 /**
@@ -51,16 +54,18 @@ data class UserProfileCollection(@SerializedName("messages") val mMessages: List
  * @property mDealerName User's dealer name
  * @property mDealerPhoneNumber User's dealer phone number
  */
-data class UserProfile(@SerializedName("id") val mId: String,
-                       @SerializedName("userName") val mUserName: String,
-                       @SerializedName("firstName") val mFirstName: String,
-                       @SerializedName("lastName") val mLastName: String,
-                       @SerializedName("role") val mRole: List<String>,
-                       @SerializedName("status") val mStatus: String,
-                       @SerializedName("email") val mEmail: String,
-                       @SerializedName("phoneNumber") val mPhoneNumber: String,
-                       @SerializedName("locale") val mLocale: String,
-                       @SerializedName("dealerAddress") val mDealerAddress: String,
-                       @SerializedName("dealerEmail") val mDealerEmail: String,
-                       @SerializedName("dealer_name") val mDealerName: String,
-                       @SerializedName("dealerPhoneNumber") val mDealerPhoneNumber: String)
+data class UserProfile(
+    @SerializedName("id") val mId: String,
+    @SerializedName("userName") val mUserName: String,
+    @SerializedName("firstName") val mFirstName: String,
+    @SerializedName("lastName") val mLastName: String,
+    @SerializedName("role") val mRole: List<String>,
+    @SerializedName("status") val mStatus: String,
+    @SerializedName("email") val mEmail: String,
+    @SerializedName("phoneNumber") val mPhoneNumber: String,
+    @SerializedName("locale") val mLocale: String,
+    @SerializedName("dealerAddress") val mDealerAddress: String,
+    @SerializedName("dealerEmail") val mDealerEmail: String,
+    @SerializedName("dealer_name") val mDealerName: String,
+    @SerializedName("dealerPhoneNumber") val mDealerPhoneNumber: String,
+)

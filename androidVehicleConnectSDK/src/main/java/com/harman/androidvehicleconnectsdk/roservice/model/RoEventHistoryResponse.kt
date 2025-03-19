@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.roservice.model
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,7 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
 
 /**
  * RoEventHistoryResponse data class holds the response value come from RO History API
@@ -27,7 +25,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class RoEventHistoryResponse(
     @SerializedName("roEvent") var roEvents: RoEventData,
-    @SerializedName("roStatus") var roStatus: String
+    @SerializedName("roStatus") var roStatus: String,
 )
 
 /**
@@ -44,7 +42,7 @@ data class RoEventData(
     @SerializedName("Version") var version: String?,
     @SerializedName("Timestamp") var timestamp: Long?,
     @SerializedName("RequestId") var requestId: String?,
-    @SerializedName("Data") var data: RoData?
+    @SerializedName("Data") var data: RoData?,
 ) {
     /**
      * Represents the RoData model class value
@@ -56,6 +54,6 @@ data class RoEventData(
     data class RoData(
         @SerializedName("state") var mState: String?,
         @SerializedName("roRequestId") var roRequestId: String?,
-        @SerializedName("duration") var mDuration: Int?
+        @SerializedName("duration") var mDuration: Int?,
     )
 }

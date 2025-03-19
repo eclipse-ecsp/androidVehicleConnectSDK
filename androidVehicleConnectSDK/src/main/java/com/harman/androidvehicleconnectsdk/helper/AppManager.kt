@@ -1,5 +1,20 @@
 package com.harman.androidvehicleconnectsdk.helper
-
+/********************************************************************************
+ * Copyright (c) 2023-24 Harman International
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ ********************************************************************************/
 import android.app.Application
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
@@ -18,23 +33,6 @@ import com.harman.androidvehicleconnectsdk.helper.sharedpref.AppDataStorage
 import com.harman.androidvehicleconnectsdk.network.debugprint.DebugPrint
 import com.harman.androidvehicleconnectsdk.network.debugprint.DebugPrintLogger
 
-/********************************************************************************
- * Copyright (c) 2023-24 Harman International
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- ********************************************************************************/
-
 /**
  * AppManager is a singleton class which have all initial configurations and state needed for SDK
  * Used by the SDK consuming application
@@ -51,11 +49,15 @@ object AppManager {
      * using  application_context shared by the application
      * @param enableLog Boolean value to enable/disable the SDK logs, by default it is true
      */
-    fun initialize(application: Application, enableLog: Boolean = true) {
-        appComponent = DaggerAppComponent.builder()
-            .contextModule(ContextModule(application))
-            .repositoryModule(RepositoryModule())
-            .build()
+    fun initialize(
+        application: Application,
+        enableLog: Boolean = true,
+    ) {
+        appComponent =
+            DaggerAppComponent.builder()
+                .contextModule(ContextModule(application))
+                .repositoryModule(RepositoryModule())
+                .build()
         AppDataStorage.getInstance(application)
         if (enableLog) {
             DebugPrint.setLogger(DebugPrintLogger())
@@ -96,10 +98,11 @@ object AppManager {
      */
     fun authResponseFromIntent(intent: Intent): CustomMessage<*>? {
         return when {
-            SDK_INT >= 33 -> intent.getParcelableExtra(
-                CUSTOM_MESSAGE_VALUE,
-                CustomMessage::class.java
-            )
+            SDK_INT >= 33 ->
+                intent.getParcelableExtra(
+                    CUSTOM_MESSAGE_VALUE,
+                    CustomMessage::class.java,
+                )
 
             else -> intent.getParcelableExtra(CUSTOM_MESSAGE_VALUE) as? CustomMessage<*>
         }
@@ -114,4 +117,3 @@ object AppManager {
         return isRefreshTokenFailed
     }
 }
-

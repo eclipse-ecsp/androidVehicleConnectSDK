@@ -43,92 +43,98 @@ import javax.inject.Singleton
  * This class has login related functions and user profile function
  */
 @Singleton
-class UserRepository @Inject constructor() : IUserRepository {
+class UserRepository
     @Inject
-    lateinit var retrofitManager: IRetrofitManager
+    constructor() : IUserRepository {
+        @Inject
+        lateinit var retrofitManager: IRetrofitManager
 
-    init {
-        AppManager.getAppComponent().inject(this)
-    }
+        init {
+            AppManager.getAppComponent().inject(this)
+        }
 
-    /**
-     * This function is to do Sign In process by launching the UiApplication activity
-     *
-     * @param activity client application activity
-     * @param requestCode client application request code to send the result
-     * @param launcher client application launcher instance to launch the UiApplication activity
-     */
-    override fun signInWithAppAuth(
-        activity: Activity,
-        requestCode: Int,
-        launcher: ActivityResultLauncher<Intent>
-    ) {
-        launchActivity(activity, SIGN_IN, requestCode, launcher)
-    }
+        /**
+         * This function is to do Sign In process by launching the UiApplication activity
+         *
+         * @param activity client application activity
+         * @param requestCode client application request code to send the result
+         * @param launcher client application launcher instance to launch the UiApplication activity
+         */
+        override fun signInWithAppAuth(
+            activity: Activity,
+            requestCode: Int,
+            launcher: ActivityResultLauncher<Intent>,
+        ) {
+            launchActivity(activity, SIGN_IN, requestCode, launcher)
+        }
 
-    /**
-     * This function is to do sign up process by launching the UiApplication activity
-     *
-     * @param activity client application activity
-     * @param requestCode client application request code to send the result
-     * @param launcher client application launcher instance to launch the UiApplication activity
-     */
-    override fun signUpWithAppAuth(
-        activity: Activity,
-        requestCode: Int,
-        launcher: ActivityResultLauncher<Intent>
-    ) {
-        launchActivity(activity, SIGN_UP, requestCode, launcher)
-    }
+        /**
+         * This function is to do sign up process by launching the UiApplication activity
+         *
+         * @param activity client application activity
+         * @param requestCode client application request code to send the result
+         * @param launcher client application launcher instance to launch the UiApplication activity
+         */
+        override fun signUpWithAppAuth(
+            activity: Activity,
+            requestCode: Int,
+            launcher: ActivityResultLauncher<Intent>,
+        ) {
+            launchActivity(activity, SIGN_UP, requestCode, launcher)
+        }
 
-    /**
-     * This function is to do sign out process by removing all shared preference data
-     * related to the current user.
-     *
-     * @param result this is the callback higher order lambda function to pass the result to client application
-     */
-    override fun signOutWithAppAuth(result: (CustomMessage<Any>) -> Unit) {
-        AppDataStorage.getAppPrefInstance()?.removeAll()
-        result(CustomMessage(Status.Success, null))
-    }
+        /**
+         * This function is to do sign out process by removing all shared preference data
+         * related to the current user.
+         *
+         * @param result this is the callback higher order lambda function to pass the result to client application
+         */
+        override fun signOutWithAppAuth(result: (CustomMessage<Any>) -> Unit) {
+            AppDataStorage.getAppPrefInstance()?.removeAll()
+            result(CustomMessage(Status.Success, null))
+        }
 
-    /**
-     * This function is to fetch the user profile data via retrofit service
-     *
-     * @param customEndPoint this holds the required details like header, path, query, body...etc for API Call
-     * @param customMessage this is the callback higher order lambda function
-     * to pass the result (UserProfileCollection) to client application
-     */
-    override suspend fun fetchUserProfile(customEndPoint: CustomEndPoint, customMessage: (CustomMessage<UserProfile>) -> Unit) {
-
-        retrofitManager.sendRequest(customEndPoint).also {
-            if (it != null && it.isSuccessful) {
-                val data = Gson().fromJson<UserProfile>(it.body().toString())
-                customMessage(networkResponse(data))
-            } else {
-                customMessage(networkError(it?.errorBody(), it?.code()))
+        /**
+         * This function is to fetch the user profile data via retrofit service
+         *
+         * @param customEndPoint this holds the required details like header, path, query, body...etc for API Call
+         * @param customMessage this is the callback higher order lambda function
+         * to pass the result (UserProfileCollection) to client application
+         */
+        override suspend fun fetchUserProfile(
+            customEndPoint: CustomEndPoint,
+            customMessage: (CustomMessage<UserProfile>) -> Unit,
+        ) {
+            retrofitManager.sendRequest(customEndPoint).also {
+                if (it != null && it.isSuccessful) {
+                    val data = Gson().fromJson<UserProfile>(it.body().toString())
+                    customMessage(networkResponse(data))
+                } else {
+                    customMessage(networkError(it?.errorBody(), it?.code()))
+                }
             }
         }
-    }
 
-    /**
-     * This function is to launch the UIApplication activity using client activity instance
-     *
-     * @param activity client activity instance
-     * @param action is the static string to determine which process to start
-     * @param requestCode client application request code to send the result
-     * @param launcher client application launcher instance to launch the UiApplication activity
-     */
-    private fun launchActivity(
-        activity: Activity,
-        action: String, requestCode: Int, launcher: ActivityResultLauncher<Intent>
-    ) {
-        val intent = Intent(activity, UiApplication::class.java)
-        intent.putExtra(ACTION_KEY, action)
-        intent.putExtra(REQUEST_CODE, requestCode)
-        launcher.launch(intent)
+        /**
+         * This function is to launch the UIApplication activity using client activity instance
+         *
+         * @param activity client activity instance
+         * @param action is the static string to determine which process to start
+         * @param requestCode client application request code to send the result
+         * @param launcher client application launcher instance to launch the UiApplication activity
+         */
+        private fun launchActivity(
+            activity: Activity,
+            action: String,
+            requestCode: Int,
+            launcher: ActivityResultLauncher<Intent>,
+        ) {
+            val intent = Intent(activity, UiApplication::class.java)
+            intent.putExtra(ACTION_KEY, action)
+            intent.putExtra(REQUEST_CODE, requestCode)
+            launcher.launch(intent)
+        }
     }
-}
 
 /**
  * IUserRepository interface is implemented by UserRepository to override the functions available in this interface
@@ -145,7 +151,7 @@ interface IUserRepository {
     fun signInWithAppAuth(
         activity: Activity,
         requestCode: Int,
-        launcher: ActivityResultLauncher<Intent>
+        launcher: ActivityResultLauncher<Intent>,
     )
 
     /**
@@ -158,8 +164,9 @@ interface IUserRepository {
     fun signUpWithAppAuth(
         activity: Activity,
         requestCode: Int,
-        launcher: ActivityResultLauncher<Intent>
+        launcher: ActivityResultLauncher<Intent>,
     )
+
     /**
      * represents to do SIGN OUT using SDK UI
      *
@@ -173,5 +180,8 @@ interface IUserRepository {
      * @param customEndPoint End points of API
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
-    suspend fun fetchUserProfile(customEndPoint: CustomEndPoint, customMessage: (CustomMessage<UserProfile>) -> Unit)
+    suspend fun fetchUserProfile(
+        customEndPoint: CustomEndPoint,
+        customMessage: (CustomMessage<UserProfile>) -> Unit,
+    )
 }

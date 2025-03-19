@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.vehicleservice.model.deviceassociation
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,8 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * AssociationData data class is used to hold the association information of device to pass to API
  *
@@ -29,17 +28,19 @@ import com.google.gson.annotations.SerializedName
  * @property mImSi IMSI of device
  * @property mBssid BSSID of device
  */
-data class AssociationData(@SerializedName("imei")
-                           val mImei: String?=null,
-                           @SerializedName("serialNumber")
-                           val mSerialNumber: String?=null,
-                           @SerializedName("ssid")
-                           val mSsid: String?=null,
-                           @SerializedName("iccid")
-                           val mIcCid: String?=null,
-                           @SerializedName("msisdn")
-                           val mMsisdn: String?=null,
-                           @SerializedName("imsi")
-                           val mImSi: String?=null,
-                           @SerializedName("bssid")
-                           val mBssid: String?=null)
+data class AssociationData(
+    @SerializedName("imei")
+    val mImei: String? = null,
+    @SerializedName("serialNumber")
+    val mSerialNumber: String? = null,
+    @SerializedName("ssid")
+    val mSsid: String? = null,
+    @SerializedName("iccid")
+    val mIcCid: String? = null,
+    @SerializedName("msisdn")
+    val mMsisdn: String? = null,
+    @SerializedName("imsi")
+    val mImSi: String? = null,
+    @SerializedName("bssid")
+    val mBssid: String? = null,
+)

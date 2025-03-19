@@ -1,4 +1,5 @@
 package com.harman.androidvehicleconnectsdk.network
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -15,27 +16,27 @@ package com.harman.androidvehicleconnectsdk.network
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-/**
- * Represents EndPoint interface is used to hold the basic information regarding the API call
- *
- */
 interface EndPoint {
     /**
      * Represents the base url used by the API
      */
     var baseUrl: String?
+
     /**
      * Represents the path used by the API
      */
     var path: String?
+
     /**
      * Represents the API method
      */
     var method: RequestMethod?
+
     /**
      * Represents the API header
      */
     var header: HashMap<String, String>?
+
     /**
      * Represents the API body
      */
