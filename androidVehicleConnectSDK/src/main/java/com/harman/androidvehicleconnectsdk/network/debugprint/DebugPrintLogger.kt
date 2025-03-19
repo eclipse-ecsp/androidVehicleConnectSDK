@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.network.debugprint
-
-import android.util.Log
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,12 +15,13 @@ import android.util.Log
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import android.util.Log
+
 /**
  * DebugPrintLogger class is used to log the TAG and message to android.util log with the thread which is running
  *
  */
 class DebugPrintLogger : IDebugPrint {
-
     companion object {
         private const val SPACE_STRING = " "
     }
@@ -34,17 +32,24 @@ class DebugPrintLogger : IDebugPrint {
      * @param tag TAG is used to print the log
      * @param msg Value which is need to log
      */
-    private fun e(tag: String?, msg: String) {
+    private fun e(
+        tag: String?,
+        msg: String,
+    ) {
         val message = messageWithThreadId(msg)
         Log.e(tag, message)
     }
+
     /**
      * This function is to log the debug part
      *
      * @param tag TAG is used to print the log
      * @param msg Value which is need to log
      */
-    private fun debug(tag: String?, msg: String) {
+    private fun debug(
+        tag: String?,
+        msg: String,
+    ) {
         val message = messageWithThreadId(msg)
         Log.d(tag, message)
     }
@@ -69,7 +74,10 @@ class DebugPrintLogger : IDebugPrint {
      * @param sb StringBuilder which is send by messageWithThreadId function
      * @param ll Thread value
      */
-    private fun rightJustifiedNumber(sb: java.lang.StringBuilder, ll: Long) {
+    private fun rightJustifiedNumber(
+        sb: java.lang.StringBuilder,
+        ll: Long,
+    ) {
         if (ll < 100000) sb.append(SPACE_STRING)
         if (ll < 10000) sb.append(SPACE_STRING)
         if (ll < 1000) sb.append(SPACE_STRING)
@@ -84,7 +92,10 @@ class DebugPrintLogger : IDebugPrint {
      * @param callerTag TAG is used to print the log
      * @param message Value which is need to log
      */
-    override fun d(callerTag: String?, message: Any?) {
+    override fun d(
+        callerTag: String?,
+        message: Any?,
+    ) {
         debug(callerTag, message.toString())
     }
 
@@ -94,8 +105,12 @@ class DebugPrintLogger : IDebugPrint {
      * @param callerTag TAG is used to print the log
      * @param message Value which is need to log
      */
-    override fun e(callerTag: String?, message: Any?) {
-        if (message != null)
+    override fun e(
+        callerTag: String?,
+        message: Any?,
+    ) {
+        if (message != null) {
             e(callerTag, message.toString())
+        }
     }
 }

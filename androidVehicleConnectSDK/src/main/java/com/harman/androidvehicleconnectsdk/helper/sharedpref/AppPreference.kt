@@ -27,7 +27,6 @@ import android.content.Context
  * which is received via AppDataStorage class
  */
 class AppPreference(context: Context) : IAppPreference {
-
     companion object {
         private const val VEHICLE_OEM_PREF = "vehicle_oem_pref"
         private const val ENVIRONMENT_DATA = "environment_data"
@@ -51,6 +50,7 @@ class AppPreference(context: Context) : IAppPreference {
         set(value) {
             saveString(ENVIRONMENT_DATA, value)
         }
+
     /**
      * This variable is capable of saving and getting the Token data from shared preference instance
      * @return accessToken data in string format
@@ -60,6 +60,7 @@ class AppPreference(context: Context) : IAppPreference {
         set(value) {
             saveString(ACCESS_TOKEN, value)
         }
+
     /**
      * This variable is capable of saving and getting the token Type data from shared preference instance
      * @return tokenType data in string format
@@ -69,6 +70,7 @@ class AppPreference(context: Context) : IAppPreference {
         set(value) {
             saveString(TOKEN_TYPE, value)
         }
+
     /**
      * This variable is capable of saving and getting the refresh Token data from shared preference instance
      * @return refreshToken data in string format
@@ -78,6 +80,7 @@ class AppPreference(context: Context) : IAppPreference {
         set(value) {
             saveString(REFRESH_TOKEN, value)
         }
+
     /**
      * This variable is capable of saving and getting the authState data from shared preference instance
      * @return authState data in string format
@@ -87,6 +90,7 @@ class AppPreference(context: Context) : IAppPreference {
         set(value) {
             saveString(AUTH_STATE, value)
         }
+
     /**
      * This variable is capable of saving and getting the authTokenExpireTime data from shared preference instance
      * @return authTokenExpireTime data in string format
@@ -96,6 +100,7 @@ class AppPreference(context: Context) : IAppPreference {
         set(value) {
             saveLong(AUTH_EXPIRE_TIME, value)
         }
+
     /**
      * This variable is capable of saving and getting the isLoggedIn boolean value from shared preference instance
      * @return isLoggedIn in boolean format
@@ -129,7 +134,10 @@ class AppPreference(context: Context) : IAppPreference {
      * @param key String text used to store the value under shared preference instance
      * @param value Data which is need to store under shared preference instance
      */
-    private fun saveString(key: String, value: String) {
+    private fun saveString(
+        key: String,
+        value: String,
+    ) {
         editor.putString(key, value).apply()
     }
 
@@ -140,7 +148,10 @@ class AppPreference(context: Context) : IAppPreference {
      * @param defaultValue Default value which will be passed if there is no data available
      * @return String value
      */
-    private fun getString(key: String, defaultValue: String = ""): String {
+    private fun getString(
+        key: String,
+        defaultValue: String = "",
+    ): String {
         return sharedPref.getString(key, defaultValue) ?: defaultValue
     }
 
@@ -150,7 +161,10 @@ class AppPreference(context: Context) : IAppPreference {
      * @param key String text used to store the value under shared preference instance
      * @param value Data which is need to store under shared preference instance
      */
-    private fun saveLong(key: String, value: Long) {
+    private fun saveLong(
+        key: String,
+        value: Long,
+    ) {
         editor.putLong(key, value).apply()
     }
 
@@ -161,9 +175,13 @@ class AppPreference(context: Context) : IAppPreference {
      * @param defaultValue Default value which will be passed if there is no data available
      * @return Long value
      */
-    private fun getLong(key: String, defaultValue: Long = 0): Long {
+    private fun getLong(
+        key: String,
+        defaultValue: Long = 0,
+    ): Long {
         return sharedPref.getLong(key, defaultValue)
     }
+
     /**
      * This function is to retrieve the Boolean data from shared preference instance using the key
      *
@@ -171,17 +189,23 @@ class AppPreference(context: Context) : IAppPreference {
      * @param defaultValue Default value which will be passed if there is no data available
      * @return Boolean value
      */
-    private fun getBoolean(key: String, defaultValue: Boolean = false): Boolean{
+    private fun getBoolean(
+        key: String,
+        defaultValue: Boolean = false,
+    ): Boolean {
         return sharedPref.getBoolean(key, defaultValue)
     }
+
     /**
      * This function is to store the Boolean value
      *
      * @param key String text used to store the value under shared preference instance
      * @param value Data which is need to store under shared preference instance
      */
-    private fun saveBoolean(key:String, value: Boolean){
+    private fun saveBoolean(
+        key: String,
+        value: Boolean,
+    ) {
         editor.putBoolean(key, value)
     }
-
 }

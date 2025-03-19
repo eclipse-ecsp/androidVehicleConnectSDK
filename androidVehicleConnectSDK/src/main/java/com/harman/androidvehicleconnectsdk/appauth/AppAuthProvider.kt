@@ -16,7 +16,6 @@ package com.harman.androidvehicleconnectsdk.appauth
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -24,8 +23,8 @@ import androidx.activity.result.ActivityResultLauncher
 import com.harman.androidvehicleconnectsdk.environment.Environment
 import com.harman.androidvehicleconnectsdk.environment.EnvironmentManager
 import com.harman.androidvehicleconnectsdk.helper.Constant.CLIENT_SECRET
-import com.harman.androidvehicleconnectsdk.helper.response.error.CustomError
 import com.harman.androidvehicleconnectsdk.helper.response.CustomMessage
+import com.harman.androidvehicleconnectsdk.helper.response.error.CustomError
 import com.harman.androidvehicleconnectsdk.helper.response.error.Status
 import com.harman.androidvehicleconnectsdk.helper.sharedpref.AppDataStorage
 import net.openid.appauth.AuthorizationException
@@ -47,7 +46,6 @@ class AppAuthProvider(
     private val context: Context,
     private val launcher: ActivityResultLauncher<Intent>? = null,
 ) : AuthInterface {
-
     private var environmentData: Environment? = null
     private var authorizationService: AuthorizationService? = null
 
@@ -72,17 +70,18 @@ class AppAuthProvider(
      */
     private fun getAuthorizationRequest(
         authServiceConfig: AuthorizationServiceConfiguration,
-        authParams: HashMap<String, String>
+        authParams: HashMap<String, String>,
     ): AuthorizationRequest {
         environmentData.let {
             val clientId: String = environmentData!!.clientId!!
             val redirectUri = Uri.parse(environmentData!!.redirectUrl)
-            val builder = AuthorizationRequest.Builder(
-                authServiceConfig,
-                clientId,
-                ResponseTypeValues.CODE,
-                redirectUri
-            )
+            val builder =
+                AuthorizationRequest.Builder(
+                    authServiceConfig,
+                    clientId,
+                    ResponseTypeValues.CODE,
+                    redirectUri,
+                )
             builder.setScopes(environmentData!!.scopes)
             builder.setAdditionalParameters(authParams)
             builder.setPrompt(AUTHORIZATION_LOGIN_KEY)
@@ -103,14 +102,15 @@ class AppAuthProvider(
             try {
                 environmentData?.let {
                     val appAuthConfiguration = OAuthServiceUtilities.getAppAuthConfiguration()
-                    val authParams = OAuthServiceUtilities.getParametersMap(it!!.clientSecret!!)
+                    val authParams = OAuthServiceUtilities.getParametersMap(it.clientSecret!!)
                     val signInServiceConfiguration =
                         OAuthServiceUtilities.getSignInServiceConfiguration()
 
                     authorizationService = AuthorizationService(context, appAuthConfiguration)
-                    val intent = authorizationService?.getAuthorizationRequestIntent(
-                        getAuthorizationRequest(signInServiceConfiguration, authParams)
-                    )
+                    val intent =
+                        authorizationService?.getAuthorizationRequestIntent(
+                            getAuthorizationRequest(signInServiceConfiguration, authParams),
+                        )
                     if (intent != null) {
                         launcher?.launch(intent)
                     }
@@ -119,16 +119,16 @@ class AppAuthProvider(
                 result(
                     CustomMessage(
                         Status.Failure,
-                        CustomError.Generic(e.message)
-                    )
+                        CustomError.Generic(e.message),
+                    ),
                 )
             }
         } else {
             result(
                 CustomMessage(
                     Status.Failure,
-                    CustomError.EnvironmentNotConfigured
-                )
+                    CustomError.EnvironmentNotConfigured,
+                ),
             )
         }
     }
@@ -145,19 +145,20 @@ class AppAuthProvider(
         ) {
             try {
                 environmentData?.let {
-
                     val appAuthConfiguration = OAuthServiceUtilities.getAppAuthConfiguration()
-                    val authParams = OAuthServiceUtilities.getParametersMap(it!!.clientSecret!!)
+                    val authParams = OAuthServiceUtilities.getParametersMap(it.clientSecret!!)
                     val signUpServiceConfiguration =
                         OAuthServiceUtilities.getSignUpServiceConfiguration()
 
-                    authorizationService = AuthorizationService(
-                        context,
-                        appAuthConfiguration
-                    )
-                    val intent = authorizationService?.getAuthorizationRequestIntent(
-                        getAuthorizationRequest(signUpServiceConfiguration, authParams)
-                    )
+                    authorizationService =
+                        AuthorizationService(
+                            context,
+                            appAuthConfiguration,
+                        )
+                    val intent =
+                        authorizationService?.getAuthorizationRequestIntent(
+                            getAuthorizationRequest(signUpServiceConfiguration, authParams),
+                        )
                     if (intent != null) {
                         launcher?.launch(intent)
                     }
@@ -166,16 +167,16 @@ class AppAuthProvider(
                 result(
                     CustomMessage(
                         Status.Failure,
-                        CustomError.Generic(e.message)
-                    )
+                        CustomError.Generic(e.message),
+                    ),
                 )
             }
         } else {
             result(
                 CustomMessage(
                     Status.Failure,
-                    CustomError.EnvironmentNotConfigured
-                )
+                    CustomError.EnvironmentNotConfigured,
+                ),
             )
         }
     }
@@ -190,17 +191,17 @@ class AppAuthProvider(
         response: AuthorizationResponse?,
         result: (
             tokenResponse: TokenResponse?,
-            authorizationException: AuthorizationException?
-        ) -> Unit
+            authorizationException: AuthorizationException?,
+        ) -> Unit,
     ) {
         if (environmentData != null && environmentData!!.clientSecret != null) {
             val parametersMap = HashMap<String, String>()
             parametersMap[CLIENT_SECRET] = environmentData?.clientSecret!!
             response?.createTokenExchangeRequest(
-                parametersMap
+                parametersMap,
             )?.let {
                 authorizationService?.performTokenRequest(
-                    it
+                    it,
                 ) { res, ex ->
                     result(res, ex)
                 }

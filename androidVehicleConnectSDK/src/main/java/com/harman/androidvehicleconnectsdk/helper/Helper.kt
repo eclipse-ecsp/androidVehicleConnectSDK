@@ -16,11 +16,6 @@ package com.harman.androidvehicleconnectsdk.helper
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-
-/**
- * Kotlin file contains the common functions which is used as extension functions
- */
-
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.harman.androidvehicleconnectsdk.helper.response.CustomMessage
@@ -44,8 +39,7 @@ internal inline fun <reified T> Gson.dataToJson(data: T): String = toJson(data)
  * @param json json String as input
  * @return Respective data class object
  */
-internal inline fun <reified T> Gson.fromJson(json: String): T =
-    fromJson(json, object : TypeToken<T>() {}.type)
+internal inline fun <reified T> Gson.fromJson(json: String): T = fromJson(json, object : TypeToken<T>() {}.type)
 
 /**
  * This function is used to share the locale of device where the application is available
@@ -54,7 +48,6 @@ internal inline fun <reified T> Gson.fromJson(json: String): T =
  */
 internal fun getLocale(): String = "en-US"
 
-
 /**
  * This function is to create the CustomMessage error body from error response body of retrofit
  *
@@ -62,15 +55,21 @@ internal fun getLocale(): String = "en-US"
  * @param responseBody Retrofit error response body served as API response
  * @return CustomMessage data class after converting error response body
  */
-internal inline fun <reified T> networkError(responseBody: ResponseBody?, errorCode: Int?): CustomMessage<T> {
+internal inline fun <reified T> networkError(
+    responseBody: ResponseBody?,
+    errorCode: Int?,
+): CustomMessage<T> {
     return CustomMessage(
         Status.Failure,
-        error = when(errorCode){
-            400 -> CustomError.InvalidRequest
-            500 -> CustomError.ServerError
-            401 -> CustomError.RefreshTokenFailed
-            else -> {CustomError.Generic(responseBody?.charStream()?.readText())}
-        }
+        error =
+            when (errorCode) {
+                400 -> CustomError.InvalidRequest
+                500 -> CustomError.ServerError
+                401 -> CustomError.RefreshTokenFailed
+                else -> {
+                    CustomError.Generic(responseBody?.charStream()?.readText())
+                }
+            },
     )
 }
 

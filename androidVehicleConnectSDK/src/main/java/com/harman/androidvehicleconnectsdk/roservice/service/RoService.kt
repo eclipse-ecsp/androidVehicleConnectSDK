@@ -1,17 +1,4 @@
 package com.harman.androidvehicleconnectsdk.roservice.service
-
-import com.harman.androidvehicleconnectsdk.CustomEndPoint
-import com.harman.androidvehicleconnectsdk.helper.AppManager
-import com.harman.androidvehicleconnectsdk.helper.Constant
-import com.harman.androidvehicleconnectsdk.helper.response.CustomMessage
-import com.harman.androidvehicleconnectsdk.roservice.endpoint.RoEndPoint
-import com.harman.androidvehicleconnectsdk.roservice.model.RemoteOperationState
-import com.harman.androidvehicleconnectsdk.roservice.model.RoEventHistoryResponse
-import com.harman.androidvehicleconnectsdk.roservice.model.RoRequestData
-import com.harman.androidvehicleconnectsdk.roservice.model.RoStatusResponse
-import com.harman.androidvehicleconnectsdk.roservice.repository.RoRepositoryInterface
-import javax.inject.Inject
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -28,6 +15,18 @@ import javax.inject.Inject
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.harman.androidvehicleconnectsdk.CustomEndPoint
+import com.harman.androidvehicleconnectsdk.helper.AppManager
+import com.harman.androidvehicleconnectsdk.helper.Constant
+import com.harman.androidvehicleconnectsdk.helper.response.CustomMessage
+import com.harman.androidvehicleconnectsdk.roservice.endpoint.RoEndPoint
+import com.harman.androidvehicleconnectsdk.roservice.model.RemoteOperationState
+import com.harman.androidvehicleconnectsdk.roservice.model.RoEventHistoryResponse
+import com.harman.androidvehicleconnectsdk.roservice.model.RoRequestData
+import com.harman.androidvehicleconnectsdk.roservice.model.RoStatusResponse
+import com.harman.androidvehicleconnectsdk.roservice.repository.RoRepositoryInterface
+import javax.inject.Inject
+
 /**
  * RoService class is used by client application to call the RO suspend functions
  * This class have RO suspend functions
@@ -45,6 +44,7 @@ class RoService : RoServiceInterface {
     init {
         AppManager.getAppComponent().inject(this)
     }
+
     /**
      * This function is to update the RO state
      *
@@ -61,24 +61,28 @@ class RoService : RoServiceInterface {
         percent: Int?,
         duration: Int?,
         remoteOperationState: RemoteOperationState,
-        customMessage: (CustomMessage<RoStatusResponse>) -> Unit
+        customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
     ) {
         val endPoint = RoEndPoint.UpdateRemoteOperation
         val tempHeader = endPoint.header
         tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl?:"",
-            "${
-                (endPoint.path?.replace(Constant.USER_ID, userId)
-                    ?.replace(Constant.VEHICLE_ID, vehicleId))
-            }${remoteOperationState.roEndPoint}",
-            endPoint.method,
-            tempHeader,
-            RoRequestData(remoteOperationState.state!!, percent, duration)
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                "${
+                    (
+                        endPoint.path?.replace(Constant.USER_ID, userId)
+                            ?.replace(Constant.VEHICLE_ID, vehicleId)
+                    )
+                }${remoteOperationState.roEndPoint}",
+                endPoint.method,
+                tempHeader,
+                RoRequestData(remoteOperationState.state!!, percent, duration),
+            )
         roRepositoryInterface.updateROStateRequest(customEndPoint, customMessage)
     }
+
     /**
      * This function is to get the RO history of the provided vehicle
      *
@@ -89,24 +93,28 @@ class RoService : RoServiceInterface {
     override suspend fun getRemoteOperationHistory(
         userId: String,
         vehicleId: String,
-        customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit
+        customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
     ) {
-        val endPoint  = RoEndPoint.RemoteOperationHistory
+        val endPoint = RoEndPoint.RemoteOperationHistory
         val tempHeader = endPoint.header
         tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl?:"",
-            "${
-                (endPoint.path?.replace(Constant.USER_ID, userId)
-                    ?.replace(Constant.VEHICLE_ID, vehicleId))
-            }${HISTORY_PATH}",
-            endPoint.method,
-            tempHeader,
-            endPoint.body
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                "${
+                    (
+                        endPoint.path?.replace(Constant.USER_ID, userId)
+                            ?.replace(Constant.VEHICLE_ID, vehicleId)
+                    )
+                }${HISTORY_PATH}",
+                endPoint.method,
+                tempHeader,
+                endPoint.body,
+            )
         roRepositoryInterface.getRemoteOperationHistory(customEndPoint, customMessage)
     }
+
     /**
      * This function is to check the RO state
      *
@@ -119,22 +127,25 @@ class RoService : RoServiceInterface {
         userId: String,
         vehicleId: String,
         roRequestId: String,
-        customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit
+        customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
     ) {
         val endPoint = RoEndPoint.RemoteOperationRequestStatus
         val tempHeader = endPoint.header
         tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl?:"",
-            "${
-                (endPoint.path?.replace(Constant.USER_ID, userId)
-                    ?.replace(Constant.VEHICLE_ID, vehicleId))
-            }${REQUEST_PATH}/${roRequestId}",
-            endPoint.method,
-            tempHeader,
-            endPoint.body
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                "${
+                    (
+                        endPoint.path?.replace(Constant.USER_ID, userId)
+                            ?.replace(Constant.VEHICLE_ID, vehicleId)
+                    )
+                }${REQUEST_PATH}/$roRequestId",
+                endPoint.method,
+                tempHeader,
+                endPoint.body,
+            )
         roRepositoryInterface.checkRemoteOperationRequestStatus(customEndPoint, customMessage)
     }
 }
@@ -150,9 +161,13 @@ interface RoServiceInterface {
      * @param remoteOperationState holds the remote Operation State value
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
-    suspend fun updateROStateRequest(userId: String, vehicleId: String, percent: Int?=null, duration: Int?=null,
+    suspend fun updateROStateRequest(
+        userId: String,
+        vehicleId: String,
+        percent: Int? = null,
+        duration: Int? = null,
         remoteOperationState: RemoteOperationState,
-        customMessage: (CustomMessage<RoStatusResponse>) -> Unit
+        customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
     )
 
     /**
@@ -165,7 +180,7 @@ interface RoServiceInterface {
     suspend fun getRemoteOperationHistory(
         userId: String,
         vehicleId: String,
-        customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit
+        customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
     )
 
     /**
@@ -180,7 +195,7 @@ interface RoServiceInterface {
         userId: String,
         vehicleId: String,
         roRequestId: String,
-        customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit
+        customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
     )
 
     companion object {

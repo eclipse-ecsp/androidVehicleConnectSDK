@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.roservice.model
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,8 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * RoRequestData data class is used to hold the RO request data
  *
@@ -28,5 +27,5 @@ import com.google.gson.annotations.SerializedName
 data class RoRequestData(
     @SerializedName("state") var mState: String,
     @SerializedName("percent") var mPercent: Int? = null,
-    @SerializedName("duration") var mDuration: Int? = null
+    @SerializedName("duration") var mDuration: Int? = null,
 )

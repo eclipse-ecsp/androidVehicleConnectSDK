@@ -36,21 +36,27 @@ interface AuthInterface {
      */
     var accessToken: String
         get() = AppDataStorage.getAppPrefInstance()?.accessToken ?: ""
-        set(value) {AppDataStorage.getAppPrefInstance()?.accessToken = value}
+        set(value) {
+            AppDataStorage.getAppPrefInstance()?.accessToken = value
+        }
 
     /**
      * Variable used to hold refresh token data
      */
     var refreshToken: String
         get() = AppDataStorage.getAppPrefInstance()?.refreshToken ?: ""
-        set(value) {AppDataStorage.getAppPrefInstance()?.refreshToken = value}
+        set(value) {
+            AppDataStorage.getAppPrefInstance()?.refreshToken = value
+        }
 
     /**
      * Variable used to hold token type data
      */
     var tokenType: String
         get() = AppDataStorage.getAppPrefInstance()?.tokenType ?: ""
-        set(value) {AppDataStorage.getAppPrefInstance()?.tokenType = value}
+        set(value) {
+            AppDataStorage.getAppPrefInstance()?.tokenType = value
+        }
 
     /**
      * Variable used to hold scope data
@@ -62,7 +68,9 @@ interface AuthInterface {
      */
     var accessTokenExpirationDate: Long
         get() = AppDataStorage.getAppPrefInstance()?.authTokenExpireTime ?: 0
-        set(value) {AppDataStorage.getAppPrefInstance()?.authTokenExpireTime = value}
+        set(value) {
+            AppDataStorage.getAppPrefInstance()?.authTokenExpireTime = value
+        }
 
     var additionalParameters: HashMap<Any, Any>
 
@@ -106,9 +114,9 @@ interface AuthInterface {
         response: AuthorizationResponse?,
         result: (
             tokenResponse: TokenResponse?,
-            authorizationException: AuthorizationException?
-        ) -> Unit
-    ) {/* default implementation */ }
+            authorizationException: AuthorizationException?,
+        ) -> Unit,
+    ) { /* default implementation */ }
 
     companion object {
         /**
@@ -121,8 +129,7 @@ interface AuthInterface {
         @JvmStatic
         fun appAuthInterface(
             context: Context,
-            launcher: ActivityResultLauncher<Intent>
-        ): AuthInterface =
-            AppAuthProvider(context, launcher)
+            launcher: ActivityResultLauncher<Intent>,
+        ): AuthInterface = AppAuthProvider(context, launcher)
     }
 }

@@ -16,12 +16,6 @@ package com.harman.androidvehicleconnectsdk.helper.sharedpref
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-
-/**
- * Interface is used by AppPreference class for data store,
- * which has data store and retrieving methods
- *
- */
 interface IAppPreference {
     var environment: String
     var accessToken: String
@@ -29,7 +23,9 @@ interface IAppPreference {
     var refreshToken: String
     var authState: String
     var authTokenExpireTime: Long
-    var isLoggedIn:Boolean
+    var isLoggedIn: Boolean
+
     fun remove(key: String)
+
     fun removeAll()
 }

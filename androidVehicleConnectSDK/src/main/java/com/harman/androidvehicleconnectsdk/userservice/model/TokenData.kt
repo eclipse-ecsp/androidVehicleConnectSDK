@@ -40,5 +40,5 @@ data class TokenData(
     @SerializedName("token_type")
     val mTokenType: String? = null,
     @SerializedName("expires_in")
-    var mExpiresIn: Long = 0
+    var mExpiresIn: Long = 0,
 )

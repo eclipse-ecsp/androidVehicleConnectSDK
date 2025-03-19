@@ -37,8 +37,8 @@ class AuthManager {
         }
 
         /*
-        * Save the values of token related details to Shared preference memory
-        * */
+         * Save the values of token related details to Shared preference memory
+         * */
         private fun setAuthStateValue() {
             if (authInterface?.accessToken != null && authInterface?.accessToken!!.isNotEmpty()) {
                 AppDataStorage.getAppPrefInstance()?.isLoggedIn = true
@@ -56,8 +56,8 @@ class AuthManager {
     }
 
     /*
-    * Used by SDK to save the token related details
-    * */
+     * Used by SDK to save the token related details
+     * */
     fun saveTokenState() {
         setAuthStateValue()
     }

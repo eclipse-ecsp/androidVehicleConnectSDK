@@ -16,22 +16,29 @@ package com.harman.androidvehicleconnectsdk.network
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-/**
- * RequestMethod sealed class is used to set the Request method for API call
- *
- * @param method - represents the API method
- *
- * @property Delete - method used to call delete API
- * @property Get - method used to call Get API
- * @property Patch - method used to call Patch API
- * @property Post - method used to call Post API
- * @property Put - method used to call Put API
- *
- */
 sealed class RequestMethod(val method: String) {
+    /**
+     * Delete - method used to call delete API
+     */
     data object Delete : RequestMethod("DELETE")
+
+    /**
+     * Get - method used to call Get API
+     */
     data object Get : RequestMethod("GET")
+
+    /**
+     * Patch - method used to call Patch API
+     */
     data object Patch : RequestMethod("PATCH")
+
+    /**
+     * Post - method used to call Post API
+     */
     data object Post : RequestMethod("POST")
+
+    /**
+     * Put - method used to call Put API
+     */
     data object Put : RequestMethod("PUT")
 }

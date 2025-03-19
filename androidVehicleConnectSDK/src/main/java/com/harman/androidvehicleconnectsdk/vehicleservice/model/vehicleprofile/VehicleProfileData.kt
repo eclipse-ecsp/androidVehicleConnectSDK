@@ -1,9 +1,4 @@
 package com.harman.androidvehicleconnectsdk.vehicleservice.model.vehicleprofile
-
-import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -20,6 +15,9 @@ import kotlinx.parcelize.Parcelize
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 /**
  * Vehicle Profile Data class used to hold the vehicle profile details
@@ -30,7 +28,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class VehicleProfileData(
     @SerializedName("message") var message: String,
-    @SerializedName("data") var data: List<VehicleDetailData>?
+    @SerializedName("data") var data: List<VehicleDetailData>?,
 ) : Parcelable
 
 /**
@@ -48,7 +46,7 @@ data class VehicleDetailData(
     @SerializedName("vehicleAttributes") var vehicleAttributes: VehicleAttributeData?,
     @SerializedName("vin") var vin: String?,
     @SerializedName("vehicleId") var vehicleId: String?,
-    @SerializedName("dummy") var dummy: Boolean?
+    @SerializedName("dummy") var dummy: Boolean?,
 ) : Parcelable
 
 /**
@@ -60,7 +58,7 @@ data class VehicleDetailData(
 @Parcelize
 data class UserData(
     @SerializedName("userId") var userId: String?,
-    @SerializedName("role") var role: String?
+    @SerializedName("role") var role: String?,
 ) : Parcelable
 
 /**
@@ -94,7 +92,7 @@ data class VehicleAttributeData(
     @SerializedName("name") var name: String?,
     @SerializedName("trim") var trim: String?,
     @SerializedName("type") var type: String?,
-    @SerializedName("fuelType") var fuelType: String?
+    @SerializedName("fuelType") var fuelType: String?,
 ) : Parcelable
 
 /**
@@ -103,7 +101,7 @@ data class VehicleAttributeData(
  * @property vehicleDetail holds vehicle attribute data
  */
 data class PostVehicleAttributeData(
-    @SerializedName("vehicleAttributes") var vehicleDetail: VehicleAttributeDetail
+    @SerializedName("vehicleAttributes") var vehicleDetail: VehicleAttributeDetail,
 )
 
 /**
@@ -128,5 +126,5 @@ data class VehicleAttributeDetail(
     @SerializedName("bodyType")
     var bodyType: String? = null,
     @SerializedName("name")
-    var name: String? = null
+    var name: String? = null,
 )

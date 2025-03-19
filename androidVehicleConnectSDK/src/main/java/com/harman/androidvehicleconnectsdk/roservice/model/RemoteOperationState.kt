@@ -16,26 +16,38 @@ package com.harman.androidvehicleconnectsdk.roservice.model
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-/**
- * RemoteOperationState sealed class is used to hold the values of Remote operation state
- *
- * @property state RO state value
- * @property roEndPoint base url end point
- */
-sealed class RemoteOperationState(val state: String?=null, val roEndPoint:String){
+sealed class RemoteOperationState(val state: String? = null, val roEndPoint: String) {
+    /**
+     * RemoteOperationState sealed class is used to hold the values of Remote operation state
+     *
+     * @property state RO state value
+     * @property roEndPoint base url end point
+     */
     data object AlarmOn : RemoteOperationState("ON", "alarm")
-    data object AlarmOff : RemoteOperationState("OFF","alarm")
-    data object WindowOpen : RemoteOperationState("OPENED","windows")
-    data object WindowClose : RemoteOperationState("CLOSED","windows")
-    data object WindowsAjar : RemoteOperationState("PARTIAL_OPENED","windows")
-    data object LightsOn : RemoteOperationState("ON","lights")
-    data object LightsOff : RemoteOperationState("OFF","lights")
-    data object LightsFlash : RemoteOperationState("FLASH","lights")
-    data object TrunkLocked : RemoteOperationState("LOCKED","trunk")
-    data object TrunkUnLocked : RemoteOperationState("UNLOCKED","trunk")
-    data object EngineStart : RemoteOperationState("STARTED","engine")
-    data object EngineStop : RemoteOperationState("STOPPED","engine")
-    data object DoorsLocked : RemoteOperationState("LOCKED","doors")
-    data object DoorsUnLocked : RemoteOperationState("UNLOCKED","doors")
 
+    data object AlarmOff : RemoteOperationState("OFF", "alarm")
+
+    data object WindowOpen : RemoteOperationState("OPENED", "windows")
+
+    data object WindowClose : RemoteOperationState("CLOSED", "windows")
+
+    data object WindowsAjar : RemoteOperationState("PARTIAL_OPENED", "windows")
+
+    data object LightsOn : RemoteOperationState("ON", "lights")
+
+    data object LightsOff : RemoteOperationState("OFF", "lights")
+
+    data object LightsFlash : RemoteOperationState("FLASH", "lights")
+
+    data object TrunkLocked : RemoteOperationState("LOCKED", "trunk")
+
+    data object TrunkUnLocked : RemoteOperationState("UNLOCKED", "trunk")
+
+    data object EngineStart : RemoteOperationState("STARTED", "engine")
+
+    data object EngineStop : RemoteOperationState("STOPPED", "engine")
+
+    data object DoorsLocked : RemoteOperationState("LOCKED", "doors")
+
+    data object DoorsUnLocked : RemoteOperationState("UNLOCKED", "doors")
 }

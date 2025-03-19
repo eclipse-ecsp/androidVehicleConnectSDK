@@ -1,5 +1,20 @@
 package com.harman.androidvehicleconnectsdk.notificationservice.repository
-
+/********************************************************************************
+ * Copyright (c) 2023-24 Harman International
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ ********************************************************************************/
 import com.google.gson.Gson
 import com.harman.androidvehicleconnectsdk.CustomEndPoint
 import com.harman.androidvehicleconnectsdk.helper.AppManager
@@ -12,73 +27,59 @@ import com.harman.androidvehicleconnectsdk.notificationservice.model.AlertAnalys
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
-********************************************************************************
-* COPYRIGHT (c) 2024 Harman International Industries, Inc                  *
-*                                                                              *
-* All rights reserved                                                          *
-*                                                                              *
-* This software embodies materials and concepts which are                      *
-* confidential to Harman International Industries, Inc. and is                 *
-* made available solely pursuant to the terms of a written license             *
-* agreement with Harman International Industries, Inc.                         *
-*                                                                              *
-* Designed and Developed by Harman International Industries, Inc.              *
-*------------------------------------------------------------------------------*
-* MODULE OR UNIT: <<name of the component or module>>                          *
-********************************************************************************
-*/
 @Singleton
-class NotificationRepository @Inject constructor() : NotificationRepoInterface {
-
+class NotificationRepository
     @Inject
-    lateinit var retrofitManager: IRetrofitManager
-    init {
-        AppManager.getAppComponent().inject(this)
-    }
+    constructor() : NotificationRepoInterface {
+        @Inject
+        lateinit var retrofitManager: IRetrofitManager
 
-    /**
-     * This function is to call the API for updating the Notification config using retrofit service
-     * @param customEndPoint this holds the customized endpoints of API Call
-     * @param customMessage this is the call back function to pass the response value
-    */
-    override suspend fun updateNotificationConfig(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<String>) -> Unit
-    ) {
-        retrofitManager.sendRequest(customEndPoint).also {
-            if (it != null && it.isSuccessful) {
-                customMessage(networkResponse("Successfully updated the notification configuration data"))
-            } else {
-                customMessage(networkError(it?.errorBody(), it?.code()))
+        init {
+            AppManager.getAppComponent().inject(this)
+        }
+
+        /**
+         * This function is to call the API for updating the Notification config using retrofit service
+         * @param customEndPoint this holds the customized endpoints of API Call
+         * @param customMessage this is the call back function to pass the response value
+         */
+        override suspend fun updateNotificationConfig(
+            customEndPoint: CustomEndPoint,
+            customMessage: (CustomMessage<String>) -> Unit,
+        ) {
+            retrofitManager.sendRequest(customEndPoint).also {
+                if (it != null && it.isSuccessful) {
+                    customMessage(networkResponse("Successfully updated the notification configuration data"))
+                } else {
+                    customMessage(networkError(it?.errorBody(), it?.code()))
+                }
+            }
+        }
+
+        /**
+         * This function is to call the API for getting the Alert Notification history using retrofit service
+         * @param customEndPoint this holds the customized endpoints of API Call
+         * @param customMessage this is the call back function to pass the response value
+         */
+        override suspend fun notificationAlertHistory(
+            customEndPoint: CustomEndPoint,
+            customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
+        ) {
+            retrofitManager.sendRequest(customEndPoint).also {
+                if (it != null && it.isSuccessful) {
+                    val data = Gson().fromJson<AlertAnalysisData>(it.body().toString())
+                    customMessage(networkResponse(data))
+                } else {
+                    customMessage(networkError(it?.errorBody(), it?.code()))
+                }
             }
         }
     }
-
-    /**
-     * This function is to call the API for getting the Alert Notification history using retrofit service
-     * @param customEndPoint this holds the customized endpoints of API Call
-     * @param customMessage this is the call back function to pass the response value
-     */
-    override suspend fun notificationAlertHistory(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit
-    ) {
-        retrofitManager.sendRequest(customEndPoint).also {
-            if (it != null && it.isSuccessful) {
-                val data = Gson().fromJson<AlertAnalysisData>(it.body().toString())
-                customMessage(networkResponse(data))
-            } else {
-                customMessage(networkError(it?.errorBody(), it?.code()))
-            }
-        }
-    }
-}
 
 interface NotificationRepoInterface {
     suspend fun updateNotificationConfig(
         customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<String>) -> Unit
+        customMessage: (CustomMessage<String>) -> Unit,
     )
 
     /**
@@ -89,6 +90,6 @@ interface NotificationRepoInterface {
      */
     suspend fun notificationAlertHistory(
         customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit
+        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
     )
 }

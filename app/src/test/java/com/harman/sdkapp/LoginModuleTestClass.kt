@@ -10,7 +10,6 @@ import com.harman.androidvehicleconnectsdk.userservice.model.UserProfile
 import com.harman.androidvehicleconnectsdk.userservice.model.UserProfileCollection
 import com.harman.androidvehicleconnectsdk.userservice.repository.UserRepository
 import kotlinx.coroutines.runBlocking
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert
 import org.junit.Before

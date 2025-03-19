@@ -56,6 +56,5 @@ class AppDataStorage {
         fun getAppPrefInstance(): AppPreference? {
             return appPreference
         }
-
     }
 }

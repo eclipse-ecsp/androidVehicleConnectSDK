@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.vehicleservice.model.deviceassociation
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,8 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * AssociatedDeviceInfo data class holds the associated device API response
  *
@@ -28,7 +27,7 @@ import com.google.gson.annotations.SerializedName
 data class AssociatedDeviceInfo(
     @SerializedName("code") val mCode: String?,
     @SerializedName("message") val mMessage: String?,
-    @SerializedName("data") val mAssociationInfo: AssociationInfo?
+    @SerializedName("data") val mAssociationInfo: AssociationInfo?,
 ) {
     /**
      * represents to hold the Association details
@@ -38,6 +37,6 @@ data class AssociatedDeviceInfo(
      */
     data class AssociationInfo(
         @SerializedName("associationID") val mAssociationID: Long,
-        @SerializedName("associationStatus") val mAssociationStatus: String?
+        @SerializedName("associationStatus") val mAssociationStatus: String?,
     )
 }

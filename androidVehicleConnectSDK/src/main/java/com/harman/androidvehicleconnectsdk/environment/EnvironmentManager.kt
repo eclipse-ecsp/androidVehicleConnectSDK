@@ -29,7 +29,6 @@ import com.harman.androidvehicleconnectsdk.network.debugprint.DebugPrint
  *
  */
 class EnvironmentManager {
-
     companion object {
         private val TAG = EnvironmentManager::class.java.name
         private var environmentInstance: Environment? = null
@@ -40,12 +39,14 @@ class EnvironmentManager {
          * @return Environment , holds the environment data
          */
         fun environment(): Environment? {
-            if (environmentInstance == null)
-                environmentInstance = AppDataStorage.getAppPrefInstance()?.environment?.let {
-                    Gson().fromJson<Environment>(
-                        it
-                    )
-                }
+            if (environmentInstance == null) {
+                environmentInstance =
+                    AppDataStorage.getAppPrefInstance()?.environment?.let {
+                        Gson().fromJson<Environment>(
+                            it,
+                        )
+                    }
+            }
             return environmentInstance
         }
 

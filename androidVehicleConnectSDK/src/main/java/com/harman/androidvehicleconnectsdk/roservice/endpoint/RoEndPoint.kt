@@ -1,15 +1,4 @@
 package com.harman.androidvehicleconnectsdk.roservice.endpoint
-
-import com.harman.androidvehicleconnectsdk.environment.EnvironmentManager
-import com.harman.androidvehicleconnectsdk.helper.Constant
-import com.harman.androidvehicleconnectsdk.helper.Constant.ORIGIN_KEY
-import com.harman.androidvehicleconnectsdk.helper.Constant.ORIGIN_VALUE
-import com.harman.androidvehicleconnectsdk.helper.Constant.USER_ID
-import com.harman.androidvehicleconnectsdk.helper.Constant.VEHICLE_ID
-import com.harman.androidvehicleconnectsdk.helper.getLocale
-import com.harman.androidvehicleconnectsdk.network.EndPoint
-import com.harman.androidvehicleconnectsdk.network.RequestMethod
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -26,6 +15,15 @@ import com.harman.androidvehicleconnectsdk.network.RequestMethod
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.harman.androidvehicleconnectsdk.environment.EnvironmentManager
+import com.harman.androidvehicleconnectsdk.helper.Constant
+import com.harman.androidvehicleconnectsdk.helper.Constant.ORIGIN_KEY
+import com.harman.androidvehicleconnectsdk.helper.Constant.ORIGIN_VALUE
+import com.harman.androidvehicleconnectsdk.helper.Constant.USER_ID
+import com.harman.androidvehicleconnectsdk.helper.Constant.VEHICLE_ID
+import com.harman.androidvehicleconnectsdk.helper.getLocale
+import com.harman.androidvehicleconnectsdk.network.EndPoint
+import com.harman.androidvehicleconnectsdk.network.RequestMethod
 
 /**
  * RoEndPoint sealed class is used to configure the Remote operation API endpoints and other details
@@ -41,55 +39,61 @@ sealed class RoEndPoint(val name: String) : EndPoint {
     }
 
     data object UpdateRemoteOperation : RoEndPoint(REMOTE_OPERATION_UPDATE)
+
     data object RemoteOperationHistory : RoEndPoint(REMOTE_OPERATION_HISTORY)
+
     data object RemoteOperationRequestStatus : RoEndPoint(REMOTE_OPERATION_REQUEST_STATUS)
 
     /**
      * Endpoint interface implementation method to set the base url for RO
      */
-    override var baseUrl: String? = when (this.name) {
-        REMOTE_OPERATION_UPDATE, REMOTE_OPERATION_HISTORY, REMOTE_OPERATION_REQUEST_STATUS -> {
-            EnvironmentManager.environment()?.baseUrl.toString()
-        }
+    override var baseUrl: String? =
+        when (this.name) {
+            REMOTE_OPERATION_UPDATE, REMOTE_OPERATION_HISTORY, REMOTE_OPERATION_REQUEST_STATUS -> {
+                EnvironmentManager.environment()?.baseUrl.toString()
+            }
 
-        else -> ""
-    }
+            else -> ""
+        }
 
     /**
      * Endpoint interface implementation method to set the path (end point of base url) for RO
      */
-    override var path: String? = when (this.name) {
-        REMOTE_OPERATION_UPDATE, REMOTE_OPERATION_HISTORY, REMOTE_OPERATION_REQUEST_STATUS -> {
-            "v1.1/users/${USER_ID}/vehicles/${VEHICLE_ID}/ro/"
-        }
+    override var path: String? =
+        when (this.name) {
+            REMOTE_OPERATION_UPDATE, REMOTE_OPERATION_HISTORY, REMOTE_OPERATION_REQUEST_STATUS -> {
+                "v1.1/users/${USER_ID}/vehicles/${VEHICLE_ID}/ro/"
+            }
 
-        else -> ""
-    }
+            else -> ""
+        }
 
     /**
      * Endpoint interface implementation method to set the Request method for RO
      */
-    override var method: RequestMethod? = when (this.name) {
-        REMOTE_OPERATION_UPDATE -> RequestMethod.Put
-        else -> {
-            RequestMethod.Get
+    override var method: RequestMethod? =
+        when (this.name) {
+            REMOTE_OPERATION_UPDATE -> RequestMethod.Put
+            else -> {
+                RequestMethod.Get
+            }
         }
-    }
 
     /**
      * Endpoint interface implementation method to set the headers for RO
      */
-    override var header: HashMap<String, String>? = when (this.name) {
-        REMOTE_OPERATION_UPDATE, REMOTE_OPERATION_HISTORY, REMOTE_OPERATION_REQUEST_STATUS -> {
-            HashMap<String, String>().apply {
-                put(Constant.HEADER_ACCEPT, Constant.HEADER_APPLICATION_JSON)
-                put(Constant.HEADER_ACCEPT_LANGUAGE, getLocale())
-                put(ORIGIN_KEY, ORIGIN_VALUE)
+    override var header: HashMap<String, String>? =
+        when (this.name) {
+            REMOTE_OPERATION_UPDATE, REMOTE_OPERATION_HISTORY, REMOTE_OPERATION_REQUEST_STATUS -> {
+                HashMap<String, String>().apply {
+                    put(Constant.HEADER_ACCEPT, Constant.HEADER_APPLICATION_JSON)
+                    put(Constant.HEADER_ACCEPT_LANGUAGE, getLocale())
+                    put(ORIGIN_KEY, ORIGIN_VALUE)
+                }
             }
-        }
 
-        else -> HashMap()
-    }
+            else -> HashMap()
+        }
 
     /**
      * Endpoint interface implementation method to set the body for RO

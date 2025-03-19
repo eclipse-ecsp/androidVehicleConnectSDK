@@ -35,6 +35,7 @@ import javax.inject.Inject
 class UserService(private val activity: Activity) : UserServiceInterface {
     @Inject
     lateinit var iUserRepository: IUserRepository
+
     init {
         AppManager.getAppComponent().inject(this)
     }
@@ -45,18 +46,26 @@ class UserService(private val activity: Activity) : UserServiceInterface {
      * @param requestCode client application request code to send the result
      * @param launcher client application launcher instance to launch the UiApplication activity
      */
-    override fun signInWithAppAuth(requestCode: Int, launcher: ActivityResultLauncher<Intent>) {
+    override fun signInWithAppAuth(
+        requestCode: Int,
+        launcher: ActivityResultLauncher<Intent>,
+    ) {
         iUserRepository.signInWithAppAuth(activity, requestCode, launcher)
     }
+
     /**
      * This function is to do sign up process by launching the UiApplication activity
      *
      * @param requestCode client application request code to send the result
      * @param launcher client application launcher instance to launch the UiApplication activity
      */
-    override fun signUpWithAppAuth(requestCode: Int, launcher: ActivityResultLauncher<Intent>) {
+    override fun signUpWithAppAuth(
+        requestCode: Int,
+        launcher: ActivityResultLauncher<Intent>,
+    ) {
         iUserRepository.signUpWithAppAuth(activity, requestCode, launcher)
     }
+
     /**
      * This function is to do sign out process by removing all shared preference data
      * related to the current user.
@@ -66,6 +75,7 @@ class UserService(private val activity: Activity) : UserServiceInterface {
     override fun signOutWithAppAuth(result: (CustomMessage<Any>) -> Unit) {
         iUserRepository.signOutWithAppAuth(result)
     }
+
     /**
      * This function is to fetch the user profile data
      *
@@ -74,13 +84,14 @@ class UserService(private val activity: Activity) : UserServiceInterface {
      */
     override suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit) {
         val userEndPoint = UserEndPoint.Profile
-        val customEndPoint = CustomEndPoint(
-            userEndPoint.baseUrl?:"",
-            userEndPoint.path,
-            userEndPoint.method,
-            userEndPoint.header,
-            userEndPoint.body
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                userEndPoint.baseUrl ?: "",
+                userEndPoint.path,
+                userEndPoint.method,
+                userEndPoint.header,
+                userEndPoint.body,
+            )
         iUserRepository.fetchUserProfile(customEndPoint, customMessage)
     }
 }
@@ -96,26 +107,36 @@ interface UserServiceInterface {
      * @param requestCode holds activity result request code
      * @param launcher holds [ActivityResultLauncher] object
      */
-    fun signInWithAppAuth(requestCode : Int, launcher : ActivityResultLauncher<Intent>)
+    fun signInWithAppAuth(
+        requestCode: Int,
+        launcher: ActivityResultLauncher<Intent>,
+    )
+
     /**
      * Represents to do SIGN UP
      *
      * @param requestCode holds activity result request code
      * @param launcher holds [ActivityResultLauncher] object
      */
-    fun signUpWithAppAuth(requestCode : Int, launcher : ActivityResultLauncher<Intent>)
+    fun signUpWithAppAuth(
+        requestCode: Int,
+        launcher: ActivityResultLauncher<Intent>,
+    )
+
     /**
      * Represents to do SIGN OUT
      *
      * @param result emits the [CustomMessage] using higher order function
      */
     fun signOutWithAppAuth(result: (CustomMessage<Any>) -> Unit)
+
     /**
      * Represents to fetch the user profile data
      *
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit)
+
     companion object {
         /**
          * This function is used by client application to get the instance of UserService class

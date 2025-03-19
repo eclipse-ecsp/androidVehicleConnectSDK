@@ -1,19 +1,4 @@
 package com.harman.androidvehicleconnectsdk.vehicleservice.service
-
-import com.harman.androidvehicleconnectsdk.CustomEndPoint
-import com.harman.androidvehicleconnectsdk.helper.AppManager
-import com.harman.androidvehicleconnectsdk.helper.response.CustomMessage
-import com.harman.androidvehicleconnectsdk.vehicleservice.endpoint.VehicleEndPoint
-import com.harman.androidvehicleconnectsdk.vehicleservice.model.DeviceAssociationListData
-import com.harman.androidvehicleconnectsdk.vehicleservice.model.DeviceVerificationData
-import com.harman.androidvehicleconnectsdk.vehicleservice.model.TerminateDeviceData
-import com.harman.androidvehicleconnectsdk.vehicleservice.model.deviceassociation.AssociatedDeviceInfo
-import com.harman.androidvehicleconnectsdk.vehicleservice.model.deviceassociation.AssociationData
-import com.harman.androidvehicleconnectsdk.vehicleservice.model.vehicleprofile.PostVehicleAttributeData
-import com.harman.androidvehicleconnectsdk.vehicleservice.model.vehicleprofile.VehicleProfileData
-import com.harman.androidvehicleconnectsdk.vehicleservice.repository.VehicleRepoInterface
-import javax.inject.Inject
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -30,6 +15,20 @@ import javax.inject.Inject
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.harman.androidvehicleconnectsdk.CustomEndPoint
+import com.harman.androidvehicleconnectsdk.helper.AppManager
+import com.harman.androidvehicleconnectsdk.helper.response.CustomMessage
+import com.harman.androidvehicleconnectsdk.vehicleservice.endpoint.VehicleEndPoint
+import com.harman.androidvehicleconnectsdk.vehicleservice.model.DeviceAssociationListData
+import com.harman.androidvehicleconnectsdk.vehicleservice.model.DeviceVerificationData
+import com.harman.androidvehicleconnectsdk.vehicleservice.model.TerminateDeviceData
+import com.harman.androidvehicleconnectsdk.vehicleservice.model.deviceassociation.AssociatedDeviceInfo
+import com.harman.androidvehicleconnectsdk.vehicleservice.model.deviceassociation.AssociationData
+import com.harman.androidvehicleconnectsdk.vehicleservice.model.vehicleprofile.PostVehicleAttributeData
+import com.harman.androidvehicleconnectsdk.vehicleservice.model.vehicleprofile.VehicleProfileData
+import com.harman.androidvehicleconnectsdk.vehicleservice.repository.VehicleRepoInterface
+import javax.inject.Inject
+
 /**
  * VehicleService class is used by client application to call the Vehicle related functions
  */
@@ -60,16 +59,17 @@ class VehicleService : VehicleServiceInterface {
      */
     override suspend fun verifyDeviceImei(
         imeiNumber: String,
-        customMessage: (CustomMessage<DeviceVerificationData>) -> Unit
+        customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
     ) {
         val endPoint = VehicleEndPoint.VerifyDevice
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl ?: "",
-            endPoint.path + imeiNumber,
-            endPoint.method,
-            endPoint.header,
-            endPoint.body
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                endPoint.path + imeiNumber,
+                endPoint.method,
+                endPoint.header,
+                endPoint.body,
+            )
         iVehicleRepository.verifyDeviceImei(customEndPoint, customMessage)
     }
 
@@ -81,17 +81,18 @@ class VehicleService : VehicleServiceInterface {
      */
     override suspend fun associateDevice(
         imeiNumber: String,
-        customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit
+        customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
     ) {
         val endPoint = VehicleEndPoint.DeviceAssociation
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl ?: "",
-            endPoint.path,
-            endPoint.method,
-            endPoint.header,
-            AssociationData(mImei = imeiNumber)
-        )
-        iVehicleRepository.associateDevice(customEndPoint,customMessage)
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                endPoint.path,
+                endPoint.method,
+                endPoint.header,
+                AssociationData(mImei = imeiNumber),
+            )
+        iVehicleRepository.associateDevice(customEndPoint, customMessage)
     }
 
     /**
@@ -102,16 +103,17 @@ class VehicleService : VehicleServiceInterface {
      */
     override suspend fun getVehicleProfile(
         deviceId: String,
-        customMessage: (CustomMessage<VehicleProfileData>) -> Unit
+        customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
     ) {
         val endPoint = VehicleEndPoint.VehicleProfile
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl ?: "",
-            endPoint.path + deviceId,
-            endPoint.method,
-            endPoint.header,
-            endPoint.body
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                endPoint.path + deviceId,
+                endPoint.method,
+                endPoint.header,
+                endPoint.body,
+            )
         iVehicleRepository.getVehicleProfile(customEndPoint, customMessage)
     }
 
@@ -125,16 +127,17 @@ class VehicleService : VehicleServiceInterface {
     override suspend fun updateVehicleProfile(
         deviceId: String,
         postVehicleAttributeData: PostVehicleAttributeData,
-        customMessage: (CustomMessage<String>) -> Unit
+        customMessage: (CustomMessage<String>) -> Unit,
     ) {
         val endPoint = VehicleEndPoint.UpdateVehicleProfile
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl ?: "",
-            endPoint.path + deviceId,
-            endPoint.method,
-            endPoint.header,
-            postVehicleAttributeData
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                endPoint.path + deviceId,
+                endPoint.method,
+                endPoint.header,
+                postVehicleAttributeData,
+            )
         iVehicleRepository.updateVehicleProfile(customEndPoint, customMessage)
     }
 
@@ -146,16 +149,17 @@ class VehicleService : VehicleServiceInterface {
      */
     override suspend fun terminateVehicle(
         terminateDeviceData: TerminateDeviceData,
-        customMessage: (CustomMessage<String>) -> Unit
+        customMessage: (CustomMessage<String>) -> Unit,
     ) {
         val endPoint = VehicleEndPoint.TerminateDevice
-        val customEndPoint = CustomEndPoint(
-            endPoint.baseUrl ?: "",
-            endPoint.path,
-            endPoint.method,
-            endPoint.header,
-            terminateDeviceData
-        )
+        val customEndPoint =
+            CustomEndPoint(
+                endPoint.baseUrl ?: "",
+                endPoint.path,
+                endPoint.method,
+                endPoint.header,
+                terminateDeviceData,
+            )
         iVehicleRepository.terminateDevice(customEndPoint, customMessage)
     }
 }
@@ -180,7 +184,7 @@ interface VehicleServiceInterface {
      */
     suspend fun verifyDeviceImei(
         imeiNumber: String,
-        customMessage: (CustomMessage<DeviceVerificationData>) -> Unit
+        customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
     )
 
     /**
@@ -191,7 +195,7 @@ interface VehicleServiceInterface {
      */
     suspend fun associateDevice(
         imeiNumber: String,
-        customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit
+        customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
     )
 
     /**
@@ -202,7 +206,7 @@ interface VehicleServiceInterface {
      */
     suspend fun getVehicleProfile(
         deviceId: String,
-        customMessage: (CustomMessage<VehicleProfileData>) -> Unit
+        customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
     )
 
     /**
@@ -215,7 +219,7 @@ interface VehicleServiceInterface {
     suspend fun updateVehicleProfile(
         deviceId: String,
         postVehicleAttributeData: PostVehicleAttributeData,
-        customMessage: (CustomMessage<String>) -> Unit
+        customMessage: (CustomMessage<String>) -> Unit,
     )
 
     /**
@@ -226,7 +230,7 @@ interface VehicleServiceInterface {
      */
     suspend fun terminateVehicle(
         terminateDeviceData: TerminateDeviceData,
-        customMessage: (CustomMessage<String>) -> Unit
+        customMessage: (CustomMessage<String>) -> Unit,
     )
 
     companion object {

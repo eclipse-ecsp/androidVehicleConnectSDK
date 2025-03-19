@@ -1,7 +1,4 @@
 package com.harman.androidvehicleconnectsdk.roservice.model
-
-import com.google.gson.annotations.SerializedName
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -18,6 +15,8 @@ import com.google.gson.annotations.SerializedName
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import com.google.gson.annotations.SerializedName
+
 /**
  * RoStatusResponse data class holds the status response value of updated RO state
  *
@@ -26,5 +25,5 @@ import com.google.gson.annotations.SerializedName
  */
 data class RoStatusResponse(
     @SerializedName("message") var message: String?,
-    @SerializedName("roRequestId") var requestId: String?
+    @SerializedName("roRequestId") var requestId: String?,
 )

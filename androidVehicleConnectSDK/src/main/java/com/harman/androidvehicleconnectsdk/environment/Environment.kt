@@ -39,17 +39,9 @@ data class Environment(
     @SerializedName("signin_url") var signinUrl: String?,
     @SerializedName("signup_url") var signupUrl: String?,
     @SerializedName("redirect_url") var redirectUrl: String?,
-    @SerializedName("scopes") var scopes: ArrayList<String> = arrayListOf()
+    @SerializedName("scopes") var scopes: ArrayList<String> = arrayListOf(),
 ) {
-
     override fun toString(): String {
         return title ?: "Not available"
     }
 }
-
-
-
-
-
-
-
