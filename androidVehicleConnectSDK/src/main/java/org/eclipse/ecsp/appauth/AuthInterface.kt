@@ -20,11 +20,11 @@ package org.eclipse.ecsp.appauth
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
-import org.eclipse.ecsp.helper.response.CustomMessage
-import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.TokenResponse
+import org.eclipse.ecsp.helper.response.CustomMessage
+import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
 
 /**
  * This interface is used to hold token related data and have functions related to authentication

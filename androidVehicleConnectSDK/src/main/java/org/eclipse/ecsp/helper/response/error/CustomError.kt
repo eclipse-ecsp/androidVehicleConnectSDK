@@ -17,13 +17,13 @@ package org.eclipse.ecsp.helper.response.error
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import org.eclipse.ecsp.helper.Constant.ENVIRONMENT_NOT_CONFIGURED
 import org.eclipse.ecsp.helper.Constant.INVALID_REQUEST
 import org.eclipse.ecsp.helper.Constant.REFRESH_TOKEN_FAILED_ERROR
 import org.eclipse.ecsp.helper.Constant.SERVER_ERROR
 import org.eclipse.ecsp.helper.Constant.UNAUTHORIZED_ERROR
 import org.eclipse.ecsp.helper.Constant.WRONG_INTENT
-import kotlinx.parcelize.Parcelize
 
 /**
  * CustomError Sealed class used for customizing the message based on the scenario

@@ -15,6 +15,8 @@ package org.eclipse.ecsp.helper.dicomponent
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import dagger.Module
+import dagger.Provides
 import org.eclipse.ecsp.network.networkmanager.IRetrofitManager
 import org.eclipse.ecsp.network.networkmanager.RetrofitManager
 import org.eclipse.ecsp.notificationservice.repository.NotificationRepoInterface
@@ -25,8 +27,6 @@ import org.eclipse.ecsp.userservice.repository.IUserRepository
 import org.eclipse.ecsp.userservice.repository.UserRepository
 import org.eclipse.ecsp.vehicleservice.repository.VehicleRepoInterface
 import org.eclipse.ecsp.vehicleservice.repository.VehicleRepository
-import dagger.Module
-import dagger.Provides
 import javax.inject.Singleton
 
 /**

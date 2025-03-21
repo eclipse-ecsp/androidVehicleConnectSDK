@@ -16,9 +16,9 @@ package org.eclipse.ecsp.helper.response
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import org.eclipse.ecsp.helper.response.error.CustomError
 import org.eclipse.ecsp.helper.response.error.Status
-import kotlinx.parcelize.Parcelize
 
 /**
  * CustomMessage data class holds the value of response data, error data and status,

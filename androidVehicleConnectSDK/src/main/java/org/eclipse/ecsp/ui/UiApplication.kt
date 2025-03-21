@@ -23,6 +23,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationResponse
+import net.openid.appauth.TokenResponse
 import org.eclipse.ecsp.appauth.AuthInterface
 import org.eclipse.ecsp.appauth.AuthManager
 import org.eclipse.ecsp.helper.Constant.ACTION_KEY
@@ -35,14 +43,6 @@ import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.helper.response.error.CustomError
 import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.network.debugprint.DebugPrint
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import net.openid.appauth.AuthorizationException
-import net.openid.appauth.AuthorizationResponse
-import net.openid.appauth.TokenResponse
 
 /**
  * UiApplication activity class is used to launch the custom browser tab to open the login and sign up page using OAuth lib

@@ -16,13 +16,13 @@ package org.eclipse.ecsp.appauth
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 import android.net.Uri
-import org.eclipse.ecsp.environment.EnvironmentManager
-import org.eclipse.ecsp.helper.Constant.CLIENT_SECRET
-import org.eclipse.ecsp.userservice.endpoint.UserEndPoint
 import net.openid.appauth.AppAuthConfiguration
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.browser.BrowserAllowList
 import net.openid.appauth.browser.VersionedBrowserMatcher
+import org.eclipse.ecsp.environment.EnvironmentManager
+import org.eclipse.ecsp.helper.Constant.CLIENT_SECRET
+import org.eclipse.ecsp.userservice.endpoint.UserEndPoint
 import java.util.Locale
 
 /**

@@ -1,4 +1,5 @@
 package org.eclipse.ecsp.roservice.service
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -68,13 +69,13 @@ class RoService : RoServiceInterface {
         tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 "${
                     (
-                            endPoint.path?.replace(Constant.USER_ID, userId)
-                                ?.replace(Constant.VEHICLE_ID, vehicleId)
-                            )
+                        endPoint.path?.replace(Constant.USER_ID, userId)
+                            ?.replace(Constant.VEHICLE_ID, vehicleId)
+                    )
                 }${remoteOperationState.roEndPoint}",
                 endPoint.method,
                 tempHeader,
@@ -100,13 +101,13 @@ class RoService : RoServiceInterface {
         tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 "${
                     (
-                            endPoint.path?.replace(Constant.USER_ID, userId)
-                                ?.replace(Constant.VEHICLE_ID, vehicleId)
-                            )
+                        endPoint.path?.replace(Constant.USER_ID, userId)
+                            ?.replace(Constant.VEHICLE_ID, vehicleId)
+                    )
                 }${HISTORY_PATH}",
                 endPoint.method,
                 tempHeader,
@@ -134,13 +135,13 @@ class RoService : RoServiceInterface {
         tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 "${
                     (
-                            endPoint.path?.replace(Constant.USER_ID, userId)
-                                ?.replace(Constant.VEHICLE_ID, vehicleId)
-                            )
+                        endPoint.path?.replace(Constant.USER_ID, userId)
+                            ?.replace(Constant.VEHICLE_ID, vehicleId)
+                    )
                 }${REQUEST_PATH}/$roRequestId",
                 endPoint.method,
                 tempHeader,

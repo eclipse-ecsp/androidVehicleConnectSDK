@@ -16,14 +16,14 @@ package org.eclipse.ecsp.network.networkmanager
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 import com.google.gson.Gson
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.eclipse.ecsp.appauth.RefreshTokenAuthenticator
 import org.eclipse.ecsp.helper.Constant
 import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
 import org.eclipse.ecsp.network.EndPoint
 import org.eclipse.ecsp.network.debugprint.DebugPrint
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit

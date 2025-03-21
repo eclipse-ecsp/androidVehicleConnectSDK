@@ -17,6 +17,14 @@ package org.eclipse.ecsp.appauth
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import okhttp3.Authenticator
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.Route
 import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.environment.EnvironmentManager
 import org.eclipse.ecsp.helper.AppManager
@@ -28,14 +36,6 @@ import org.eclipse.ecsp.network.networkmanager.IRetrofitManager
 import org.eclipse.ecsp.network.networkmanager.RetrofitProvider.retryCount
 import org.eclipse.ecsp.userservice.endpoint.UserEndPoint
 import org.eclipse.ecsp.userservice.model.TokenData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
-import okhttp3.Authenticator
-import okhttp3.Request
-import okhttp3.Response
-import okhttp3.Route
 import java.lang.Exception
 
 /**

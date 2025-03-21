@@ -18,10 +18,10 @@ package org.eclipse.ecsp.helper
  ********************************************************************************/
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okhttp3.ResponseBody
 import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.helper.response.error.CustomError
 import org.eclipse.ecsp.helper.response.error.Status
-import okhttp3.ResponseBody
 
 /**
  * This function is used to convert the generic data class object to json string

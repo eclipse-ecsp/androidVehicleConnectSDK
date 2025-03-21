@@ -16,6 +16,7 @@ package org.eclipse.ecsp.helper.dicomponent
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import dagger.Component
 import org.eclipse.ecsp.notificationservice.repository.NotificationRepository
 import org.eclipse.ecsp.notificationservice.service.NotificationService
 import org.eclipse.ecsp.roservice.repository.RoRepository
@@ -24,7 +25,6 @@ import org.eclipse.ecsp.userservice.repository.UserRepository
 import org.eclipse.ecsp.userservice.service.UserService
 import org.eclipse.ecsp.vehicleservice.repository.VehicleRepository
 import org.eclipse.ecsp.vehicleservice.service.VehicleService
-import dagger.Component
 import javax.inject.Singleton
 
 /**

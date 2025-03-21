@@ -20,13 +20,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
-import org.eclipse.ecsp.environment.Environment
-import org.eclipse.ecsp.environment.EnvironmentManager
-import org.eclipse.ecsp.helper.Constant.CLIENT_SECRET
-import org.eclipse.ecsp.helper.response.CustomMessage
-import org.eclipse.ecsp.helper.response.error.CustomError
-import org.eclipse.ecsp.helper.response.error.Status
-import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationResponse
@@ -34,6 +27,13 @@ import net.openid.appauth.AuthorizationService
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ResponseTypeValues
 import net.openid.appauth.TokenResponse
+import org.eclipse.ecsp.environment.Environment
+import org.eclipse.ecsp.environment.EnvironmentManager
+import org.eclipse.ecsp.helper.Constant.CLIENT_SECRET
+import org.eclipse.ecsp.helper.response.CustomMessage
+import org.eclipse.ecsp.helper.response.error.CustomError
+import org.eclipse.ecsp.helper.response.error.Status
+import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
 
 /**
  * This class is used to handle the OAuth library operations to fetch the token
