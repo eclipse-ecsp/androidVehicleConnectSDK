@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.harman.sdkapp"
+    namespace = "org.eclipse.sdkapp"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.harman.sdkapp"
+        applicationId = "org.eclipse.sdkapp"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -30,7 +30,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-        group = "com.harman.sdkapp"
+        group = "org.eclipse.sdkapp"
         version = 1.0
     }
     kotlinOptions {
