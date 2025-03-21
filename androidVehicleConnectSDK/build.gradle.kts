@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = "com.harman.androidvehicleconnectsdk"
+    namespace = "org.eclipse.ecsp"
     compileSdk = 35
 
     defaultConfig {
@@ -31,7 +31,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-        group = "com.harman.androidvehicleconnectsdk"
+        group = "org.eclipse.ecsp"
         version = 1.0
     }
     kotlinOptions {
