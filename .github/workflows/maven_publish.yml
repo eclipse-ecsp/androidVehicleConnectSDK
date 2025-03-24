@@ -1,0 +1,64 @@
+name: Publish AAR to Maven Central
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+steps:
+
+  - name: Checkout code
+    uses: actions/checkout@v4
+
+  - name: Set up JDK 17
+    uses: actions/setup-java@v4
+    with:
+      java-version: '17'
+      distribution: 'zulu'
+
+  - name: Set up Android SDK
+    uses: reactivecircus/android-sdk-update-action@v2
+    with:
+      api-level: 30
+      build-tools: '30.0.3'
+      target: 'android-30' 
+
+  # Import GPG key
+  - name: Set up GPG key
+    run: |
+      echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+      echo "${{ secrets.GPG_PASSPHRASE }}" > ~/.gnupg/passphrase
+
+  - name: Grant execute permission for gradlew
+    run: chmod +x gradlew
+
+  # Build the AAR using Android SDK CLI
+  - name: Build AAR
+    run: |
+      ./gradlew clean build 
+
+  # Sign the AAR file
+  - name: Sign AAR file
+    run: |
+      AAR_FILE="build/outputs/aar/androidVehicleConnectSDK-release.aar"
+      gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --output "${AAR_FILE}.asc" --detach-sig "$AAR_FILE"
+
+  # Deploy to Sonatype OSSRH (Maven Central)
+  - name: Deploy AAR to Sonatype
+    run: |
+      curl -u "${{ secrets.OSSRH_USERNAME  }}:${{ secrets.OSSRH_PASSWORD  }}" \
+           -F "file=@${AAR_FILE}" \
+           -F "r=releases" \
+           -F "g=org.eclipse.ecsp" \ # group ID
+           -F "a=vehicleconnectsdk" \ # artifact ID
+           -F "v=1.0.0" \ # Version
+           -F "p=aar" \ # Artifact type (AAR)
+           -F "maven2.deploy.skip=false" \
+           https://oss.sonatype.org/service/local/staging/deploy/maven2
