@@ -56,7 +56,7 @@ jobs:
                -F "file=@${AAR_FILE}" \
                -F "r=releases" \
                -F "g=org.eclipse.ecsp" \
-               -F "a=vehicleconnectsdk" \
+               -F "a=androidVehicleConnectSDK" \
                -F "v=1.0.0" \
                -F "p=aar" \
                -F "maven2.deploy.skip=false" \
