@@ -51,6 +51,7 @@ jobs:
     # Deploy to Sonatype OSSRH (Maven Central)
       - name: Deploy AAR to Sonatype
         run: |
+          AAR_FILE="androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar"
           curl -u "${{ secrets.OSSRH_USERNAME  }}:${{ secrets.OSSRH_PASSWORD  }}" \
                -F "file=@${AAR_FILE}" \
                -F "r=releases" \
