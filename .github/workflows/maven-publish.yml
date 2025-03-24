@@ -17,15 +17,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-
-      - name: Set up Android SDK
-        run: |
-           mkdir -p $HOME/android-sdk
-           wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip
-           unzip commandlinetools-linux-7583922_latest.zip -d $HOME/android-sdk
-           yes | $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
-           $HOME/android-sdk/cmdline-tools/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "android-30"
-
   # Import GPG key
       - name: Set up GPG key
         run: |
