@@ -44,8 +44,8 @@ jobs:
 
     # Sign the AAR file
       - name: Sign AAR file
-        run: |
-          AAR_FILE="build/outputs/aar/androidVehicleConnectSDK-release.aar"
+        run: | 
+          AAR_FILE="androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar"
           gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --output "${AAR_FILE}.asc" --detach-sig "$AAR_FILE"
 
     # Deploy to Sonatype OSSRH (Maven Central)
