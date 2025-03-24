@@ -52,12 +52,12 @@ jobs:
       - name: Deploy AAR to Sonatype
         run: |
           AAR_FILE="androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar"
-          curl -u "${{ secrets.OSSRH_USERNAME  }}:${{ secrets.OSSRH_PASSWORD  }}" \
+          curl -u "${{ secrets.OSSRH_USERNAME }}:${{ secrets.OSSRH_PASSWORD }}" \
                -F "file=@${AAR_FILE}" \
                -F "r=releases" \
-               -F "g=org.eclipse.ecsp" \ # group ID
-               -F "a=vehicleconnectsdk" \ # artifact ID
-               -F "v=1.0.0" \ # Version
-               -F "p=aar" \ # Artifact type (AAR)
+               -F "g=org.eclipse.ecsp" \
+               -F "a=vehicleconnectsdk" \
+               -F "v=1.0.0" \
+               -F "p=aar" \
                -F "maven2.deploy.skip=false" \
                https://oss.sonatype.org/service/local/staging/deploy/maven2
