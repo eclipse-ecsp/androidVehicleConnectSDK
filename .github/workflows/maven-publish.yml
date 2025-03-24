@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+permissions:
+  pull-requests: read
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
