@@ -34,9 +34,13 @@ jobs:
           echo "${{ secrets.GPG_PASSPHRASE }}" > ~/.gnupg/passphrase
           
       # Build the AAR using Android SDK CLI
-      - name: Build AAR
+      - name: Clean build
         run: |
           ./gradlew clean build 
+          
+      - name: Generate AAR
+        run: |
+          ./gradlew build    
 
     # Sign the AAR file
       - name: Sign AAR file
