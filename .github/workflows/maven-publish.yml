@@ -49,15 +49,8 @@ jobs:
           gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --output "${AAR_FILE}.asc" --detach-sig "$AAR_FILE"
 
     # Deploy to Sonatype OSSRH (Maven Central)
-      - name: Deploy AAR to Sonatype
-        run: |
-          AAR_FILE="androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar"
-          curl -u "${{ secrets.OSSRH_USERNAME }}:${{ secrets.OSSRH_PASSWORD }}" \
-               -F "file=@${AAR_FILE}" \
-               -F "r=releases" \
-               -F "g=org.eclipse.ecsp" \
-               -F "a=androidVehicleConnectSDK" \
-               -F "v=1.0.0" \
-               -F "p=aar" \
-               -F "maven2.deploy.skip=false" \
-               https://oss.sonatype.org/service/local/staging/deploy/maven2
+      - name: Publish to Maven Central
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        run: ./gradlew publishReleasePublicationToMavenCentralRepository

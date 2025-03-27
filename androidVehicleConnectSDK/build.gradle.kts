@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.de.undercouch.gradle.tasks.download.org.apache.commons.logging.LogFactory.release
+
 plugins {
     id("org.jetbrains.kotlin.android")
     id("com.android.library")
@@ -7,6 +9,8 @@ plugins {
     id("org.jetbrains.dokka")
     id("org.cyclonedx.bom")
     id("org.jlleitschuh.gradle.ktlint")
+    id("signing")
+    id("maven-publish")
 }
 
 android {
@@ -21,7 +25,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -43,6 +47,32 @@ android {
         reporters {
             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.HTML)
+        }
+    }
+}
+
+publishing{
+    publications{
+        register<MavenPublication>("release"){
+            groupId = "org.eclipse.ecsp"
+            artifactId = "vehicleconnectsdk"
+            version = "1.0.0"
+            afterEvaluate {
+                from(components["release"])
+            }
+            artifact("${layout.buildDirectory}/outputs/aar/androidVehicleConnectSDK-release.aar")
+        }
+    }
+
+    repositories {
+        maven{
+            name = "Sonatype"
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+
+            credentials{
+                username = System.getenv("OSSRH_USERNAME")
+                password = System.getenv("OSSRH_PASSWORD")
+            }
         }
     }
 }
