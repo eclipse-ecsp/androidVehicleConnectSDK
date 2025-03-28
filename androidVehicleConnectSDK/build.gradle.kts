@@ -51,9 +51,9 @@ android {
     }
 }
 
-publishing{
-    publications{
-        register<MavenPublication>("release"){
+publishing {
+    publications {
+        register<MavenPublication>("release") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
             version = "1.0.0"
@@ -65,11 +65,11 @@ publishing{
     }
 
     repositories {
-        maven{
+        maven {
             name = "Sonatype"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
 
-            credentials{
+            credentials {
                 username = System.getenv("OSSRH_USERNAME")
                 password = System.getenv("OSSRH_PASSWORD")
             }
