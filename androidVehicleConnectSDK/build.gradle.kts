@@ -60,7 +60,6 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
-            artifact("build/outputs/aar/androidVehicleConnectSDK-release.aar")
         }
     }
 
