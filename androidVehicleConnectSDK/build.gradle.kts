@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.de.undercouch.gradle.tasks.download.org.apache.commons.logging.LogFactory.release
-
 plugins {
     id("org.jetbrains.kotlin.android")
     id("com.android.library")
@@ -15,7 +13,7 @@ plugins {
 
 android {
     namespace = "org.eclipse.ecsp"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
