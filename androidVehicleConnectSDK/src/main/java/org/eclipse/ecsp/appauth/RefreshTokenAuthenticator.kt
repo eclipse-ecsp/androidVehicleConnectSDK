@@ -88,7 +88,7 @@ class RefreshTokenAuthenticator : Authenticator {
             CoroutineScope(IO).async {
                 val userEndPoint = UserEndPoint.RefreshToken
                 val endPoint =
-                    org.eclipse.ecsp.CustomEndPoint(
+                    CustomEndPoint(
                         EnvironmentManager.environment()?.signinUrl.toString(),
                         userEndPoint.path + AppDataStorage.getAppPrefInstance()?.refreshToken,
                         userEndPoint.method,

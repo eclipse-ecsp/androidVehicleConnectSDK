@@ -130,6 +130,6 @@ interface AuthInterface {
         fun appAuthInterface(
             context: Context,
             launcher: ActivityResultLauncher<Intent>,
-        ): AuthInterface = org.eclipse.ecsp.appauth.AppAuthProvider(context, launcher)
+        ): AuthInterface = AppAuthProvider(context, launcher)
     }
 }

@@ -45,7 +45,7 @@ import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
 class AppAuthProvider(
     private val context: Context,
     private val launcher: ActivityResultLauncher<Intent>? = null,
-) : org.eclipse.ecsp.appauth.AuthInterface {
+) : AuthInterface {
     private var environmentData: Environment? = null
     private var authorizationService: AuthorizationService? = null
 
@@ -57,7 +57,7 @@ class AppAuthProvider(
      * This is used to initializing AutInterface and fetching EnvironmentData
      */
     init {
-        org.eclipse.ecsp.appauth.AuthManager.Companion.sharedInterface(this)
+        AuthManager.sharedInterface(this)
         environmentData = EnvironmentManager.environment()
     }
 
@@ -84,7 +84,7 @@ class AppAuthProvider(
                 )
             builder.setScopes(environmentData!!.scopes)
             builder.setAdditionalParameters(authParams)
-            builder.setPrompt(org.eclipse.ecsp.appauth.AppAuthProvider.Companion.AUTHORIZATION_LOGIN_KEY)
+            builder.setPrompt(AppAuthProvider.Companion.AUTHORIZATION_LOGIN_KEY)
             return builder.build()
         }
     }
@@ -102,11 +102,11 @@ class AppAuthProvider(
             try {
                 environmentData?.let {
                     val appAuthConfiguration =
-                        org.eclipse.ecsp.appauth.OAuthServiceUtilities.getAppAuthConfiguration()
+                        OAuthServiceUtilities.getAppAuthConfiguration()
                     val authParams =
-                        org.eclipse.ecsp.appauth.OAuthServiceUtilities.getParametersMap(it.clientSecret!!)
+                        OAuthServiceUtilities.getParametersMap(it.clientSecret!!)
                     val signInServiceConfiguration =
-                        org.eclipse.ecsp.appauth.OAuthServiceUtilities.getSignInServiceConfiguration()
+                        OAuthServiceUtilities.getSignInServiceConfiguration()
 
                     authorizationService = AuthorizationService(context, appAuthConfiguration)
                     val intent =
@@ -148,11 +148,11 @@ class AppAuthProvider(
             try {
                 environmentData?.let {
                     val appAuthConfiguration =
-                        org.eclipse.ecsp.appauth.OAuthServiceUtilities.getAppAuthConfiguration()
+                        OAuthServiceUtilities.getAppAuthConfiguration()
                     val authParams =
-                        org.eclipse.ecsp.appauth.OAuthServiceUtilities.getParametersMap(it.clientSecret!!)
+                        OAuthServiceUtilities.getParametersMap(it.clientSecret!!)
                     val signUpServiceConfiguration =
-                        org.eclipse.ecsp.appauth.OAuthServiceUtilities.getSignUpServiceConfiguration()
+                        OAuthServiceUtilities.getSignUpServiceConfiguration()
 
                     authorizationService =
                         AuthorizationService(

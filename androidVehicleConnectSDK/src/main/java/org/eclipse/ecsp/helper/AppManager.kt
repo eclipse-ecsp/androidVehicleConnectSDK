@@ -62,7 +62,7 @@ object AppManager {
         if (enableLog) {
             DebugPrint.setLogger(DebugPrintLogger())
         }
-        initializeAuthProvider(org.eclipse.ecsp.appauth.AppAuthProvider(application))
+        initializeAuthProvider(AppAuthProvider(application))
     }
 
     /**
