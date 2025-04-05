@@ -62,7 +62,7 @@ class NotificationModuleTestCase {
     @Test
     fun updateNotificationConfig_success_test_case() {
         val endPoint = NotificationEndPoint.NotificationConfig
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl,
             "${
                 endPoint.path?.replace(Constant.USER_ID, "userId")
@@ -96,7 +96,7 @@ class NotificationModuleTestCase {
     @Test
     fun updateNotificationConfig_failure_test_case() {
         val endPoint = NotificationEndPoint.NotificationConfig
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl,
             endPoint.path,
             endPoint.method,
@@ -124,7 +124,7 @@ class NotificationModuleTestCase {
     @Test
     fun notificationAlertHistory_success_test_case() {
         val endPoint = NotificationEndPoint.NotificationAlert
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path, endPoint.method, endPoint.header, endPoint.body
         )
@@ -183,7 +183,7 @@ class NotificationModuleTestCase {
     @Test
     fun notificationAlertHistory_failure_test_case() {
         val endPoint = NotificationEndPoint.NotificationAlert
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path, endPoint.method, endPoint.header, endPoint.body
         )

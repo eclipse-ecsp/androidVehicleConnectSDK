@@ -44,7 +44,7 @@ class NotificationRepository
          * @param customMessage this is the call back function to pass the response value
          */
         override suspend fun updateNotificationConfig(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<String>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint).also {
@@ -62,7 +62,7 @@ class NotificationRepository
          * @param customMessage this is the call back function to pass the response value
          */
         override suspend fun notificationAlertHistory(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint).also {
@@ -78,7 +78,7 @@ class NotificationRepository
 
 interface NotificationRepoInterface {
     suspend fun updateNotificationConfig(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<String>) -> Unit,
     )
 
@@ -89,7 +89,7 @@ interface NotificationRepoInterface {
      * @param customMessage higher order function to emit the CustomMessage<AlertAnalysisData> value
      */
     suspend fun notificationAlertHistory(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
     )
 }

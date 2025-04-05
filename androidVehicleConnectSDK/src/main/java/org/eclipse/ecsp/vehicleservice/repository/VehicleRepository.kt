@@ -70,7 +70,7 @@ class VehicleRepository
          * @param customMessage this is the call back function to pass the API response value
          */
         override suspend fun verifyDeviceImei(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint)
@@ -91,7 +91,7 @@ class VehicleRepository
          * @param customMessage this is the call back function to pass the API response value
          */
         override suspend fun associateDevice(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint)
@@ -112,7 +112,7 @@ class VehicleRepository
          * @param customMessage this is the call back function to pass the API response value
          */
         override suspend fun getVehicleProfile(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint)
@@ -133,7 +133,7 @@ class VehicleRepository
          * @param customMessage this is the call back function to pass the API response value
          */
         override suspend fun updateVehicleProfile(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<String>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint)
@@ -153,7 +153,7 @@ class VehicleRepository
          * @param customMessage this is the call back function to pass the API response value
          */
         override suspend fun terminateDevice(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<String>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint)
@@ -185,7 +185,7 @@ interface VehicleRepoInterface {
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun verifyDeviceImei(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
     )
 
@@ -196,7 +196,7 @@ interface VehicleRepoInterface {
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun getVehicleProfile(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
     )
 
@@ -207,7 +207,7 @@ interface VehicleRepoInterface {
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun associateDevice(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
     )
 
@@ -218,7 +218,7 @@ interface VehicleRepoInterface {
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun updateVehicleProfile(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<String>) -> Unit,
     )
 
@@ -229,7 +229,7 @@ interface VehicleRepoInterface {
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun terminateDevice(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<String>) -> Unit,
     )
 }

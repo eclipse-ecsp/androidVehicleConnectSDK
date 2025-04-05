@@ -71,7 +71,7 @@ class LoginModuleTestClass {
     @Test
     fun fetchUserDataSuccessCase() {
         val userEndPoint = UserEndPoint.Profile
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             userEndPoint.baseUrl ?: "",
             userEndPoint.path,
             userEndPoint.method,
@@ -107,7 +107,7 @@ class LoginModuleTestClass {
     fun fetchUserDataFailureCase() {
         activity.initializeSDK(false)
         val userEndPoint = UserEndPoint.Profile
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             userEndPoint.baseUrl ?: "",
             userEndPoint.path,
             userEndPoint.method,

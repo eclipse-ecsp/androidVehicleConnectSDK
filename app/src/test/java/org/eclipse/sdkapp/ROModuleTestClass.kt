@@ -63,7 +63,7 @@ class ROModuleTestClass {
         val endPoint = RoEndPoint.RemoteOperationHistory
         val header = endPoint.header
         header?.put(TestConstant.HEADER_AUTHORIZATION, "Bearer ${TestConstant.SuccessTestToken}")
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             "${
                 (endPoint.path?.replace(Constant.USER_ID, "new_dummy_user@yopmail.com")
@@ -104,7 +104,7 @@ class ROModuleTestClass {
         val endPoint = RoEndPoint.RemoteOperationHistory
         val header = endPoint.header
         header?.put(TestConstant.HEADER_AUTHORIZATION, "Bearer ${TestConstant.FailureTestToken}")
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             "${
                 (endPoint.path?.replace(Constant.USER_ID, "new_dummy_user@yopmail.com")
@@ -135,7 +135,7 @@ class ROModuleTestClass {
     @Test
     fun checkRemoteOperationRequestStatus_success_test_case() {
         val endPoint = RoEndPoint.RemoteOperationRequestStatus
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             "${
                 (endPoint.path?.replace(Constant.USER_ID, "userId")
@@ -166,7 +166,7 @@ class ROModuleTestClass {
     @Test
     fun checkRemoteOperationRequestStatus_failure_test_case() {
         val endPoint = RoEndPoint.RemoteOperationRequestStatus
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             "${
                 (endPoint.path?.replace(Constant.USER_ID, "userId")
@@ -199,7 +199,7 @@ class ROModuleTestClass {
             it.objectInstance as RemoteOperationState
         }.forEach { item ->
             val endPoint = RoEndPoint.UpdateRemoteOperation
-            val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+            val customEndPoint = CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 "${
                     (endPoint.path?.replace(Constant.USER_ID, "userId")
@@ -232,7 +232,7 @@ class ROModuleTestClass {
     @Test
     fun updateROStateRequest_failure_test_case() {
         val endPoint = RoEndPoint.UpdateRemoteOperation
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             "${
                 (endPoint.path?.replace(Constant.USER_ID, "userId")

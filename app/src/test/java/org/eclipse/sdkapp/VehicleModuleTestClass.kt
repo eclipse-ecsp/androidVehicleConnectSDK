@@ -135,7 +135,7 @@ class VehicleModuleTestClass {
     @Test
     fun verifyDeviceImei_failure_test_case() {
         val endPoint = VehicleEndPoint.VerifyDevice
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path + "imeiNumber",
             endPoint.method,
@@ -164,7 +164,7 @@ class VehicleModuleTestClass {
     @Test
     fun verifyDeviceImei_success_test_case() {
         val endPoint = VehicleEndPoint.VerifyDevice
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path + "imeiNumber",
             endPoint.method,
@@ -197,7 +197,7 @@ class VehicleModuleTestClass {
     @Test
     fun associateDevice_failure_test_case() {
         val endPoint = VehicleEndPoint.DeviceAssociation
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path,
             endPoint.method,
@@ -227,7 +227,7 @@ class VehicleModuleTestClass {
     @Test
     fun associateDevice_success_test_case() {
         val endPoint = VehicleEndPoint.DeviceAssociation
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path,
             endPoint.method,
@@ -257,7 +257,7 @@ class VehicleModuleTestClass {
     @Test
     fun getVehicleProfile_failure_test_case() {
         val endPoint = VehicleEndPoint.VehicleProfile
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path + "deviceId",
             endPoint.method,
@@ -285,7 +285,7 @@ class VehicleModuleTestClass {
     @Test
     fun getVehicleProfile_success_test_case() {
         val endPoint = VehicleEndPoint.VehicleProfile
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path + "deviceId",
             endPoint.method,
@@ -329,7 +329,7 @@ class VehicleModuleTestClass {
     @Test
     fun updateVehicleProfile_failure_test_case() {
         val endPoint = VehicleEndPoint.UpdateVehicleProfile
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path + "deviceId",
             endPoint.method,
@@ -357,7 +357,7 @@ class VehicleModuleTestClass {
     @Test
     fun updateVehicleProfile_success_test_case() {
         val endPoint = VehicleEndPoint.UpdateVehicleProfile
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path + "deviceId",
             endPoint.method,
@@ -385,7 +385,7 @@ class VehicleModuleTestClass {
     @Test
     fun terminateVehicle_failure_test_case() {
         val endPoint = VehicleEndPoint.TerminateDevice
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path,
             endPoint.method,
@@ -413,7 +413,7 @@ class VehicleModuleTestClass {
     @Test
     fun terminateVehicle_success_test_case() {
         val endPoint = VehicleEndPoint.TerminateDevice
-        val customEndPoint = org.eclipse.ecsp.CustomEndPoint(
+        val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             endPoint.path,
             endPoint.method,

@@ -59,7 +59,7 @@ class NotificationService : NotificationServiceInterface {
             )
         }"
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl,
                 path,
                 endPoint.method,
@@ -99,7 +99,7 @@ class NotificationService : NotificationServiceInterface {
             )
         }?since=$since&until=$till&size=${size ?: 1}&page=${page ?: 1}&readstatus=${readStatus ?: "all"}"
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 path,
                 endPoint.method,

@@ -63,7 +63,7 @@ class VehicleService : VehicleServiceInterface {
     ) {
         val endPoint = VehicleEndPoint.VerifyDevice
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 endPoint.path + imeiNumber,
                 endPoint.method,
@@ -85,7 +85,7 @@ class VehicleService : VehicleServiceInterface {
     ) {
         val endPoint = VehicleEndPoint.DeviceAssociation
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 endPoint.path,
                 endPoint.method,
@@ -107,7 +107,7 @@ class VehicleService : VehicleServiceInterface {
     ) {
         val endPoint = VehicleEndPoint.VehicleProfile
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 endPoint.path + deviceId,
                 endPoint.method,
@@ -131,7 +131,7 @@ class VehicleService : VehicleServiceInterface {
     ) {
         val endPoint = VehicleEndPoint.UpdateVehicleProfile
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 endPoint.path + deviceId,
                 endPoint.method,
@@ -153,7 +153,7 @@ class VehicleService : VehicleServiceInterface {
     ) {
         val endPoint = VehicleEndPoint.TerminateDevice
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 endPoint.baseUrl ?: "",
                 endPoint.path,
                 endPoint.method,
