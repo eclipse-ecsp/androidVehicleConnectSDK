@@ -102,7 +102,7 @@ class UserRepository
          * to pass the result (UserProfileCollection) to client application
          */
         override suspend fun fetchUserProfile(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<UserProfile>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint).also {
@@ -181,7 +181,7 @@ interface IUserRepository {
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun fetchUserProfile(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<UserProfile>) -> Unit,
     )
 }

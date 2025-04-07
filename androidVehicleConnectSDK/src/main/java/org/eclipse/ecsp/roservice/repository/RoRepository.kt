@@ -50,7 +50,7 @@ class RoRepository
          * @param customMessage this is the call back function to pass the response value
          */
         override suspend fun updateROStateRequest(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint).also {
@@ -70,7 +70,7 @@ class RoRepository
          * @param customMessage this is the call back function to pass the response value
          */
         override suspend fun getRemoteOperationHistory(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint).also {
@@ -90,7 +90,7 @@ class RoRepository
          * @param customMessage this is the call back function to pass the response value
          */
         override suspend fun checkRemoteOperationRequestStatus(
-            customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+            customEndPoint: CustomEndPoint,
             customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
         ) {
             retrofitManager.sendRequest(customEndPoint).also {
@@ -116,7 +116,7 @@ interface RoRepositoryInterface {
      * @param customMessage higher order function to emit the CustomMessage<AlertAnalysisData> value as response
      */
     suspend fun updateROStateRequest(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
     )
 
@@ -127,7 +127,7 @@ interface RoRepositoryInterface {
      * @param customMessage higher order function to emit the CustomMessage<List<RoEventHistoryResponse>> value as response
      */
     suspend fun getRemoteOperationHistory(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
     )
 
@@ -138,7 +138,7 @@ interface RoRepositoryInterface {
      * @param customMessage higher order function to emit the CustomMessage<RoEventHistoryResponse> value as response
      */
     suspend fun checkRemoteOperationRequestStatus(
-        customEndPoint: org.eclipse.ecsp.CustomEndPoint,
+        customEndPoint: CustomEndPoint,
         customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
     )
 }

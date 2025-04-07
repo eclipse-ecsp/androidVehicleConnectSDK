@@ -85,7 +85,7 @@ class UserService(private val activity: Activity) : UserServiceInterface {
     override suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit) {
         val userEndPoint = UserEndPoint.Profile
         val customEndPoint =
-            org.eclipse.ecsp.CustomEndPoint(
+            CustomEndPoint(
                 userEndPoint.baseUrl ?: "",
                 userEndPoint.path,
                 userEndPoint.method,
