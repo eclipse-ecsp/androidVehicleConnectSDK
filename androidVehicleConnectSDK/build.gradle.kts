@@ -54,7 +54,7 @@ android {
     }
 }
 
-publishing {
+/*publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "org.eclipse.ecsp"
@@ -77,6 +77,45 @@ publishing {
             }
         }
     }
+}*/
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            afterEvaluate {
+                from(components["release"])
+            }
+
+            pom {
+                name.set("vehicleconnectsdk")
+                description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
+                url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                licenses {
+                    license {
+                        name.set("Apache-2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("dileephemachandranharman")
+                        name.set("Dileep Hemachandran")
+                        email.set("dileep.hemachandran@harman.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                    developerConnection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                    url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                }
+            }
+        }
+    }
+}
+
+signing{
+    useInMemoryPgpKeys(System.getenv("GPG_KEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
+    sign(publishing.publications["mavenJava"])
 }
 
 dependencies {

@@ -36,21 +36,28 @@ jobs:
       # Build the AAR using Android SDK CLI
       - name: Clean build
         run: |
-          ./gradlew clean build 
+          ./gradlew clean
           
       - name: Generate AAR
         run: |
-          ./gradlew build    
+          ./gradlew build 
 
-    # Sign the AAR file
-      - name: Sign AAR file
-        run: | 
-          AAR_FILE="androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar"
-          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --output "${AAR_FILE}.asc" --detach-sig "$AAR_FILE"
+      - name: Generate Kdoc
+        run: |
+          ./gradlew :androidVehicleConnectSDK:dokkaHtml
+
+#    # Sign the AAR file
+#      - name: Sign AAR file
+#        run: |
+#          AAR_FILE="androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar"
+#          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --output "${AAR_FILE}.asc" --detach-sig "$AAR_FILE"
 
     # Deploy to Sonatype OSSRH (Maven Central)
       - name: Publish to Maven Central
         env:
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: ./gradlew :androidvehicleConnectSDK:publishReleasePublicationToOssrhRepository
+        run: ./gradlew :androidvehicleConnectSDK:publishToSonatype

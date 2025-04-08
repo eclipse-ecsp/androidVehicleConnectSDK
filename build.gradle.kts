@@ -2,6 +2,7 @@ plugins {
     id("org.jetbrains.dokka") version ("1.9.10")
     id("org.cyclonedx.bom") version ("1.9.0")
     id("org.jlleitschuh.gradle.ktlint") version ("12.2.0")
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 subprojects {
@@ -24,7 +25,7 @@ buildscript {
 }
 
 group = "org.eclipse.ecsp"
-version = 1.0
+version = "1.0.0"
 project.allprojects {
     tasks.cyclonedxBom {
         outputs.cacheIf { true }
@@ -44,5 +45,17 @@ project.allprojects {
         )
         setProjectType("library")
         outputFormat = "xml"
+    }
+}
+
+nexusPublishing{
+    repositories{
+        sonatype{
+            nexusUrl.set(uri(("https://oss.sonatype.org/service/local/staging/deploy/maven2/")))
+            snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots"))
+
+            username = System.getenv("OSSRH_USERNAME")
+            password = System.getenv("OSSRH_PASSWORD")
+        }
     }
 }
