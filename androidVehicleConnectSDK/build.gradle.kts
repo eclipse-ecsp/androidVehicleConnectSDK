@@ -84,6 +84,10 @@ publishing {
         create<MavenPublication>("mavenJava") {
             afterEvaluate {
                 from(components["release"])
+                artifact("${layout.buildDirectory}/dokka/html") {
+                    classifier = "kdoc"
+                    extension = "jar"
+                }
             }
 
             pom {
@@ -113,7 +117,7 @@ publishing {
     }
 }
 
-signing{
+signing {
     useInMemoryPgpKeys(System.getenv("GPG_KEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
     sign(publishing.publications["mavenJava"])
 }
