@@ -56,6 +56,7 @@ nexusPublishing {
             nexusUrl.set(uri(("https://oss.sonatype.org/service/local/staging/deploy/maven2/")))
             snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots"))
             stagingProfileId = "ossrh"
+            publicationType = io.github.gradlenexus.publishplugin.NexusRepository.PublicationType.MAVEN
         }
     }
 }
