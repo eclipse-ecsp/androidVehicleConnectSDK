@@ -47,6 +47,11 @@ android {
             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.HTML)
         }
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 publishing {
