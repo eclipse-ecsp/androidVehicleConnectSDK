@@ -46,7 +46,18 @@ jobs:
         run: |
           ./gradlew :androidVehicleConnectSDK:dokkaHtml
 
-    # Sign artifact
+    # setup GPG and Sign artifact
+      - name: Setup gpg
+        if: env.ARTIFACT_SIGNING_KEY
+        id: gpg
+        env:
+          ARTIFACT_SIGNING_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: |
+          echo "Importing key ..."
+          echo "${ARTIFACT_SIGNING_KEY}" | gpg --batch --import --import-options import-show
+          echo "Getting key id ..."
+          key_id="$(echo "${ARTIFACT_SIGNING_KEY}" | gpg --batch --show-keys --with-colons | awk -F: '$1 == "sec" { print $5 }')"
+          echo "::set-output name=key_id::${key_id}"
       - name: Sign artifacts
         if: env.GPG_KEYNAME
         env:
