@@ -27,11 +27,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-  # install GPG
-      - name: Install GPG
-        uses: crazy-max/ghaction-import-gpg@v6
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+#  # install GPG
+#      - name: Install GPG
+#        uses: crazy-max/ghaction-import-gpg@v6
+#        with:
+#          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
         
   # Import GPG key
       - name: Set up GPG key
@@ -52,28 +52,6 @@ jobs:
         run: |
           ./gradlew :androidVehicleConnectSDK:dokkaHtml
 
-    # setup GPG and Sign artifact
-      - name: Setup gpg
-        if: env.ARTIFACT_SIGNING_KEY
-        id: gpg
-        env:
-          ARTIFACT_SIGNING_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-        run: |
-          echo "Importing key ..."
-          echo "${ARTIFACT_SIGNING_KEY}" | gpg --batch --import --import-options import-show
-          echo "Getting key id ..."
-          key_id="$(echo "${ARTIFACT_SIGNING_KEY}" | gpg --batch --show-keys --with-colons | awk -F: '$1 == "sec" { print $5 }')"
-          echo "::set-output name=key_id::${key_id}"
-      - name: Sign artifacts
-        if: env.GPG_KEYNAME
-        env:
-          GPG_KEYNAME: ${{ steps.gpg.outputs.key_id }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: |
-          ./gradlew sign \
-              "-Psigning.keyName=${GPG_KEYNAME}" \
-              "-Psigning.password=${GPG_PASSPHRASE}" \
-
     # Deploy to Sonatype OSSRH (Maven Central)
       - name: Publish to Maven Central
         env:
@@ -82,4 +60,4 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: ./gradlew :androidVehicleConnectSDK:publishReleasePublicationToOssrhRepository
+        run: ./gradlew :androidVehicleConnectSDK:publishToSonatype
