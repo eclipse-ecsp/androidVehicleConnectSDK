@@ -70,7 +70,7 @@ jobs:
           GPG_KEYNAME: ${{ steps.gpg.outputs.key_id }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          ./gradlew :androidVehicleConnectSDK:signReleasePublication \
+          ./gradlew sign \
               "-Psigning.keyName=${GPG_KEYNAME}" \
               "-Psigning.password=${GPG_PASSPHRASE}" \
 
