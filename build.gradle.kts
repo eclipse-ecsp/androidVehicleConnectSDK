@@ -2,7 +2,7 @@ plugins {
     id("org.jetbrains.dokka") version ("1.9.10")
     id("org.cyclonedx.bom") version ("1.9.0")
     id("org.jlleitschuh.gradle.ktlint") version ("12.2.0")
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+//    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 subprojects {
@@ -48,6 +48,7 @@ project.allprojects {
     }
 }
 
+/*
 nexusPublishing {
     repositories {
         sonatype {
@@ -59,4 +60,4 @@ nexusPublishing {
             publicationType = io.github.gradlenexus.publishplugin.NexusRepository.PublicationType.MAVEN
         }
     }
-}
+}*/

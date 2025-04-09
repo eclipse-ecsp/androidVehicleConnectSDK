@@ -53,33 +53,59 @@ android {
         }
     }
 }
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                groupId = "org.eclipse.ecsp"
+                artifactId = "vehicleconnectsdk"
+                version = "1.0.0"
+                from(components["release"])
+                artifact("${layout.buildDirectory}/dokka/html") {
+                    classifier = "kdoc"
+                    extension = "jar"
+                }
+                pom {
+                    name.set("vehicleconnectsdk")
+                    description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
+                    url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                    licenses {
+                        license {
+                            name.set("Apache-2.0")
+                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set("dileephemachandranharman")
+                            name.set("Dileep Hemachandran")
+                            email.set("dileep.hemachandran@harman.com")
+                        }
+                    }
+                    scm {
+                        connection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                        developerConnection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                        url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "ossrh"
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+
+                credentials {
+                    username = System.getenv("OSSRH_USERNAME")
+                    password = System.getenv("OSSRH_PASSWORD")
+                }
+            }
+        }
+    }
+}
 
 /*publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "org.eclipse.ecsp"
-            artifactId = "vehicleconnectsdk"
-            version = "1.0.0"
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "ossrh"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
-            }
-        }
-    }
-}*/
-
-publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             afterEvaluate {
@@ -115,11 +141,11 @@ publishing {
             }
         }
     }
-}
+}*/
 
 signing {
     useInMemoryPgpKeys(System.getenv("GPG_KEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
-    sign(publishing.publications["mavenJava"])
+    sign(publishing.publications)
 }
 
 dependencies {
