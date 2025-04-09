@@ -29,7 +29,9 @@ jobs:
 
   # install GPG
       - name: Install GPG
-        run: choco install gnupg
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
         
   # Import GPG key
       - name: Set up GPG key
