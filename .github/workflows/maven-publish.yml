@@ -26,6 +26,10 @@ jobs:
   
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+  # install GPG
+      - name: Install GPG
+        run: choco install gnupg
         
   # Import GPG key
       - name: Set up GPG key
