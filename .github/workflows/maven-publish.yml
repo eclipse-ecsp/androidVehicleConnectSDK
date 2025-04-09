@@ -69,12 +69,10 @@ jobs:
         env:
           GPG_KEYNAME: ${{ steps.gpg.outputs.key_id }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run: |
           ./gradlew :androidVehicleConnectSDK:signReleasePublication \
               "-Psigning.keyName=${GPG_KEYNAME}" \
               "-Psigning.password=${GPG_PASSPHRASE}" \
-              "-Psigning.secretKeyRingFile=${GPG_PRIVATE_KEY}" \
 
     # Deploy to Sonatype OSSRH (Maven Central)
       - name: Publish to Maven Central
