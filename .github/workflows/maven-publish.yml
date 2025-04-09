@@ -46,11 +46,23 @@ jobs:
         run: |
           ./gradlew :androidVehicleConnectSDK:dokkaHtml
 
-#    # Sign the AAR file
-#      - name: Sign AAR file
-#        run: |
-#          AAR_FILE="androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar"
-#          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --output "${AAR_FILE}.asc" --detach-sig "$AAR_FILE"
+    # set up GPG
+      - name: Setup gpg
+        if: env.ARTIFACT_SIGNING_KEY
+        id: gpg
+        env:
+            ARTIFACT_SIGNING_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Sign artifacts
+        if: env.GPG_KEYNAME
+        env:
+          GPG_KEYNAME: ${{ secrets.GPG_KEY_ID }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: |
+          ./gradlew signReleasePublication \
+              "-Psigning.keyName=${GPG_KEYNAME}" \
+              "-Psigning.password=${GPG_PASSPHRASE}" \
+              "-Psigning.secretKeyRingFile=${GPG_PRIVATE_KEY}" \
 
     # Deploy to Sonatype OSSRH (Maven Central)
       - name: Publish to Maven Central
