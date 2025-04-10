@@ -62,10 +62,10 @@ afterEvaluate {
                 artifactId = "vehicleconnectsdk"
                 version = "1.0.0"
                 from(components["release"])
-                /*artifact("${layout.buildDirectory}/dokka/html") {
+                artifact("${layout.buildDirectory}/dokka/html") {
                     classifier = "kdoc"
                     extension = "jar"
-                }*/
+                }
                 pom {
                     name.set("Vehicle Connect SDK")
                     description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
@@ -92,7 +92,7 @@ afterEvaluate {
             }
         }
 
-        /*repositories {
+        repositories {
             maven {
                 name = "ossrh"
                 url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
@@ -102,7 +102,7 @@ afterEvaluate {
                     password = System.getenv("OSSRH_PASSWORD")
                 }
             }
-        }*/
+        }
     }
 }
 
