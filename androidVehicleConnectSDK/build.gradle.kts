@@ -62,10 +62,6 @@ afterEvaluate {
                 artifactId = "vehicleconnectsdk"
                 version = "1.0.0"
                 from(components["release"])
-                artifact("${layout.buildDirectory}/dokka/html") {
-                    classifier = "kdoc"
-                    extension = "jar"
-                }
                 pom {
                     name.set("Vehicle Connect SDK")
                     description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
