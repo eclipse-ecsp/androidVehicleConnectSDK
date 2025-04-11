@@ -55,39 +55,43 @@ android {
     }
 }
 publishing {
-    publications.withType<MavenPublication> {
-        groupId = "org.eclipse.ecsp"
-        artifactId = "vehicleconnectsdk"
-        version = "1.0.0"
-        from(components["release"])
-        pom {
-            name.set("Vehicle Connect SDK")
-            description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
-            url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
-            licenses {
-                license {
-                    name.set("Apache-2.0")
-                    url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                }
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "org.eclipse.ecsp"
+            artifactId = "vehicleconnectsdk"
+            version = "1.0.0"
+            afterEvaluate {
+                from(components["release"])
             }
-            developers {
-                developer {
-                    id.set("dileephemachandranharman")
-                    name.set("Dileep Hemachandran")
-                    email.set("dileep.hemachandran@harman.com")
-                }
-            }
-            scm {
-                connection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
-                developerConnection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+            pom {
+                name.set("Vehicle Connect SDK")
+                description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                licenses {
+                    license {
+                        name.set("Apache-2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("dileephemachandranharman")
+                        name.set("Dileep Hemachandran")
+                        email.set("dileep.hemachandran@harman.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                    developerConnection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                    url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                }
             }
         }
     }
 
     repositories {
         maven {
-            name = "MavenCentral"
+            name = "ossrh"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
 
             credentials {
@@ -99,11 +103,7 @@ publishing {
 }
 
 signing {
-    useInMemoryPgpKeys(
-        System.getenv("GPG_SUBKEY_ID"),
-        System.getenv("GPG_PRIVATE_KEY"),
-        System.getenv("GPG_PASSPHRASE")
-    )
+    useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
     sign(publishing.publications)
 }
 
