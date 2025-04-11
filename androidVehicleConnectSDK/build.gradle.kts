@@ -56,7 +56,8 @@ android {
 }
 publishing {
     publications {
-        register<MavenPublication>("release") {
+        create<MavenPublication>("mavenJava"){
+//        register<MavenPublication>("release") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
             version = "1.0.0"
@@ -69,7 +70,7 @@ publishing {
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
                 licenses {
                     license {
-                        name.set("Apache-2.0")
+                        name.set("The Apache License, Version 2.0")
                         url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
@@ -89,7 +90,7 @@ publishing {
         }
     }
 
-    repositories {
+    /*repositories {
         maven {
             name = "ossrh"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
@@ -99,7 +100,7 @@ publishing {
                 password = System.getenv("OSSRH_PASSWORD")
             }
         }
-    }
+    }*/
 }
 
 signing {
