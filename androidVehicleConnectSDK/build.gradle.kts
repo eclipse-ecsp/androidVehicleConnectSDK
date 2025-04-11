@@ -56,7 +56,7 @@ android {
 }
 publishing {
     publications {
-        create<MavenPublication>("mavenJava"){
+        create<MavenPublication>("mavenJava") {
 //        register<MavenPublication>("release") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
