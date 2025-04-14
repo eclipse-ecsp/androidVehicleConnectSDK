@@ -66,17 +66,22 @@ android {
     publishing {
         singleVariant("release") {
             withSourcesJar()
-            withJavadocJar()
+//            withJavadocJar()
         }
     }
 }
-
+val javadocJar by tasks.registering(Jar::class) {
+    dependsOn("dokkaGeneratePublicationHtml")
+    archiveClassifier.set("javadoc")
+    from("build/dokka/html")
+}
 publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
             version = "1.0.0"
+            artifact(javadocJar)
             afterEvaluate {
                 from(components["release"])
             }
