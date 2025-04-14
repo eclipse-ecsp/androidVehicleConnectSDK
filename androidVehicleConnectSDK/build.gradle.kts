@@ -82,8 +82,6 @@ artifacts {
 
 publishing {
     publications {
-//            create<MavenPublication>("mavenJava") {
-
         register<MavenPublication>("release") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
@@ -122,23 +120,8 @@ publishing {
     }
 }
 
-/*repositories {
-    maven {
-        name = "ossrh"
-        url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-        credentials {
-            username = System.getenv("OSSRH_USERNAME")
-            password = System.getenv("OSSRH_PASSWORD")
-        }
-    }
-}*/
-
 signing {
-    useInMemoryPgpKeys(
-        System.getenv("GPG_SUBKEY_ID"),
-        System.getenv("GPG_PRIVATE_KEY"),
-        System.getenv("GPG_PASSPHRASE")
-    )
+    useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
     publishing.publications.all {
         sign(this)
     }
