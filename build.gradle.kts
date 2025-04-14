@@ -72,7 +72,7 @@ nexusPublishing {
             username = System.getenv("OSSRH_USERNAME")
             password = System.getenv("OSSRH_PASSWORD")
             nexusUrl.set(uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/"))
-            stagingProfileId = "releases"
+            stagingProfileId = "org/eclipse/ecsp"
         }
     }
 }
