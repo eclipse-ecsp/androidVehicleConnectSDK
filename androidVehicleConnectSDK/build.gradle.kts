@@ -71,15 +71,6 @@ android {
     }
 }
 
-val androidSourceJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(android.sourceSets["main"].java.srcDirs)
-}
-
-artifacts {
-    add("archives", androidSourceJar)
-}
-
 publishing {
     publications {
         register<MavenPublication>("release") {
@@ -89,7 +80,6 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
-            artifact(androidSourceJar)
             pom {
                 name.set("Vehicle Connect SDK")
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
