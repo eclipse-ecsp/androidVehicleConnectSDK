@@ -71,7 +71,7 @@ android {
     }
 }
 val javadocJar by tasks.registering(Jar::class) {
-    dependsOn("dokkaGeneratePublicationHtml")
+    dependsOn("dokkaHtml")
     archiveClassifier.set("javadoc")
     from("build/dokka/html")
 }
