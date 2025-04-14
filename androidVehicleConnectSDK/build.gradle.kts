@@ -1,3 +1,19 @@
+/********************************************************************************
+ * Copyright (c) 2023-24 Harman International
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ ********************************************************************************/
 plugins {
     id("org.jetbrains.kotlin.android")
     id("com.android.library")
@@ -54,20 +70,38 @@ android {
         }
     }
 }
+
+val androidSourceJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets["main"].java.srcDirs)
+}
+
+artifacts {
+    add("archives", androidSourceJar)
+}
+
 publishing {
     publications {
-        create<MavenPublication>("mavenJava") {
-//        register<MavenPublication>("release") {
+//            create<MavenPublication>("mavenJava") {
+
+        register<MavenPublication>("release") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
             version = "1.0.0"
             afterEvaluate {
                 from(components["release"])
             }
+            artifact(androidSourceJar)
             pom {
                 name.set("Vehicle Connect SDK")
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                packaging = "aar"
+                scm {
+                    connection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                    developerConnection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                    url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                }
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
@@ -79,34 +113,37 @@ publishing {
                         id.set("dileephemachandranharman")
                         name.set("Dileep Hemachandran")
                         email.set("dileep.hemachandran@harman.com")
+                        organization.set("eclipse-ecsp")
+                        organizationUrl.set("https://github.com/eclipse-ecsp")
                     }
-                }
-                scm {
-                    connection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
-                    developerConnection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
-                    url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
                 }
             }
         }
     }
-
-    /*repositories {
-        maven {
-            name = "ossrh"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
-            }
-        }
-    }*/
 }
+
+/*repositories {
+    maven {
+        name = "ossrh"
+        url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+        credentials {
+            username = System.getenv("OSSRH_USERNAME")
+            password = System.getenv("OSSRH_PASSWORD")
+        }
+    }
+}*/
 
 signing {
-    useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
-    sign(publishing.publications)
+    useInMemoryPgpKeys(
+        System.getenv("GPG_SUBKEY_ID"),
+        System.getenv("GPG_PRIVATE_KEY"),
+        System.getenv("GPG_PASSPHRASE")
+    )
+    publishing.publications.all {
+        sign(this)
+    }
 }
+
 
 tasks.withType<PublishToMavenRepository>().configureEach {
     dependsOn(tasks.withType<Sign>())
