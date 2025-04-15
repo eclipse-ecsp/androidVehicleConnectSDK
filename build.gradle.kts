@@ -16,7 +16,7 @@
  ********************************************************************************/
 plugins {
     id("org.jetbrains.dokka") version ("1.9.10")
-    id("org.cyclonedx.bom") version ("1.9.0")
+    id("org.cyclonedx.bom") version ("2.2.0")
     id("org.jlleitschuh.gradle.ktlint") version ("12.2.0")
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
@@ -35,7 +35,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:8.1.4")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
-        classpath("org.cyclonedx:cyclonedx-gradle-plugin:1.9.0")
+        classpath("org.cyclonedx:cyclonedx-gradle-plugin:2.2.0")
         classpath("org.jlleitschuh.gradle:ktlint-gradle:12.2.0")
     }
 }

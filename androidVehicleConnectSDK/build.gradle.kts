@@ -74,6 +74,7 @@ val javadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
     from("build/dokka/html")
 }
+
 publishing {
     publications {
         register<MavenPublication>("release") {
@@ -81,6 +82,7 @@ publishing {
             artifactId = "vehicleconnectsdk"
             version = "1.0.0"
             artifact(javadocJar)
+            artifact("build/reports/bom.xml")
             afterEvaluate {
                 from(components["release"])
             }
