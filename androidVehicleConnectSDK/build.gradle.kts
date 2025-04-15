@@ -82,7 +82,10 @@ publishing {
             artifactId = "vehicleconnectsdk"
             version = "1.0.0"
             artifact(javadocJar)
-            artifact("build/reports/bom.xml")
+            artifact(file("build/reports/bom.xml")){
+                classifier = "cyclonedx"
+                extension = "xml"
+            }
             afterEvaluate {
                 from(components["release"])
             }
