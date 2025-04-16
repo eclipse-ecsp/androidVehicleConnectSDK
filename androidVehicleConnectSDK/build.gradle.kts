@@ -126,7 +126,7 @@ publishing {
     repositories {
         maven {
             name = "ossrh"
-            url = uri("https://oss.sonatype.org/service/local/")
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
 
             credentials {
                 username = System.getenv("OSSRH_USERNAME")
