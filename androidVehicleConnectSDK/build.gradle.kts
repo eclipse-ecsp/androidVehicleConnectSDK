@@ -66,7 +66,6 @@ android {
     publishing {
         singleVariant("release") {
             withSourcesJar()
-//            withJavadocJar()
         }
     }
 }
@@ -117,18 +116,28 @@ publishing {
             }
         }
     }
-}
-
-signing {
-    useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
-    publishing.publications.all {
-        sign(this)
+    signing {
+        useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
+        publishing.publications.all {
+            sign(this)
+        }
     }
+
+    repositories {
+        maven {
+            name = "ossrh"
+            url = uri("https://oss.sonatype.org/service/local/")
+
+            credentials {
+                username = System.getenv("OSSRH_USERNAME")
+                password = System.getenv("OSSRH_PASSWORD")
+            }
+        }
+    }
+
 }
 
-tasks.withType<PublishToMavenRepository>().configureEach {
-    dependsOn(tasks.withType<Sign>())
-}
+
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")
