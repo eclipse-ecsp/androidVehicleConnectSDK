@@ -125,7 +125,7 @@ publishing {
 
     repositories {
         maven {
-            name = "ossrh"
+            name = "Releases"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
 
             credentials {
