@@ -64,8 +64,6 @@ project.allprojects {
     }
 }
 
-
-
 /*nexusPublishing {
     repositories {
         sonatype {
@@ -75,4 +73,3 @@ project.allprojects {
         }
     }
 }*/
-

@@ -136,8 +136,6 @@ publishing {
     }
 }
 
-
-
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
