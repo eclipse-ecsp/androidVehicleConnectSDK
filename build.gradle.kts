@@ -67,7 +67,7 @@ project.allprojects {
 nexusPublishing {
     repositories {
         sonatype {
-            stagingProfileId = "ossrh"
+            stagingProfileId = "Releases"
             username = System.getenv("OSSRH_USERNAME")
             password = System.getenv("OSSRH_PASSWORD")
             nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
