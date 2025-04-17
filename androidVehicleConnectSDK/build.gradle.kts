@@ -76,7 +76,7 @@ val javadocJar by tasks.registering(Jar::class) {
 
 publishing {
     publications {
-        register<MavenPublication>("release") {
+        register<MavenPublication>("Releases") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
             version = "1.0.0"
@@ -89,6 +89,9 @@ publishing {
                 from(components["release"])
             }
             pom {
+                groupId = "org.eclipse.ecsp"
+                artifactId = "vehicleconnectsdk"
+                version = "1.0.0"
                 name.set("Vehicle Connect SDK")
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
@@ -123,7 +126,8 @@ publishing {
         }
     }
 
-    repositories {
+    /*repositories {
+        this.
         maven {
             name = "Releases"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
@@ -133,7 +137,7 @@ publishing {
                 password = System.getenv("OSSRH_PASSWORD")
             }
         }
-    }
+    }*/
 }
 
 dependencies {
