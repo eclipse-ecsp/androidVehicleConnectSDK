@@ -92,7 +92,7 @@ publishing {
                 groupId = "org.eclipse.ecsp"
                 artifactId = "vehicleconnectsdk"
                 version = "1.0.0"
-                name = "${groupId}:${artifactId}"
+                name = "$groupId:$artifactId"
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
                 packaging = "aar"
