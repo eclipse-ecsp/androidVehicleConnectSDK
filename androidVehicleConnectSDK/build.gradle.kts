@@ -92,13 +92,13 @@ publishing {
                 groupId = "org.eclipse.ecsp"
                 artifactId = "vehicleconnectsdk"
                 version = "1.0.0"
-                name.set("Vehicle Connect SDK")
+                name = "${groupId}:${artifactId}"
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
                 packaging = "aar"
                 scm {
-                    connection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
-                    developerConnection.set("scm:git@github.com:eclipse-ecsp/androidVehicleConnectSDK.git")
+                    connection.set("scm:git:https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
+                    developerConnection.set("scm:git:https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
                     url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
                 }
                 licenses {
@@ -119,6 +119,7 @@ publishing {
             }
         }
     }
+
     signing {
         useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
         publishing.publications.all {
@@ -139,6 +140,7 @@ publishing {
         }
     }*/
 }
+
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")

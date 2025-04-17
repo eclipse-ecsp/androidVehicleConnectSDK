@@ -69,7 +69,7 @@ nexusPublishing {
         sonatype {
             username = System.getenv("OSSRH_USERNAME")
             password = System.getenv("OSSRH_PASSWORD")
-            nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
+            nexusUrl.set(uri("https://oss.sonatype.org/service/local/repositories/Releases/org/eclipse/ecsp/"))
         }
     }
 }
