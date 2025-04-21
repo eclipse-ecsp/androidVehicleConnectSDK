@@ -65,4 +65,4 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: ./gradlew :androidVehicleConnectSDK:publishReleasesPublicationToReleasesRepository
+        run: ./gradlew :androidVehicleConnectSDK:publishReleasesPublicationToSonatypeRepository

@@ -127,7 +127,7 @@ publishing {
         }
     }
 
-    repositories {
+   /* repositories {
         maven {
             name = "Releases"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
@@ -137,7 +137,7 @@ publishing {
                 password = System.getenv("OSSRH_PASSWORD")
             }
         }
-    }
+    }*/
 }
 
 dependencies {
