@@ -44,9 +44,10 @@ android {
 
 dependencies {
 
-    implementation(project(":androidVehicleConnectSDK"))
+//    implementation(project(":androidVehicleConnectSDK"))
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("org.eclipse.ecsp:vehicleconnectsdk:1.0.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.15.2")

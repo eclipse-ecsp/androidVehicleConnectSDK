@@ -43,10 +43,3 @@ jobs:
         with:
           name: LICENSE_INFO_SDK_THIRD_PARTY_DEPENDENCIES
           path: SDK_NOTICE.md
-
-      - name: Archive SDK TEST APP Third Party Report file
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: LICENSE_INFO_SDK_TEST_APP_THIRD_PARTY_DEPENDENCIES
-          path: SDK_TEST_NOTICE.md
