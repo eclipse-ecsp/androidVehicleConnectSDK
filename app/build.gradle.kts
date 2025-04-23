@@ -44,27 +44,40 @@ android {
 
 dependencies {
 
-//    implementation(project(":androidVehicleConnectSDK"))
-    implementation("androidx.core:core-ktx:1.15.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("org.eclipse.ecsp:vehicleconnectsdk:1.0.0")
+    val appCoreKtxVersion: String by project
+    val appCompatVersion: String by project
+    val vehicleConnectSdkVersion: String by project
+    val retrofitVersion: String by project
+    val appGsonVersion: String by project
+    val okHttpLoggingVersion: String by project
+    val junitVersion: String by project
+    val mockitoCoreVersion: String by project
+    val mockitoInLineVersion: String by project
+    val powermockModuleVersion: String by project
+    val powermockApiVersion: String by project
+    val testRulesVersion: String by project
+    val testRunnerVersion: String by project
+    val robolectricVersion: String by project
+    val testJunitVersion: String by project
+    val espressoCoreVersion: String by project
 
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:5.15.2")
-    testImplementation("org.mockito:mockito-inline:5.2.0")
-    testImplementation("org.powermock:powermock-module-junit4:2.0.9")
-    testImplementation("org.powermock:powermock-api-mockito2:2.0.9")
-    testImplementation("androidx.test:rules:1.6.1")
-    testImplementation("androidx.test:runner:1.6.2")
-    testImplementation("org.robolectric:robolectric:4.14.1")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation ("com.google.code.gson:gson:2.12.1")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation("androidx.core:core-ktx:$appCoreKtxVersion")
+    implementation("androidx.appcompat:appcompat:$appCompatVersion")
+    implementation("org.eclipse.ecsp:vehicleconnectsdk:$vehicleConnectSdkVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation ("com.google.code.gson:gson:$appGsonVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okHttpLoggingVersion")
     implementation(kotlin("reflect"))
 
-
+    testImplementation("junit:junit:$junitVersion")
+    testImplementation("org.mockito:mockito-core:$mockitoCoreVersion")
+    testImplementation("org.mockito:mockito-inline:$mockitoInLineVersion")
+    testImplementation("org.powermock:powermock-module-junit4:$powermockModuleVersion")
+    testImplementation("org.powermock:powermock-api-mockito2:$powermockApiVersion")
+    testImplementation("androidx.test:rules:$testRulesVersion")
+    testImplementation("androidx.test:runner:$testRunnerVersion")
+    testImplementation("org.robolectric:robolectric:$robolectricVersion")
+    androidTestImplementation("androidx.test.ext:junit:$testJunitVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCoreVersion")
 }

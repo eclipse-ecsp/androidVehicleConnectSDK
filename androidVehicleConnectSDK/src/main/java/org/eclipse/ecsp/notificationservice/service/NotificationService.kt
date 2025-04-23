@@ -53,7 +53,8 @@ class NotificationService : NotificationServiceInterface {
     ) {
         val endPoint = NotificationEndPoint.NotificationConfig
         val path = "${
-            endPoint.path?.replace(Constant.USER_ID, userId)?.replace(Constant.VEHICLE_ID, vehicleId)?.replace(
+            endPoint.path?.replace(Constant.USER_ID, userId)
+                ?.replace(Constant.VEHICLE_ID, vehicleId)?.replace(
                 Constant.CONTACT_ID,
                 contactId ?: Constant.CONTACT_SELF,
             )
@@ -79,7 +80,7 @@ class NotificationService : NotificationServiceInterface {
      * @param size size of the record
      * @param page page number
      * @param readStatus by default it is {unread}
-     * @param customMessage this is the call back function to pass the response value
+     * @return [CustomMessage] contain the success or failure details
      */
     override suspend fun notificationAlertHistory(
         deviceId: String,
@@ -88,9 +89,8 @@ class NotificationService : NotificationServiceInterface {
         till: Long,
         size: Int?,
         page: Int?,
-        readStatus: String?,
-        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
-    ) {
+        readStatus: String?
+    ): CustomMessage<AlertAnalysisData> {
         val endPoint = NotificationEndPoint.NotificationAlert
         val path = "${
             (endPoint.path?.replace(Constant.DEVICE_ID, deviceId))?.replace(
@@ -106,7 +106,7 @@ class NotificationService : NotificationServiceInterface {
                 endPoint.header,
                 endPoint.body,
             )
-        notificationRepoInterface.notificationAlertHistory(customEndPoint, customMessage)
+        return notificationRepoInterface.notificationAlertHistory(customEndPoint)
     }
 }
 
@@ -138,7 +138,7 @@ interface NotificationServiceInterface {
      * @param size holds size value
      * @param page holds page value
      * @param readStatus holds read status of the alert
-     * @param customMessage custom message will emit the CustomMessage<AlertAnalysisData> response
+     * @return [CustomMessage] contain the success or failure details
      */
     suspend fun notificationAlertHistory(
         deviceId: String,
@@ -147,9 +147,8 @@ interface NotificationServiceInterface {
         till: Long,
         size: Int?,
         page: Int?,
-        readStatus: String?,
-        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
-    )
+        readStatus: String?
+    ): CustomMessage<AlertAnalysisData>
 
     companion object {
         /**

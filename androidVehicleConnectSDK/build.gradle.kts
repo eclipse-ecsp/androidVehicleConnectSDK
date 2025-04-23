@@ -39,7 +39,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -129,20 +129,30 @@ publishing {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.google.code.gson:gson:2.12.1")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("net.openid:appauth:0.11.1")
-    implementation("androidx.multidex:multidex:2.0.1")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.concurrent:concurrent-futures:1.1.0")
-    implementation("androidx.lifecycle:lifecycle-common:2.7.0")
+    val kotlinStdlibVersion: String by project
+    val retrofitVersion: String by project
+    val gsonVersion: String by project
+    val okHttpLoggingVersion: String by project
+    val appAuthVersion: String by project
+    val multiDexVersion: String  by project
+    val coreKtxVersion: String by project
+    val androidxConcurrentVersion: String by project
+    val lifeCycleCommonVersion: String by project
+    val daggerVersion: String by project
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinStdlibVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.google.code.gson:gson:$gsonVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okHttpLoggingVersion")
+    implementation("net.openid:appauth:$appAuthVersion")
+    implementation("androidx.multidex:multidex:$multiDexVersion")
+    implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation("androidx.concurrent:concurrent-futures:$androidxConcurrentVersion")
+    implementation("androidx.lifecycle:lifecycle-common:$lifeCycleCommonVersion")
 
-    implementation("com.google.dagger:dagger:2.55")
-    implementation("com.google.dagger:dagger-android:2.55")
-    implementation("com.google.dagger:dagger-android-support:2.55")
-    kapt("com.google.dagger:dagger-android-processor:2.55")
-    kapt("com.google.dagger:dagger-compiler:2.55")
+    implementation("com.google.dagger:dagger:$daggerVersion")
+    implementation("com.google.dagger:dagger-android:$daggerVersion")
+    implementation("com.google.dagger:dagger-android-support:$daggerVersion")
+    kapt("com.google.dagger:dagger-android-processor:$daggerVersion")
+    kapt("com.google.dagger:dagger-compiler:$daggerVersion")
 }
