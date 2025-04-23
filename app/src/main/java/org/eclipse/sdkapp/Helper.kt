@@ -34,3 +34,5 @@ internal inline fun <reified T> Gson.fromJson(json: String): T =
     fromJson(json, object : TypeToken<T>() {}.type)
 
 const val BASE_URL = "https://localhost.com"
+const val DUMMY_USER = "new_dummy_user@yopmail.com"
+const val DUMMY_VALUE = "dummy"

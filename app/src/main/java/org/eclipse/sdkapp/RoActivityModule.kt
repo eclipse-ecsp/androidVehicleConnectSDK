@@ -41,7 +41,7 @@ class RoActivityModule : ComponentActivity(), AuthInterface {
 
     fun configureEnvironment() {
         val envData = Environment(
-            "ENV", "dummy", "dummy", BASE_URL,
+            "ENV", DUMMY_VALUE, DUMMY_VALUE, BASE_URL,
             BASE_URL, BASE_URL, BASE_URL, "auth://authorization",
             arrayListOf("scope1", "scope2","scope3", "scope4", "scope5", "scope5" )
         )
@@ -51,8 +51,8 @@ class RoActivityModule : ComponentActivity(), AuthInterface {
     fun getRoHistory() {
         CoroutineScope(Dispatchers.IO).launch {
             roServiceInterface.getRemoteOperationHistory(
-                "new_dummy_user@yopmail.com",
-                "dummy"
+                DUMMY_USER,
+                DUMMY_VALUE
             ) {
 
             }
@@ -62,8 +62,8 @@ class RoActivityModule : ComponentActivity(), AuthInterface {
     fun checkRoRequest() {
         CoroutineScope(Dispatchers.IO).launch {
             roServiceInterface.checkRemoteOperationRequestStatus(
-                "new_dummy_user@yopmail.com",
-                "dummy",
+                DUMMY_USER,
+                DUMMY_VALUE,
                 "requestId"
             ) {
 
@@ -74,8 +74,8 @@ class RoActivityModule : ComponentActivity(), AuthInterface {
     fun updateRoState() {
         CoroutineScope(Dispatchers.IO).launch {
             roServiceInterface.updateROStateRequest(
-                "new_dummy_user@yopmail.com",
-                "dummy",
+                DUMMY_USER,
+                DUMMY_VALUE,
                 8, 10, RemoteOperationState.AlarmOff
             ) {
 

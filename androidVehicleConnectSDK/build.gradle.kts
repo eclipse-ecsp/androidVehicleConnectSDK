@@ -134,7 +134,7 @@ dependencies {
     val gsonVersion: String by project
     val okHttpLoggingVersion: String by project
     val appAuthVersion: String by project
-    val multiDexVersion: String  by project
+    val multiDexVersion: String by project
     val coreKtxVersion: String by project
     val androidxConcurrentVersion: String by project
     val lifeCycleCommonVersion: String by project

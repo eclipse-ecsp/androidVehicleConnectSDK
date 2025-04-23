@@ -66,8 +66,8 @@ class ROModuleTestClass {
         val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             "${
-                (endPoint.path?.replace(Constant.USER_ID, "new_dummy_user@yopmail.com")
-                    ?.replace(Constant.VEHICLE_ID, "dummy"))
+                (endPoint.path?.replace(Constant.USER_ID, DUMMY_USER)
+                    ?.replace(Constant.VEHICLE_ID, DUMMY_VALUE))
             }history",
             endPoint.method,
             header,
@@ -107,8 +107,8 @@ class ROModuleTestClass {
         val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
             "${
-                (endPoint.path?.replace(Constant.USER_ID, "new_dummy_user@yopmail.com")
-                    ?.replace(Constant.VEHICLE_ID, "dummy"))
+                (endPoint.path?.replace(Constant.USER_ID, DUMMY_USER)
+                    ?.replace(Constant.VEHICLE_ID, DUMMY_VALUE))
             }history",
             endPoint.method,
             header,
