@@ -37,7 +37,7 @@ class AppAuthProviderTestClass {
     fun setUp() {
         MockitoAnnotations.openMocks(this)
         val envData = Environment(
-            "TEST_ENV", "DUMMY", "dummy", BASE_URL,
+            "TEST_ENV", DUMMY_VALUE, DUMMY_VALUE, BASE_URL,
             BASE_URL, BASE_URL, BASE_URL, "auth://authorization",
             arrayListOf("scope1", "scope2","scope3", "scope4", "scope5", "scope5" )
         )

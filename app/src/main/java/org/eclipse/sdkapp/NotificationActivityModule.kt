@@ -43,7 +43,7 @@ class NotificationActivityModule : ComponentActivity(), AuthInterface {
 
     fun configureEnvironment() {
         val envData = Environment(
-            "ENV", "Dummy", "dummy", BASE_URL,
+            "ENV", DUMMY_VALUE, DUMMY_VALUE, BASE_URL,
             BASE_URL, BASE_URL, BASE_URL, "auth://authorization",
             arrayListOf("scope1", "scope2","scope3", "scope4", "scope5", "scope5" )
         )
@@ -70,10 +70,8 @@ class NotificationActivityModule : ComponentActivity(), AuthInterface {
                 1L,
                 1,
                 1,
-                ""
-            ) {
-
-            }
+                DUMMY_VALUE
+            )
         }
     }
 

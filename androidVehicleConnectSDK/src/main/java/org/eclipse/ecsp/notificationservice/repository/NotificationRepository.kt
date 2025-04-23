@@ -1,4 +1,5 @@
 package org.eclipse.ecsp.notificationservice.repository
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -59,18 +60,15 @@ class NotificationRepository
         /**
          * This function is to call the API for getting the Alert Notification history using retrofit service
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the response value
+         * @return [CustomMessage] contain the success or failure details
          */
-        override suspend fun notificationAlertHistory(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
-        ) {
+        override suspend fun notificationAlertHistory(customEndPoint: CustomEndPoint): CustomMessage<AlertAnalysisData> {
             retrofitManager.sendRequest(customEndPoint).also {
-                if (it != null && it.isSuccessful) {
+                return if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<AlertAnalysisData>(it.body().toString())
-                    customMessage(networkResponse(data))
+                    networkResponse(data)
                 } else {
-                    customMessage(networkError(it?.errorBody(), it?.code()))
+                    networkError(it?.errorBody(), it?.code())
                 }
             }
         }
@@ -86,10 +84,7 @@ interface NotificationRepoInterface {
      * Represents to call the notification alert history api
      *
      * @param customEndPoint data class of customEndPoint
-     * @param customMessage higher order function to emit the CustomMessage<AlertAnalysisData> value
+     * @return [CustomMessage] contain the success or failure details
      */
-    suspend fun notificationAlertHistory(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<AlertAnalysisData>) -> Unit,
-    )
+    suspend fun notificationAlertHistory(customEndPoint: CustomEndPoint): CustomMessage<AlertAnalysisData>
 }
