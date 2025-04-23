@@ -30,49 +30,49 @@ import javax.inject.Singleton
 
 @Singleton
 class NotificationRepository
-@Inject
-constructor() : NotificationRepoInterface {
     @Inject
-    lateinit var retrofitManager: IRetrofitManager
+    constructor() : NotificationRepoInterface {
+        @Inject
+        lateinit var retrofitManager: IRetrofitManager
 
-    init {
-        AppManager.getAppComponent().inject(this)
-    }
+        init {
+            AppManager.getAppComponent().inject(this)
+        }
 
-    /**
-     * This function is to call the API for updating the Notification config using retrofit service
-     * @param customEndPoint this holds the customized endpoints of API Call
-     * @param customMessage this is the call back function to pass the response value
-     */
-    override suspend fun updateNotificationConfig(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<String>) -> Unit,
-    ) {
-        retrofitManager.sendRequest(customEndPoint).also {
-            if (it != null && it.isSuccessful) {
-                customMessage(networkResponse("Successfully updated the notification configuration data"))
-            } else {
-                customMessage(networkError(it?.errorBody(), it?.code()))
+        /**
+         * This function is to call the API for updating the Notification config using retrofit service
+         * @param customEndPoint this holds the customized endpoints of API Call
+         * @param customMessage this is the call back function to pass the response value
+         */
+        override suspend fun updateNotificationConfig(
+            customEndPoint: CustomEndPoint,
+            customMessage: (CustomMessage<String>) -> Unit,
+        ) {
+            retrofitManager.sendRequest(customEndPoint).also {
+                if (it != null && it.isSuccessful) {
+                    customMessage(networkResponse("Successfully updated the notification configuration data"))
+                } else {
+                    customMessage(networkError(it?.errorBody(), it?.code()))
+                }
+            }
+        }
+
+        /**
+         * This function is to call the API for getting the Alert Notification history using retrofit service
+         * @param customEndPoint this holds the customized endpoints of API Call
+         * @return [CustomMessage] contain the success or failure details
+         */
+        override suspend fun notificationAlertHistory(customEndPoint: CustomEndPoint): CustomMessage<AlertAnalysisData> {
+            retrofitManager.sendRequest(customEndPoint).also {
+                return if (it != null && it.isSuccessful) {
+                    val data = Gson().fromJson<AlertAnalysisData>(it.body().toString())
+                    networkResponse(data)
+                } else {
+                    networkError(it?.errorBody(), it?.code())
+                }
             }
         }
     }
-
-    /**
-     * This function is to call the API for getting the Alert Notification history using retrofit service
-     * @param customEndPoint this holds the customized endpoints of API Call
-     * @return [CustomMessage] contain the success or failure details
-     */
-    override suspend fun notificationAlertHistory(customEndPoint: CustomEndPoint): CustomMessage<AlertAnalysisData> {
-        retrofitManager.sendRequest(customEndPoint).also {
-            return if (it != null && it.isSuccessful) {
-                val data = Gson().fromJson<AlertAnalysisData>(it.body().toString())
-                networkResponse(data)
-            } else {
-                networkError(it?.errorBody(), it?.code())
-            }
-        }
-    }
-}
 
 interface NotificationRepoInterface {
     suspend fun updateNotificationConfig(
@@ -86,7 +86,5 @@ interface NotificationRepoInterface {
      * @param customEndPoint data class of customEndPoint
      * @return [CustomMessage] contain the success or failure details
      */
-    suspend fun notificationAlertHistory(
-        customEndPoint: CustomEndPoint
-    ): CustomMessage<AlertAnalysisData>
+    suspend fun notificationAlertHistory(customEndPoint: CustomEndPoint): CustomMessage<AlertAnalysisData>
 }

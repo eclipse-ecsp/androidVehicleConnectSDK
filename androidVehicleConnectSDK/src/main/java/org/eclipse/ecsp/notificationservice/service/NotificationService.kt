@@ -89,7 +89,7 @@ class NotificationService : NotificationServiceInterface {
         till: Long,
         size: Int?,
         page: Int?,
-        readStatus: String?
+        readStatus: String?,
     ): CustomMessage<AlertAnalysisData> {
         val endPoint = NotificationEndPoint.NotificationAlert
         val path = "${
@@ -147,7 +147,7 @@ interface NotificationServiceInterface {
         till: Long,
         size: Int?,
         page: Int?,
-        readStatus: String?
+        readStatus: String?,
     ): CustomMessage<AlertAnalysisData>
 
     companion object {
