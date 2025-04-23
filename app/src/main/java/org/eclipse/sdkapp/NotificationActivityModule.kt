@@ -70,10 +70,8 @@ class NotificationActivityModule : ComponentActivity(), AuthInterface {
                 1L,
                 1,
                 1,
-                ""
-            ) {
-
-            }
+                DUMMY_VALUE
+            )
         }
     }
 

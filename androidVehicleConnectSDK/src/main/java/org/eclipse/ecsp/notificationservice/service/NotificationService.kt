@@ -147,7 +147,7 @@ interface NotificationServiceInterface {
         till: Long,
         size: Int?,
         page: Int?,
-        readStatus: String?,
+        readStatus: String?
     ): CustomMessage<AlertAnalysisData>
 
     companion object {

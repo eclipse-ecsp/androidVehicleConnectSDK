@@ -61,6 +61,7 @@ dependencies {
     val testJunitVersion: String by project
     val espressoCoreVersion: String by project
 
+    implementation(project(":androidVehicleConnectSDK"))
     implementation("androidx.core:core-ktx:$appCoreKtxVersion")
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
     implementation("org.eclipse.ecsp:vehicleconnectsdk:$vehicleConnectSdkVersion")
