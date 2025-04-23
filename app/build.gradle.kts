@@ -64,7 +64,6 @@ dependencies {
     implementation(project(":androidVehicleConnectSDK"))
     implementation("androidx.core:core-ktx:$appCoreKtxVersion")
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
-    implementation("org.eclipse.ecsp:vehicleconnectsdk:$vehicleConnectSdkVersion")
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation ("com.google.code.gson:gson:$appGsonVersion")
