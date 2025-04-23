@@ -79,7 +79,7 @@ publishing {
         register<MavenPublication>("Releases") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
-            version = "1.0.1"
+            version = "1.1.0"
             artifact(javadocJar)
             artifact(file("build/reports/bom.xml")) {
                 classifier = "cyclonedx"
@@ -91,7 +91,7 @@ publishing {
             pom {
                 groupId = "org.eclipse.ecsp"
                 artifactId = "vehicleconnectsdk"
-                version = "1.0.1"
+                version = "1.1.0"
                 name = "$groupId:$artifactId"
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
