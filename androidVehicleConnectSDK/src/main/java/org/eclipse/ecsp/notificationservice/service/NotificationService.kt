@@ -35,6 +35,10 @@ class NotificationService : NotificationServiceInterface {
         AppManager.getAppComponent().inject(this)
     }
 
+    companion object {
+        val INSTANCE: NotificationService by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { NotificationService() }
+    }
+
     /**
      * This function is to update the notification config for push notification
      *
@@ -157,6 +161,6 @@ interface NotificationServiceInterface {
          * @return NotificationService object
          */
         @JvmStatic
-        fun notificationServiceInterface(): NotificationServiceInterface = NotificationService()
+        fun notificationServiceInterface(): NotificationServiceInterface = NotificationService.INSTANCE
     }
 }

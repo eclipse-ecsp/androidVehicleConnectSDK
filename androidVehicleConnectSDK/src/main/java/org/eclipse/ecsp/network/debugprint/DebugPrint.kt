@@ -41,7 +41,7 @@ object DebugPrint {
         message: Any?,
     ) {
         if (iLogger != null) {
-            iLogger!!.d("SDK_$callerTag", message)
+            iLogger!!.d("VConnectSDK_$callerTag", message)
         }
     }
 
@@ -56,7 +56,7 @@ object DebugPrint {
         message: Any?,
     ) {
         if (iLogger != null) {
-            iLogger!!.e("SDK_$callerTag", message)
+            iLogger!!.e("VConnectSDK_$callerTag", message)
         }
     }
 }

@@ -65,6 +65,11 @@ interface IRetrofitService {
         @Body data: Any? = null,
     ): Response<JsonElement>
 
+    @POST
+    suspend fun postRequestWithoutBodyAndResponse(
+        @Url endPointPath: String,
+    ): Response<Unit>
+
     /**
      * This function is to do the PUT request to retrofit
      *

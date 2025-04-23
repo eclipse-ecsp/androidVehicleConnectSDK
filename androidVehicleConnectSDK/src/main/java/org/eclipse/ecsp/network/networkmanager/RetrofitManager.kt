@@ -1,4 +1,5 @@
 package org.eclipse.ecsp.network.networkmanager
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -30,6 +31,10 @@ import javax.inject.Singleton
 class RetrofitManager
     @Inject
     constructor() : IRetrofitManager {
+        companion object {
+            val INSTANCE: RetrofitManager by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { RetrofitManager() }
+        }
+
         /**
          * This function is used to send the request to to retrofit service
          *
@@ -48,12 +53,22 @@ class RetrofitManager
                         retrofitService?.postRequestWithBody(endPoint.path ?: "", endPoint.body)
                     }
                 }
-
                 RequestMethod.Put -> retrofitService?.putRequest(endPoint.path ?: "", endPoint.body)
                 RequestMethod.Patch -> retrofitService?.patchRequest(endPoint.path ?: "", endPoint.body)
-                RequestMethod.Delete -> retrofitService?.deleteRequest(endPoint.path ?: "", endPoint.body)
+                RequestMethod.Delete ->
+                    retrofitService?.deleteRequest(
+                        endPoint.path ?: "",
+                        endPoint.body,
+                    )
+
                 else -> retrofitService?.getRequest(endPoint.path ?: "")
             }
+        }
+
+        override suspend fun sendRequestWithNoResponse(endPoint: EndPoint): Response<Unit>? {
+            val retrofitService =
+                RetrofitProvider.getRetrofitClient(endPoint)?.create(IRetrofitService::class.java)
+            return retrofitService?.postRequestWithoutBodyAndResponse(endPoint.path ?: "")
         }
     }
 
@@ -61,7 +76,7 @@ class RetrofitManager
  * IRetrofitManager interface which is implemented by RetrofitManager class
  *
  */
-fun interface IRetrofitManager {
+interface IRetrofitManager {
     /**
      * function represent to send the API request
      *
@@ -70,12 +85,14 @@ fun interface IRetrofitManager {
      */
     suspend fun sendRequest(endPoint: EndPoint): Response<JsonElement>?
 
+    suspend fun sendRequestWithNoResponse(endPoint: EndPoint): Response<Unit>?
+
     companion object {
         /**
          * Used to initialize the RetrofitManager
          *
          * @return IRetrofitManager interface object
          */
-        fun getRetrofitManager(): IRetrofitManager = RetrofitManager()
+        fun getRetrofitManager(): IRetrofitManager = RetrofitManager.INSTANCE
     }
 }

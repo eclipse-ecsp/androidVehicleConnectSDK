@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitProvider {
     private const val TIME_OUT = 60L
-    private const val TAG = "SDK_NETWORK_LAYER"
+    private const val TAG = "VehicleConnectSDK_NETWORK_LAYER"
     var retryCount = 1
 
     /**
