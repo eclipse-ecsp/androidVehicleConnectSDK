@@ -89,24 +89,28 @@ class UiApplication : ComponentActivity() {
                         }
                         // exception
                         data?.let {
-                            AuthorizationException.fromIntent(data).let { exception ->
-                                setCallBackValue(
-                                    CustomMessage(
-                                        Status.Failure,
-                                        CustomError.Generic(
-                                            exception?.error
-                                                ?: CustomError.NetworkError.UnAuthorized.message,
+                            AuthorizationException.fromIntent(it).let { exception ->
+                                if (exception != null) {
+                                    setCallBackValue(
+                                        CustomMessage(
+                                            Status.Failure,
+                                            CustomError.Generic(
+                                                exception.error
+                                                    ?: CustomError.NetworkError.UnAuthorized.message,
+                                            ),
                                         ),
-                                    ),
-                                )
-                                DebugPrint.d("AppAuth", "Entered RESULT OK -> exception")
+                                    )
+                                    DebugPrint.d("AppAuth", "Entered RESULT OK -> exception")
+                                }
                             }
                         }
                     }
                     RESULT_CANCELED -> {
+                        DebugPrint.d("AppAuth", "Entered RESULT CANCELED -> exception")
                         setErrorCallBack()
                     }
                     else -> {
+                        DebugPrint.d("AppAuth", "NOT Entered RESULT :OK or CANCELED")
                         setErrorCallBack()
                     }
                 }
@@ -135,7 +139,7 @@ class UiApplication : ComponentActivity() {
     private fun launchCoroutineAction() {
         val exception =
             CoroutineExceptionHandler { _, exception ->
-                DebugPrint.e("AppAuth Provider Error: ", exception.cause.toString())
+                DebugPrint.e("AppAuth: ", exception.cause.toString())
                 setCallBackValue(
                     CustomMessage(
                         Status.Failure,

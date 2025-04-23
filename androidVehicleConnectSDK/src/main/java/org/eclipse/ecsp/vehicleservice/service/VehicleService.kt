@@ -40,6 +40,10 @@ class VehicleService : VehicleServiceInterface {
         AppManager.getAppComponent().inject(this)
     }
 
+    companion object {
+        val INSTANCE: VehicleService by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { VehicleService() }
+    }
+
     /**
      * This function is used to get associated device list,
      * This function invokes the vehicle repository functions to get the result
@@ -240,6 +244,6 @@ interface VehicleServiceInterface {
          * @return VehicleService instance
          */
         @JvmStatic
-        fun vehicleServiceInterface(): VehicleServiceInterface = VehicleService()
+        fun vehicleServiceInterface(): VehicleServiceInterface = VehicleService.INSTANCE
     }
 }

@@ -51,11 +51,11 @@ class LoginActivityModule : ComponentActivity(), AuthInterface {
     }
 
     fun launchSignIn() {
-        userServiceInterface.signInWithAppAuth(SIGN_IN_REQUEST_CODE, launcher)
+        userServiceInterface.signInWithAppAuth( SIGN_IN_REQUEST_CODE, launcher)
     }
 
     fun launchSignUp() {
-        userServiceInterface.signUpWithAppAuth(SIGN_UP_REQUEST_CODE, launcher)
+        userServiceInterface.signUpWithAppAuth( SIGN_UP_REQUEST_CODE, launcher)
     }
 
     fun launchSignOut() {

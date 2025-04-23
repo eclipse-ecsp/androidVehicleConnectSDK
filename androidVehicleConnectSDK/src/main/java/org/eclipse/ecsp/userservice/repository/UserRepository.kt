@@ -16,11 +16,10 @@ package org.eclipse.ecsp.userservice.repository
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import com.google.gson.Gson
-import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.helper.AppManager
 import org.eclipse.ecsp.helper.Constant.ACTION_KEY
 import org.eclipse.ecsp.helper.Constant.REQUEST_CODE
@@ -32,6 +31,7 @@ import org.eclipse.ecsp.helper.networkResponse
 import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
+import org.eclipse.ecsp.network.EndPoint
 import org.eclipse.ecsp.network.networkmanager.IRetrofitManager
 import org.eclipse.ecsp.ui.UiApplication
 import org.eclipse.ecsp.userservice.model.UserProfile
@@ -61,11 +61,11 @@ class UserRepository
          * @param launcher client application launcher instance to launch the UiApplication activity
          */
         override fun signInWithAppAuth(
-            activity: Activity,
+            context: Context,
             requestCode: Int,
             launcher: ActivityResultLauncher<Intent>,
         ) {
-            launchActivity(activity, SIGN_IN, requestCode, launcher)
+            launchActivity(context, SIGN_IN, requestCode, launcher)
         }
 
         /**
@@ -76,11 +76,11 @@ class UserRepository
          * @param launcher client application launcher instance to launch the UiApplication activity
          */
         override fun signUpWithAppAuth(
-            activity: Activity,
+            context: Context,
             requestCode: Int,
             launcher: ActivityResultLauncher<Intent>,
         ) {
-            launchActivity(activity, SIGN_UP, requestCode, launcher)
+            launchActivity(context, SIGN_UP, requestCode, launcher)
         }
 
         /**
@@ -102,15 +102,31 @@ class UserRepository
          * to pass the result (UserProfileCollection) to client application
          */
         override suspend fun fetchUserProfile(
-            customEndPoint: CustomEndPoint,
+            endPoint: EndPoint,
             customMessage: (CustomMessage<UserProfile>) -> Unit,
         ) {
-            retrofitManager.sendRequest(customEndPoint).also {
+            retrofitManager.sendRequest(endPoint).also {
                 if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<UserProfile>(it.body().toString())
                     customMessage(networkResponse(data))
                 } else {
                     customMessage(networkError(it?.errorBody(), it?.code()))
+                }
+            }
+        }
+
+        /**
+         *  Function is to trigger the password change API request
+         *
+         * @param endPoint this holds the required details like header, path, query, body...etc for API request
+         * @return [CustomMessage] contain the success or failure details
+         */
+        override suspend fun changePasswordRequest(endPoint: EndPoint): CustomMessage<Any> {
+            retrofitManager.sendRequestWithNoResponse(endPoint).also {
+                return if (it != null && it.isSuccessful) {
+                    CustomMessage(Status.Success)
+                } else {
+                    networkError(it?.errorBody(), it?.code())
                 }
             }
         }
@@ -124,12 +140,12 @@ class UserRepository
          * @param launcher client application launcher instance to launch the UiApplication activity
          */
         private fun launchActivity(
-            activity: Activity,
+            context: Context,
             action: String,
             requestCode: Int,
             launcher: ActivityResultLauncher<Intent>,
         ) {
-            val intent = Intent(activity, UiApplication::class.java)
+            val intent = Intent(context, UiApplication::class.java)
             intent.putExtra(ACTION_KEY, action)
             intent.putExtra(REQUEST_CODE, requestCode)
             launcher.launch(intent)
@@ -149,7 +165,7 @@ interface IUserRepository {
      * @param launcher holds [ActivityResultLauncher] object
      */
     fun signInWithAppAuth(
-        activity: Activity,
+        context: Context,
         requestCode: Int,
         launcher: ActivityResultLauncher<Intent>,
     )
@@ -162,7 +178,7 @@ interface IUserRepository {
      * @param launcher holds [ActivityResultLauncher] object
      */
     fun signUpWithAppAuth(
-        activity: Activity,
+        context: Context,
         requestCode: Int,
         launcher: ActivityResultLauncher<Intent>,
     )
@@ -181,7 +197,15 @@ interface IUserRepository {
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun fetchUserProfile(
-        customEndPoint: CustomEndPoint,
+        endPoint: EndPoint,
         customMessage: (CustomMessage<UserProfile>) -> Unit,
     )
+
+    /**
+     * Represents the interface method to trigger the password change API request
+     *
+     * @param endPoint End points of API
+     * @return [CustomMessage] contain the success or failure details
+     */
+    suspend fun changePasswordRequest(endPoint: EndPoint): CustomMessage<Any>
 }

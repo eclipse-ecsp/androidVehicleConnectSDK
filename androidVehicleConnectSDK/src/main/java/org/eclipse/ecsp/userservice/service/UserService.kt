@@ -19,7 +19,6 @@ package org.eclipse.ecsp.userservice.service
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
-import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.helper.AppManager
 import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.userservice.endpoint.UserEndPoint
@@ -28,11 +27,10 @@ import org.eclipse.ecsp.userservice.repository.IUserRepository
 import javax.inject.Inject
 
 /**
- * UserService class is used by client application to call the User service functions
+ * UserService class is used by client application to invoke all User service functions
  *
- * @property activity Client application activity instance
  */
-class UserService(private val activity: Activity) : UserServiceInterface {
+class UserService(val activity: Activity) : UserServiceInterface {
     @Inject
     lateinit var iUserRepository: IUserRepository
 
@@ -43,6 +41,7 @@ class UserService(private val activity: Activity) : UserServiceInterface {
     /**
      * This function is to do Sign In process by launching the UiApplication activity
      *
+     * @param activity client application activity instance
      * @param requestCode client application request code to send the result
      * @param launcher client application launcher instance to launch the UiApplication activity
      */
@@ -56,6 +55,7 @@ class UserService(private val activity: Activity) : UserServiceInterface {
     /**
      * This function is to do sign up process by launching the UiApplication activity
      *
+     * @param activity client application activity instance
      * @param requestCode client application request code to send the result
      * @param launcher client application launcher instance to launch the UiApplication activity
      */
@@ -83,16 +83,16 @@ class UserService(private val activity: Activity) : UserServiceInterface {
      * to pass the result (UserProfileCollection) to client application
      */
     override suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit) {
-        val userEndPoint = UserEndPoint.Profile
-        val customEndPoint =
-            CustomEndPoint(
-                userEndPoint.baseUrl ?: "",
-                userEndPoint.path,
-                userEndPoint.method,
-                userEndPoint.header,
-                userEndPoint.body,
-            )
-        iUserRepository.fetchUserProfile(customEndPoint, customMessage)
+        iUserRepository.fetchUserProfile(UserEndPoint.Profile, customMessage)
+    }
+
+    /**
+     * Function is to trigger the password changing API request
+     *
+     * @return [CustomMessage] contain the success or failure details
+     */
+    override suspend fun changePasswordRequest(): CustomMessage<Any> {
+        return iUserRepository.changePasswordRequest(UserEndPoint.PasswordChange)
     }
 }
 
@@ -131,11 +131,18 @@ interface UserServiceInterface {
     fun signOutWithAppAuth(result: (CustomMessage<Any>) -> Unit)
 
     /**
-     * Represents to fetch the user profile data
+     * Represent to fetch the user profile data
      *
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit)
+
+    /**
+     * Represents the interface method to trigger the password changing API request
+     *
+     * @return [CustomMessage] contain the success or failure details
+     */
+    suspend fun changePasswordRequest(): CustomMessage<Any>
 
     companion object {
         /**

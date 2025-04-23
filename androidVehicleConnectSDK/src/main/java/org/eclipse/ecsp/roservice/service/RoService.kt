@@ -40,6 +40,7 @@ class RoService : RoServiceInterface {
     companion object {
         private const val HISTORY_PATH = "history"
         private const val REQUEST_PATH = "requests"
+        val INSTANCE: RoService by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { RoService() }
     }
 
     init {
@@ -206,6 +207,6 @@ interface RoServiceInterface {
          * @return RoService object
          */
         @JvmStatic
-        fun roServiceInterface(): RoServiceInterface = RoService()
+        fun roServiceInterface(): RoServiceInterface = RoService.INSTANCE
     }
 }
