@@ -55,9 +55,9 @@ class NotificationService : NotificationServiceInterface {
         val path = "${
             endPoint.path?.replace(Constant.USER_ID, userId)
                 ?.replace(Constant.VEHICLE_ID, vehicleId)?.replace(
-                Constant.CONTACT_ID,
-                contactId ?: Constant.CONTACT_SELF,
-            )
+                    Constant.CONTACT_ID,
+                    contactId ?: Constant.CONTACT_SELF,
+                )
         }"
         val customEndPoint =
             CustomEndPoint(
