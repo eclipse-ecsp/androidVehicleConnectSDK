@@ -85,7 +85,6 @@ publishing {
                 classifier = "cyclonedx"
                 extension = "xml"
             }
-            artifact(file("build/outputs/aar/androidVehicleConnectSDK-release.aar"))
             afterEvaluate {
                 from(components["release"])
             }
