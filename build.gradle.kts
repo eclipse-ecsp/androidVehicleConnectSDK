@@ -41,7 +41,7 @@ buildscript {
 }
 
 group = "org.eclipse.ecsp"
-version = "1.1.2"
+version = "1.1.3"
 project.allprojects {
     tasks.cyclonedxBom {
         outputs.cacheIf { true }

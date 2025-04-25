@@ -23,12 +23,6 @@ jobs:
   
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
-#  # install GPG
-#      - name: Install GPG
-#        uses: crazy-max/ghaction-import-gpg@v6
-#        with:
-#          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
         
   # Import GPG key
       - name: Set up GPG key
@@ -53,7 +47,6 @@ jobs:
         run: |
           ./gradlew cyclonedxBom
 
-    # Deploy to Sonatype OSSRH (Maven Central)
       - name: Publish to Maven Central
         env:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
