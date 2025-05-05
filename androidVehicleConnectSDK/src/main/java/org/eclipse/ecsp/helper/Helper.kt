@@ -42,13 +42,6 @@ internal inline fun <reified T> Gson.dataToJson(data: T): String = toJson(data)
 internal inline fun <reified T> Gson.fromJson(json: String): T = fromJson(json, object : TypeToken<T>() {}.type)
 
 /**
- * This function is used to share the locale of device where the application is available
- *
- * @return String formatted locale value
- */
-internal fun getLocale(): String = "en-US"
-
-/**
  * This function is to create the CustomMessage error body from error response body of retrofit
  *
  * @param T Generic data class

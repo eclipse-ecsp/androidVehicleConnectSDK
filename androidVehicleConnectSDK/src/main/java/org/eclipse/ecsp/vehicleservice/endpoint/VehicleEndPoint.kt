@@ -19,7 +19,7 @@ import org.eclipse.ecsp.environment.EnvironmentManager
 import org.eclipse.ecsp.helper.Constant.HEADER_ACCEPT
 import org.eclipse.ecsp.helper.Constant.HEADER_ACCEPT_LANGUAGE
 import org.eclipse.ecsp.helper.Constant.HEADER_APPLICATION_JSON
-import org.eclipse.ecsp.helper.getLocale
+import org.eclipse.ecsp.helper.Constant.LOCALE
 import org.eclipse.ecsp.network.EndPoint
 import org.eclipse.ecsp.network.RequestMethod
 import org.eclipse.ecsp.vehicleservice.model.deviceassociation.AssociationData
@@ -100,7 +100,7 @@ sealed class VehicleEndPoint(val name: String) : EndPoint {
             -> {
                 HashMap<String, String>().apply {
                     put(HEADER_ACCEPT, HEADER_APPLICATION_JSON)
-                    put(HEADER_ACCEPT_LANGUAGE, getLocale())
+                    put(HEADER_ACCEPT_LANGUAGE, LOCALE)
                 }
             }
 

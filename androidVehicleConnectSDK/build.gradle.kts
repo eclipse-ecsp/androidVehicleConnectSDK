@@ -35,7 +35,7 @@ android {
         minSdk = 24
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders["appAuthRedirectScheme"] = "app"
+        manifestPlaceholders["appAuthRedirectScheme"] = "ignite"
     }
 
     buildTypes {

@@ -5,9 +5,9 @@ import org.eclipse.ecsp.helper.Constant
 import org.eclipse.ecsp.helper.Constant.ALERT_TYPE
 import org.eclipse.ecsp.helper.Constant.CONTACT_ID
 import org.eclipse.ecsp.helper.Constant.DEVICE_ID
+import org.eclipse.ecsp.helper.Constant.LOCALE
 import org.eclipse.ecsp.helper.Constant.USER_ID
 import org.eclipse.ecsp.helper.Constant.VEHICLE_ID
-import org.eclipse.ecsp.helper.getLocale
 import org.eclipse.ecsp.network.EndPoint
 import org.eclipse.ecsp.network.RequestMethod
 
@@ -85,7 +85,7 @@ sealed class NotificationEndPoint(val name: String) : EndPoint {
             NOTIFICATION_ALERT, NOTIFICATION_CONFIG -> {
                 HashMap<String, String>().apply {
                     put(Constant.HEADER_ACCEPT, Constant.HEADER_APPLICATION_JSON)
-                    put(Constant.HEADER_ACCEPT_LANGUAGE, getLocale())
+                    put(Constant.HEADER_ACCEPT_LANGUAGE, LOCALE)
                 }
             }
 

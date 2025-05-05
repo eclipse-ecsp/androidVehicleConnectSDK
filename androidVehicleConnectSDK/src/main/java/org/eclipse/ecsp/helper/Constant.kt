@@ -28,6 +28,7 @@ object Constant {
     const val HEADER_ACCEPT_LANGUAGE = "Accept-Language"
     const val HEADER_APPLICATION_JSON = "application/json"
     const val HEADER_ACCEPT = "Accept"
+    const val LOCALE = "en-US"
     const val HEADER_CONTENT_TYPE_KEY = "Content-Type"
     const val HEADER_CONTENT_TYPE_VALUE = "application/x-www-form-urlencoded"
     const val GRANT_TYPE_KEY = "grant_type"
