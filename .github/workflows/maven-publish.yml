@@ -1,9 +1,8 @@
 name: Publish AAR to Maven Central
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
 
 permissions:
   pull-requests: read

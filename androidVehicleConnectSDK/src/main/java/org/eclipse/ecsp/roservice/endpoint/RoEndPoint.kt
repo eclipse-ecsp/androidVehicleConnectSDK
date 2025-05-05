@@ -17,11 +17,11 @@ package org.eclipse.ecsp.roservice.endpoint
  ********************************************************************************/
 import org.eclipse.ecsp.environment.EnvironmentManager
 import org.eclipse.ecsp.helper.Constant
+import org.eclipse.ecsp.helper.Constant.LOCALE
 import org.eclipse.ecsp.helper.Constant.ORIGIN_KEY
 import org.eclipse.ecsp.helper.Constant.ORIGIN_VALUE
 import org.eclipse.ecsp.helper.Constant.USER_ID
 import org.eclipse.ecsp.helper.Constant.VEHICLE_ID
-import org.eclipse.ecsp.helper.getLocale
 import org.eclipse.ecsp.network.EndPoint
 import org.eclipse.ecsp.network.RequestMethod
 
@@ -87,7 +87,7 @@ sealed class RoEndPoint(val name: String) : EndPoint {
             REMOTE_OPERATION_UPDATE, REMOTE_OPERATION_HISTORY, REMOTE_OPERATION_REQUEST_STATUS -> {
                 HashMap<String, String>().apply {
                     put(Constant.HEADER_ACCEPT, Constant.HEADER_APPLICATION_JSON)
-                    put(Constant.HEADER_ACCEPT_LANGUAGE, getLocale())
+                    put(Constant.HEADER_ACCEPT_LANGUAGE, LOCALE)
                     put(ORIGIN_KEY, ORIGIN_VALUE)
                 }
             }

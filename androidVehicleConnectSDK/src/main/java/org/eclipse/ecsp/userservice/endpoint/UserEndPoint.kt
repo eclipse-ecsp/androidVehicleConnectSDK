@@ -23,7 +23,7 @@ import org.eclipse.ecsp.helper.Constant.GRANT_TYPE_VALUE
 import org.eclipse.ecsp.helper.Constant.HEADER_AUTHORIZATION
 import org.eclipse.ecsp.helper.Constant.HEADER_CONTENT_TYPE_KEY
 import org.eclipse.ecsp.helper.Constant.HEADER_CONTENT_TYPE_VALUE
-import org.eclipse.ecsp.helper.getLocale
+import org.eclipse.ecsp.helper.Constant.LOCALE
 import org.eclipse.ecsp.network.EndPoint
 import org.eclipse.ecsp.network.RequestMethod
 
@@ -126,7 +126,7 @@ sealed class UserEndPoint(val name: String) : EndPoint {
             PROFILE, PASSWORD_CHANGE -> {
                 HashMap<String, String>().apply {
                     put(Constant.HEADER_ACCEPT, Constant.HEADER_APPLICATION_JSON)
-                    put(Constant.HEADER_ACCEPT_LANGUAGE, getLocale())
+                    put(Constant.HEADER_ACCEPT_LANGUAGE, LOCALE)
                 }
             }
 

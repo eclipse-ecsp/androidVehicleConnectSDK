@@ -35,11 +35,12 @@ android {
         minSdk = 24
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders["appAuthRedirectScheme"] = "ignite"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -50,7 +51,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
         group = "org.eclipse.ecsp"
-        version = 1.2
+        version = 1.3
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -79,7 +80,7 @@ publishing {
         register<MavenPublication>("Releases") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
-            version = "1.1.3"
+            version = "1.1.4"
             artifact(javadocJar)
             artifact(file("build/reports/bom.xml")) {
                 classifier = "cyclonedx"
@@ -91,7 +92,7 @@ publishing {
             pom {
                 groupId = "org.eclipse.ecsp"
                 artifactId = "vehicleconnectsdk"
-                version = "1.1.3"
+                version = "1.1.4"
                 name = "$groupId:$artifactId"
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
@@ -104,7 +105,7 @@ publishing {
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0")
                     }
                 }
                 developers {

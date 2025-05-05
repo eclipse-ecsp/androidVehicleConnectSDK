@@ -68,7 +68,7 @@ class VehicleActivityModule : ComponentActivity(), AuthInterface {
 
     fun associateDevice() {
         CoroutineScope(Dispatchers.IO).launch {
-            iVehicleService.associateDevice("imei") {
+            iVehicleService.associateDevice("serialNumber") {
 
             }
         }
