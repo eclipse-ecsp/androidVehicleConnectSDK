@@ -80,11 +80,11 @@ class VehicleService : VehicleServiceInterface {
     /**
      * This function is used to associate new device using API call via retrofit service by invoking the vehicle repository functions
      *
-     * @param imeiNumber device IMEI number
+     * @param serialNumber vehicle serial number
      * @param customMessage this is the call back function to pass the API response value
      */
     override suspend fun associateDevice(
-        imeiNumber: String,
+        serialNumber: String,
         customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
     ) {
         val endPoint = VehicleEndPoint.DeviceAssociation
@@ -94,7 +94,7 @@ class VehicleService : VehicleServiceInterface {
                 endPoint.path,
                 endPoint.method,
                 endPoint.header,
-                AssociationData(mImei = imeiNumber),
+                AssociationData(mSerialNumber = serialNumber),
             )
         iVehicleRepository.associateDevice(customEndPoint, customMessage)
     }
@@ -194,11 +194,11 @@ interface VehicleServiceInterface {
     /**
      * Represents to do device association
      *
-     * @param imeiNumber holds device IMEI number
+     * @param serialNumber holds vehicle serial number
      * @param customMessage higher order function to emit the [CustomMessage] value as response
      */
     suspend fun associateDevice(
-        imeiNumber: String,
+        serialNumber: String,
         customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
     )
 
