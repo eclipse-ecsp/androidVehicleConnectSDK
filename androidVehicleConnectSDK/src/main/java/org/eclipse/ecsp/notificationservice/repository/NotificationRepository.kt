@@ -21,8 +21,8 @@ import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.helper.AppManager
 import org.eclipse.ecsp.helper.fromJson
 import org.eclipse.ecsp.helper.networkError
-import org.eclipse.ecsp.helper.networkResponse
 import org.eclipse.ecsp.helper.response.CustomMessage
+import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.network.networkmanager.IRetrofitManager
 import org.eclipse.ecsp.notificationservice.model.AlertAnalysisData
 import javax.inject.Inject
@@ -50,7 +50,9 @@ class NotificationRepository
         ) {
             retrofitManager.sendRequest(customEndPoint).also {
                 if (it != null && it.isSuccessful) {
-                    customMessage(networkResponse("Successfully updated the notification configuration data"))
+                    val resp = CustomMessage<String>(Status.Success)
+                    resp.setResponseData("Successfully updated the notification configuration data")
+                    customMessage(resp)
                 } else {
                     customMessage(networkError(it?.errorBody(), it?.code()))
                 }
@@ -66,7 +68,9 @@ class NotificationRepository
             retrofitManager.sendRequest(customEndPoint).also {
                 return if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<AlertAnalysisData>(it.body().toString())
-                    networkResponse(data)
+                    val resp = CustomMessage<AlertAnalysisData>(Status.Success)
+                    resp.setResponseData(data)
+                    resp
                 } else {
                     networkError(it?.errorBody(), it?.code())
                 }

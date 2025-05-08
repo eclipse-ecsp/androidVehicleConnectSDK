@@ -20,8 +20,8 @@ import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.helper.AppManager
 import org.eclipse.ecsp.helper.fromJson
 import org.eclipse.ecsp.helper.networkError
-import org.eclipse.ecsp.helper.networkResponse
 import org.eclipse.ecsp.helper.response.CustomMessage
+import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.network.networkmanager.IRetrofitManager
 import org.eclipse.ecsp.roservice.model.RoEventHistoryResponse
 import org.eclipse.ecsp.roservice.model.RoStatusResponse
@@ -56,7 +56,9 @@ class RoRepository
             retrofitManager.sendRequest(customEndPoint).also {
                 if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<RoStatusResponse>(it.body().toString())
-                    customMessage(networkResponse(data))
+                    val resp = CustomMessage<RoStatusResponse>(Status.Success)
+                    resp.setResponseData(data)
+                    customMessage(resp)
                 } else {
                     customMessage(networkError(it?.errorBody(), it?.code()))
                 }
@@ -76,7 +78,9 @@ class RoRepository
             retrofitManager.sendRequest(customEndPoint).also {
                 if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<List<RoEventHistoryResponse>>(it.body().toString())
-                    customMessage(networkResponse(data))
+                    val resp = CustomMessage<List<RoEventHistoryResponse>>(Status.Success)
+                    resp.setResponseData(data)
+                    customMessage(resp)
                 } else {
                     customMessage(networkError(it?.errorBody(), it?.code()))
                 }
@@ -96,7 +100,9 @@ class RoRepository
             retrofitManager.sendRequest(customEndPoint).also {
                 if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<RoEventHistoryResponse>(it.body().toString())
-                    customMessage(networkResponse(data))
+                    val resp = CustomMessage<RoEventHistoryResponse>(Status.Success)
+                    resp.setResponseData(data)
+                    customMessage(resp)
                 } else {
                     customMessage(networkError(it?.errorBody(), it?.code()))
                 }

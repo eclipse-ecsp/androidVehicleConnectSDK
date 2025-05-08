@@ -65,16 +65,3 @@ internal inline fun <reified T> networkError(
             },
     )
 }
-
-/**
- * This function is to create the CustomMessage response part from retrofit response body
- *
- * @param T Generic data class
- * @param response Retrofit response body served as API response
- * @return CustomMessage data class after converting response body
- */
-internal fun <T> networkResponse(response: T): CustomMessage<T> {
-    val customMessage = CustomMessage<T>(Status.Success)
-    customMessage.setResponseData(response)
-    return customMessage
-}
