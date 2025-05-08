@@ -20,8 +20,8 @@ import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.helper.AppManager
 import org.eclipse.ecsp.helper.fromJson
 import org.eclipse.ecsp.helper.networkError
-import org.eclipse.ecsp.helper.networkResponse
 import org.eclipse.ecsp.helper.response.CustomMessage
+import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.network.networkmanager.IRetrofitManager
 import org.eclipse.ecsp.vehicleservice.endpoint.VehicleEndPoint
 import org.eclipse.ecsp.vehicleservice.model.DeviceAssociationListData
@@ -56,7 +56,9 @@ class VehicleRepository
                 .also {
                     if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<DeviceAssociationListData>(it.body().toString())
-                        customMessage(networkResponse(data))
+                        val resp = CustomMessage<DeviceAssociationListData>(Status.Success)
+                        resp.setResponseData(data)
+                        customMessage(resp)
                     } else {
                         customMessage(networkError(it?.errorBody(), it?.code()))
                     }
@@ -77,7 +79,9 @@ class VehicleRepository
                 .also {
                     if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<DeviceVerificationData>(it.body().toString())
-                        customMessage(networkResponse(data))
+                        val resp = CustomMessage<DeviceVerificationData>(Status.Success)
+                        resp.setResponseData(data)
+                        customMessage(resp)
                     } else {
                         customMessage(networkError(it?.errorBody(), it?.code()))
                     }
@@ -98,7 +102,9 @@ class VehicleRepository
                 .also {
                     if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<AssociatedDeviceInfo>(it.body().toString())
-                        customMessage(networkResponse(data))
+                        val resp = CustomMessage<AssociatedDeviceInfo>(Status.Success)
+                        resp.setResponseData(data)
+                        customMessage(resp)
                     } else {
                         customMessage(networkError(it?.errorBody(), it?.code()))
                     }
@@ -119,7 +125,9 @@ class VehicleRepository
                 .also {
                     if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<VehicleProfileData>(it.body().toString())
-                        customMessage(networkResponse(data))
+                        val resp = CustomMessage<VehicleProfileData>(Status.Success)
+                        resp.setResponseData(data)
+                        customMessage(resp)
                     } else {
                         customMessage(networkError(it?.errorBody(), it?.code()))
                     }
@@ -139,7 +147,9 @@ class VehicleRepository
             retrofitManager.sendRequest(customEndPoint)
                 .also {
                     if (it != null && it.isSuccessful) {
-                        customMessage(networkResponse(it.body().toString()))
+                        val resp = CustomMessage<String>(Status.Success)
+                        resp.setResponseData(it.body().toString())
+                        customMessage(resp)
                     } else {
                         customMessage(networkError(it?.errorBody(), it?.code()))
                     }
@@ -159,7 +169,9 @@ class VehicleRepository
             retrofitManager.sendRequest(customEndPoint)
                 .also {
                     if (it != null && it.isSuccessful) {
-                        customMessage(networkResponse(it.body().toString()))
+                        val resp = CustomMessage<String>(Status.Success)
+                        resp.setResponseData(it.body().toString())
+                        customMessage(resp)
                     } else {
                         customMessage(networkError(it?.errorBody(), it?.code()))
                     }

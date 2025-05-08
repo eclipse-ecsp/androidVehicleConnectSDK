@@ -82,8 +82,7 @@ class LoginModuleTestClass {
         userRepository.retrofitManager = retrofitManager
 
         val userProfile = UserProfile("", "", "", "", arrayListOf(),
-            "", "", "", "", "", "",
-            "", "")
+            "", "", "", "")
         val userProfileCollection = UserProfileCollection(arrayListOf(UserProfileCollection.Message("")), arrayListOf(userProfile))
         val dataClass = Gson().toJson(userProfileCollection).toString()
 

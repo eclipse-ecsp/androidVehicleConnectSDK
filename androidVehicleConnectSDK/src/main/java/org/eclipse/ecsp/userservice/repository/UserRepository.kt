@@ -27,7 +27,6 @@ import org.eclipse.ecsp.helper.Constant.SIGN_IN
 import org.eclipse.ecsp.helper.Constant.SIGN_UP
 import org.eclipse.ecsp.helper.fromJson
 import org.eclipse.ecsp.helper.networkError
-import org.eclipse.ecsp.helper.networkResponse
 import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
@@ -97,7 +96,7 @@ class UserRepository
         /**
          * This function is to fetch the user profile data via retrofit service
          *
-         * @param customEndPoint this holds the required details like header, path, query, body...etc for API Call
+         * @param endPoint this holds the required details like header, path, query, body...etc for API Call
          * @param customMessage this is the callback higher order lambda function
          * to pass the result (UserProfileCollection) to client application
          */
@@ -108,7 +107,9 @@ class UserRepository
             retrofitManager.sendRequest(endPoint).also {
                 if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<UserProfile>(it.body().toString())
-                    customMessage(networkResponse(data))
+                    val resp = CustomMessage<UserProfile>(Status.Success)
+                    resp.setResponseData(data)
+                    customMessage(resp)
                 } else {
                     customMessage(networkError(it?.errorBody(), it?.code()))
                 }
