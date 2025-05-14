@@ -55,7 +55,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run unit tests and generate coverage
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew clean testDebugUnitTest jacocoTestReport
 
       - name: Analyze with SonarCloud
 
@@ -68,6 +68,7 @@ jobs:
           args:
             -Dsonar.projectKey=eclipse-ecsp_androidVehicleConnectSDK
             -Dsonar.organization=eclipse-ecsp
+            -Dsonar.coverage.jacoco.xmlReportPaths=app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
 #            -Dsonar.junit.reportPaths=app/build/test-results/testReleaseUnitTest
             # Comma-separated paths to directories containing main source files.
             #-Dsonar.sources= # optional, default is project base directory
