@@ -57,6 +57,13 @@ jobs:
       - name: Run unit tests and generate coverage
         run: ./gradlew clean testDebugUnitTest jacocoTestReport
 
+      - name: Archive Report file
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacocoTestReport.xml
+          path: app/build/reports/jacoco/jacocoTestReport/
+
       - name: Analyze with SonarCloud
 
         # You can pin the exact commit or the version.
