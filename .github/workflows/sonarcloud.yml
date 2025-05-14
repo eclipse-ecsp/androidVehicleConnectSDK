@@ -75,8 +75,8 @@ jobs:
           args:
             -Dsonar.projectKey=eclipse-ecsp_androidVehicleConnectSDK
             -Dsonar.organization=eclipse-ecsp
-            -Dsonar.sources=app/src/main/java,app/src/main/kotlin
-            -Dsonar.tests=app/src/test/java,app/src/test/kotlin
+            -Dsonar.sources=app/src/main/java
+            -Dsonar.tests=app/src/test/java
             -Dsonar.java.binaries=app/build/tmp/kotlin-classes/debug
             -Dsonar.coverage.jacoco.xmlReportPaths=app/build/reports/jacoco/jacocoTestReport/
 #            -Dsonar.junit.reportPaths=app/build/test-results/testReleaseUnitTest
