@@ -1,4 +1,5 @@
-![logo](https://github.com/user-attachments/assets/f6305af5-0f50-41f6-8c5a-28724e707da2)
+
+![logo](https://github.com/user-attachments/assets/1fe07b36-2749-4dcf-9fcb-e8ea4241f973)
 
 # VehicleConnectSDK
 [![Build](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/android.yml/badge.svg)](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/android.yml)
