@@ -44,8 +44,9 @@ VehicleConnectSDK has capability to make a connection to cloud and get the respo
 2. After build successful, Find the [androidVehicleConnectSDK-debug.aar] in build/outputs/aar folder and add into your application project lib folder.
 3. Implement the SDK/aar file (which is added into the lib folder of your application project) by using implementation statement inside build.gradle.kts (app level).
 eg: implementation(files("libs/androidVehicleConnectSDK.aar")).
+We have published the AAR binary to the Maven Central Repository [VehicleConnectSDK-aar](https://mvnrepository.com/artifact/org.eclipse.ecsp/vehicleconnectsdk). Developers can find the latest version there and integrate it into their Android application projects.
 4. Use the AppManager instance (A class inside the VehicleConnectSDK) to initialize the sdk.
-5. Download the sample app https://github.com/eclipse-ecsp/androidVehicleConnectApp for reference to know how we call API methods.
+5. Download the sample app [Sample Application](https://github.com/eclipse-ecsp/androidVehicleConnectApp) for a reference implementation demonstrating how to use the SDK API methods.
 
 ### Coding style check configuration
 
