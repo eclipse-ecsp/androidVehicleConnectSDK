@@ -1,11 +1,13 @@
 
-![logo](https://github.com/user-attachments/assets/1fe07b36-2749-4dcf-9fcb-e8ea4241f973)
+<div align="center">
+  <img src="./images/logo.png" width="300" height="150"/>
+</div>
 
-# VehicleConnectSDK
+# Android Vehicle Connect SDK
 [![Build](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/android.yml/badge.svg)](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/android.yml)
 [![License Compliance](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/license-compliance.yml/badge.svg)](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/license-compliance.yml)
 
-Android VehicleConnectSDK provide API interface for Remote Operation, User Authentication Using spring Auth, Vehicle Profile, Vehicle Association. So remote Operations mobile apps can be designed by using the VehicleConnectSDK.
+Android Vehicle Connect SDK provide API interface for Remote Operation, User Authentication Using spring Auth, Vehicle Profile, Vehicle Association. So remote Operations mobile apps can be designed by using the VehicleConnectSDK.
 
 # Table of Contents
 * [Getting Started](#getting-started)
@@ -23,7 +25,7 @@ Android VehicleConnectSDK provide API interface for Remote Operation, User Authe
 
 ## Getting Started
 
-Take clone of the project by using the below command and repository path ans setup the xcode version 15.4 amd above (git clone https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git)
+Take clone of the project using the command (git clone https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git) and setup android studio and load the project.
 
 Design Overview of VehicleConnectSDK
 <img width="1162" alt="350999035-8682f027-d5da-4753-b130-b327d2277f81" src="https://github.com/user-attachments/assets/9fa8e708-0d17-44db-b0e4-dadc152ebb62">
@@ -71,9 +73,9 @@ Developer documentation: [Developer Doc.zip](https://github.com/user-attachments
 
 ## Built With Dependencies
 
-* [AppAuth] - Auth library for User Authentication
-* [Retrofit]- For network operation Management
-* [Android Lint tool] - Coding convention and style guide
+* [AppAuth](https://github.com/openid/AppAuth-Android) - Auth library for User Authentication
+* [Retrofit](https://github.com/square/retrofit)- For network operation Management
+* [KtLint tool] - Coding convention and style guide
 
 
 ## How to contribute
@@ -95,7 +97,8 @@ Check here the list of [contributors](https://github.com/eclipse-ecsp/androidVeh
 Please read [SECURITY.md](./SECURITY.md) to raise any security related issues.
 
 ## Support
-Please write to us at [csp@harman.com](mailto:csp@harman.com)
+
+Contact the project developers via the project's "dev" list - [ecsp-dev](https://accounts.eclipse.org/mailing-list/)
 
 ## Troubleshooting
 
