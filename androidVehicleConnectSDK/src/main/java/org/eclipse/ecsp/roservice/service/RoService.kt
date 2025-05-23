@@ -19,6 +19,7 @@ package org.eclipse.ecsp.roservice.service
 import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.helper.AppManager
 import org.eclipse.ecsp.helper.Constant
+import org.eclipse.ecsp.helper.getAlphaNumericId
 import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.roservice.endpoint.RoEndPoint
 import org.eclipse.ecsp.roservice.model.RemoteOperationState
@@ -67,7 +68,7 @@ class RoService : RoServiceInterface {
     ) {
         val endPoint = RoEndPoint.UpdateRemoteOperation
         val tempHeader = endPoint.header
-        tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
+        tempHeader?.put(Constant.REQUEST_ID, getAlphaNumericId())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
         val customEndPoint =
             CustomEndPoint(
@@ -99,7 +100,7 @@ class RoService : RoServiceInterface {
     ) {
         val endPoint = RoEndPoint.RemoteOperationHistory
         val tempHeader = endPoint.header
-        tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
+        tempHeader?.put(Constant.REQUEST_ID, getAlphaNumericId())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
         val customEndPoint =
             CustomEndPoint(
@@ -133,7 +134,7 @@ class RoService : RoServiceInterface {
     ) {
         val endPoint = RoEndPoint.RemoteOperationRequestStatus
         val tempHeader = endPoint.header
-        tempHeader?.put(Constant.REQUEST_ID, System.currentTimeMillis().toString())
+        tempHeader?.put(Constant.REQUEST_ID, getAlphaNumericId())
         tempHeader?.put(Constant.SESSION_ID, System.currentTimeMillis().toString())
         val customEndPoint =
             CustomEndPoint(
