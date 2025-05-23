@@ -7,7 +7,7 @@
 [![Build](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/android.yml/badge.svg)](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/android.yml)
 [![License Compliance](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/license-compliance.yml/badge.svg)](https://github.com/eclipse-ecsp/androidVehicleConnectSDK/actions/workflows/license-compliance.yml)
 
-The Android Vehicle Connect SDK provides APIs for remote operations, user authentication using App Auth library, vehicle profile management, and vehicle association. It enables mobile applications to be developed with integrated remote vehicle control functionality.
+Vehicle Connect SDK provides APIs for user authentication using App Auth library, remote operations, vehicle profile management, and vehicle association. It enables mobile applications to be developed with integrated remote vehicle control functionality.
 
 The Vehicle Connect SDK is written in Kotlin and is compatible with Android 7.0 (API level 24) and above.
 It is capable of establishing a connection to the cloud and retrieving both structured model objects and raw response data.
