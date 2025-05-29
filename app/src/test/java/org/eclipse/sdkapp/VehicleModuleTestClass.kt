@@ -101,7 +101,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.associatedDeviceList()
-            vehicleRepository.associatedDeviceList
+            vehicleRepository.associatedDeviceList()
             val result = vehicleRepository.retrofitManager.sendRequest(endPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -123,7 +123,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.associatedDeviceList()
-            vehicleRepository.associatedDeviceList
+            vehicleRepository.associatedDeviceList()
             val result = vehicleRepository.retrofitManager.sendRequest(endPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()
