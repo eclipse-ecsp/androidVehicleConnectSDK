@@ -49,18 +49,18 @@ class VehicleRepository
         /**
          * This function is used to trigger the GET associated device list using retrofit service.
          *
-         * @param customMessage this is the call back function to pass the API response value
+         * @return [CustomMessage]  of [DeviceAssociationListData] as response value
          */
-        override suspend fun associatedDeviceList(customMessage: (CustomMessage<DeviceAssociationListData>) -> Unit) {
+        override suspend fun associatedDeviceList(): CustomMessage<DeviceAssociationListData> {
             retrofitManager.sendRequest(VehicleEndPoint.DeviceAssociationList)
                 .also {
-                    if (it != null && it.isSuccessful) {
+                    return if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<DeviceAssociationListData>(it.body().toString())
                         val resp = CustomMessage<DeviceAssociationListData>(Status.Success)
                         resp.setResponseData(data)
-                        customMessage(resp)
+                        resp
                     } else {
-                        customMessage(networkError(it?.errorBody(), it?.code()))
+                        networkError(it?.errorBody(), it?.code())
                     }
                 }
         }
@@ -69,21 +69,18 @@ class VehicleRepository
          * This function is used to validate the device imei using API service
          *
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the API response value
+         * @return [CustomMessage] of [DeviceVerificationData] as response value
          */
-        override suspend fun verifyDeviceImei(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
-        ) {
+        override suspend fun verifyDeviceImei(customEndPoint: CustomEndPoint): CustomMessage<DeviceVerificationData> {
             retrofitManager.sendRequest(customEndPoint)
                 .also {
-                    if (it != null && it.isSuccessful) {
+                    return if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<DeviceVerificationData>(it.body().toString())
                         val resp = CustomMessage<DeviceVerificationData>(Status.Success)
                         resp.setResponseData(data)
-                        customMessage(resp)
+                        resp
                     } else {
-                        customMessage(networkError(it?.errorBody(), it?.code()))
+                        networkError(it?.errorBody(), it?.code())
                     }
                 }
         }
@@ -92,21 +89,18 @@ class VehicleRepository
          * This function is used to associate new device using API call via retrofit service
          *
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the API response value
+         * @return [CustomMessage] of [AssociatedDeviceInfo] as response value
          */
-        override suspend fun associateDevice(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
-        ) {
+        override suspend fun associateDevice(customEndPoint: CustomEndPoint): CustomMessage<AssociatedDeviceInfo> {
             retrofitManager.sendRequest(customEndPoint)
                 .also {
-                    if (it != null && it.isSuccessful) {
+                    return if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<AssociatedDeviceInfo>(it.body().toString())
                         val resp = CustomMessage<AssociatedDeviceInfo>(Status.Success)
                         resp.setResponseData(data)
-                        customMessage(resp)
+                        resp
                     } else {
-                        customMessage(networkError(it?.errorBody(), it?.code()))
+                        networkError(it?.errorBody(), it?.code())
                     }
                 }
         }
@@ -115,21 +109,18 @@ class VehicleRepository
          * This function is used to get the vehicle profile data using API call via retrofit service
          *
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the API response value
+         * @return [CustomMessage] of [VehicleProfileData] as response value
          */
-        override suspend fun getVehicleProfile(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
-        ) {
+        override suspend fun getVehicleProfile(customEndPoint: CustomEndPoint): CustomMessage<VehicleProfileData> {
             retrofitManager.sendRequest(customEndPoint)
                 .also {
-                    if (it != null && it.isSuccessful) {
+                    return if (it != null && it.isSuccessful) {
                         val data = Gson().fromJson<VehicleProfileData>(it.body().toString())
                         val resp = CustomMessage<VehicleProfileData>(Status.Success)
                         resp.setResponseData(data)
-                        customMessage(resp)
+                        resp
                     } else {
-                        customMessage(networkError(it?.errorBody(), it?.code()))
+                        networkError(it?.errorBody(), it?.code())
                     }
                 }
         }
@@ -138,20 +129,17 @@ class VehicleRepository
          * This function is used to update the vehicle profile data using API call via retrofit service
          *
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the API response value
+         * @return [CustomMessage] of [String] as response value
          */
-        override suspend fun updateVehicleProfile(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<String>) -> Unit,
-        ) {
+        override suspend fun updateVehicleProfile(customEndPoint: CustomEndPoint): CustomMessage<String> {
             retrofitManager.sendRequest(customEndPoint)
                 .also {
-                    if (it != null && it.isSuccessful) {
+                    return if (it != null && it.isSuccessful) {
                         val resp = CustomMessage<String>(Status.Success)
                         resp.setResponseData(it.body().toString())
-                        customMessage(resp)
+                        resp
                     } else {
-                        customMessage(networkError(it?.errorBody(), it?.code()))
+                        networkError(it?.errorBody(), it?.code())
                     }
                 }
         }
@@ -160,20 +148,17 @@ class VehicleRepository
          * This function is used to terminate the vehicle associated with the user using API call via retrofit service
          *
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the API response value
+         * @return [CustomMessage] of [String] as response value
          */
-        override suspend fun terminateDevice(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<String>) -> Unit,
-        ) {
+        override suspend fun terminateDevice(customEndPoint: CustomEndPoint): CustomMessage<String> {
             retrofitManager.sendRequest(customEndPoint)
                 .also {
-                    if (it != null && it.isSuccessful) {
+                    return if (it != null && it.isSuccessful) {
                         val resp = CustomMessage<String>(Status.Success)
                         resp.setResponseData(it.body().toString())
-                        customMessage(resp)
+                        resp
                     } else {
-                        customMessage(networkError(it?.errorBody(), it?.code()))
+                        networkError(it?.errorBody(), it?.code())
                     }
                 }
         }
@@ -186,62 +171,47 @@ interface VehicleRepoInterface {
     /**
      * Represent to call associated device list API
      *
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [DeviceAssociationListData] as response value
      */
-    suspend fun associatedDeviceList(customMessage: (CustomMessage<DeviceAssociationListData>) -> Unit)
+    suspend fun associatedDeviceList(): CustomMessage<DeviceAssociationListData>
 
     /**
      * Represent to call device imei verification API
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [DeviceVerificationData] as response value
      */
-    suspend fun verifyDeviceImei(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
-    )
+    suspend fun verifyDeviceImei(customEndPoint: CustomEndPoint): CustomMessage<DeviceVerificationData>
 
     /**
      * Represent to call vehicle profile GET API
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [VehicleProfileData] as response value
      */
-    suspend fun getVehicleProfile(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
-    )
+    suspend fun getVehicleProfile(customEndPoint: CustomEndPoint): CustomMessage<VehicleProfileData>
 
     /**
      * Represents to call device associate API
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [AssociatedDeviceInfo] as response value
      */
-    suspend fun associateDevice(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
-    )
+    suspend fun associateDevice(customEndPoint: CustomEndPoint): CustomMessage<AssociatedDeviceInfo>
 
     /**
      * Represents to call vehicle profile data updating API
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [String] as response value
      */
-    suspend fun updateVehicleProfile(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<String>) -> Unit,
-    )
+    suspend fun updateVehicleProfile(customEndPoint: CustomEndPoint): CustomMessage<String>
 
     /**
      * Represents to call device termination API
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [String] as response value
      */
-    suspend fun terminateDevice(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<String>) -> Unit,
-    )
+    suspend fun terminateDevice(customEndPoint: CustomEndPoint): CustomMessage<String>
 }

@@ -52,33 +52,25 @@ class VehicleActivityModule : ComponentActivity(), AuthInterface {
 
     fun associatedDeviceList() {
         CoroutineScope(Dispatchers.IO).launch {
-            iVehicleService.associatedDeviceList {
-
-            }
+            iVehicleService.associatedDeviceList()
         }
     }
 
     fun verifyDeviceImei() {
         CoroutineScope(Dispatchers.IO).launch {
-            iVehicleService.verifyDeviceImei("imei") {
-
-            }
+            iVehicleService.verifyDeviceImei("imei")
         }
     }
 
     fun associateDevice() {
         CoroutineScope(Dispatchers.IO).launch {
-            iVehicleService.associateDevice("serialNumber") {
-
-            }
+            iVehicleService.associateDevice("serialNumber")
         }
     }
 
     fun getVehicleProfile() {
         CoroutineScope(Dispatchers.IO).launch {
-            iVehicleService.getVehicleProfile("deviceId") {
-
-            }
+            iVehicleService.getVehicleProfile("deviceId")
         }
     }
 
@@ -88,17 +80,13 @@ class VehicleActivityModule : ComponentActivity(), AuthInterface {
                 "deviceId", PostVehicleAttributeData(
                     VehicleAttributeDetail()
                 )
-            ) {
-
-            }
+            )
         }
     }
 
     fun terminateDevice(){
         CoroutineScope(Dispatchers.IO).launch {
-            iVehicleService.terminateVehicle(TerminateDeviceData("","","")){
-
-            }
+            iVehicleService.terminateVehicle(TerminateDeviceData("","",""))
         }
     }
 

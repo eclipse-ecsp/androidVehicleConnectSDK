@@ -70,13 +70,14 @@ internal inline fun <reified T> networkError(
  * Function is to generate a alpha numeric unique id
  * Converts timestamp to base-36 for compact alphanumeric representation and match the pattern.
  *
+ * @param regexPattern used to create the string
  * @return Unique id as [String]
  */
-fun getAlphaNumericId(): String {
+fun getAlphaNumericId(regexPattern: String): String {
     val timestamp = System.currentTimeMillis().toString()
     val base36 = timestamp.toLong().toString(36) // Converts timestamp to base-36 for compact alphanumeric representation
-    val id = base36.takeLast(10).padStart(5, '0') // Ensure length between 5 and 10
+    val id = base36.takeLast(10).padStart(10, '0') // Ensure length is 10
 
     // Replace any invalid characters if necessary, though base36 should be safe (contains a-z, 0-9)
-    return id.replace(Regex("[^a-zA-Z0-9_]"), "_")
+    return id.replace(Regex(regexPattern), "")
 }

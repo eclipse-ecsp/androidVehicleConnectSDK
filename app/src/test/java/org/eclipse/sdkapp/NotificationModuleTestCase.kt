@@ -84,7 +84,7 @@ class NotificationModuleTestCase {
                 responseJsonElement
             )
             activity.updateNotificationConfig()
-            notificationRepository.updateNotificationConfig(customEndPoint) {}
+            notificationRepository.updateNotificationConfig(customEndPoint)
             val result = notificationRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -113,7 +113,7 @@ class NotificationModuleTestCase {
                 responseJsonElement
             )
             activity.updateNotificationConfig()
-            notificationRepository.updateNotificationConfig(customEndPoint) {}
+            notificationRepository.updateNotificationConfig(customEndPoint)
             val result = notificationRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()

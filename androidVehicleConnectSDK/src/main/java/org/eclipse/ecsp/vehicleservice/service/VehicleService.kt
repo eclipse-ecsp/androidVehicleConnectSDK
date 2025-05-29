@@ -48,10 +48,10 @@ class VehicleService : VehicleServiceInterface {
      * This function is used to get associated device list,
      * This function invokes the vehicle repository functions to get the result
      *
-     * @param customMessage this is the call back function to pass the API response value
+     * @return [CustomMessage] of [DeviceAssociationListData] as response value
      */
-    override suspend fun associatedDeviceList(customMessage: (CustomMessage<DeviceAssociationListData>) -> Unit) {
-        iVehicleRepository.associatedDeviceList(customMessage)
+    override suspend fun associatedDeviceList(): CustomMessage<DeviceAssociationListData> {
+        return iVehicleRepository.associatedDeviceList()
     }
 
     /**
@@ -59,12 +59,9 @@ class VehicleService : VehicleServiceInterface {
      * This function invokes the vehicle repository functions to get the result
      *
      * @param imeiNumber device IMEI number
-     * @param customMessage this is the call back function to pass the API response value
+     * @return [CustomMessage] of [DeviceVerificationData] as response value
      */
-    override suspend fun verifyDeviceImei(
-        imeiNumber: String,
-        customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
-    ) {
+    override suspend fun verifyDeviceImei(imeiNumber: String): CustomMessage<DeviceVerificationData> {
         val endPoint = VehicleEndPoint.VerifyDevice
         val customEndPoint =
             CustomEndPoint(
@@ -74,19 +71,16 @@ class VehicleService : VehicleServiceInterface {
                 endPoint.header,
                 endPoint.body,
             )
-        iVehicleRepository.verifyDeviceImei(customEndPoint, customMessage)
+        return iVehicleRepository.verifyDeviceImei(customEndPoint)
     }
 
     /**
      * This function is used to associate new device using API call via retrofit service by invoking the vehicle repository functions
      *
      * @param serialNumber vehicle serial number
-     * @param customMessage this is the call back function to pass the API response value
+     * @return [CustomMessage] of [AssociatedDeviceInfo] as response value
      */
-    override suspend fun associateDevice(
-        serialNumber: String,
-        customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
-    ) {
+    override suspend fun associateDevice(serialNumber: String): CustomMessage<AssociatedDeviceInfo> {
         val endPoint = VehicleEndPoint.DeviceAssociation
         val customEndPoint =
             CustomEndPoint(
@@ -96,19 +90,16 @@ class VehicleService : VehicleServiceInterface {
                 endPoint.header,
                 AssociationData(mSerialNumber = serialNumber),
             )
-        iVehicleRepository.associateDevice(customEndPoint, customMessage)
+        return iVehicleRepository.associateDevice(customEndPoint)
     }
 
     /**
      * This function is used to get the vehicle profile data of a device using API call via retrofit service by invoking the vehicle repository function
      *
      * @param deviceId device ID
-     * @param customMessage this is the call back function to pass the API response value
+     * @return [CustomMessage] of [VehicleProfileData] as response value
      */
-    override suspend fun getVehicleProfile(
-        deviceId: String,
-        customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
-    ) {
+    override suspend fun getVehicleProfile(deviceId: String): CustomMessage<VehicleProfileData> {
         val endPoint = VehicleEndPoint.VehicleProfile
         val customEndPoint =
             CustomEndPoint(
@@ -118,7 +109,7 @@ class VehicleService : VehicleServiceInterface {
                 endPoint.header,
                 endPoint.body,
             )
-        iVehicleRepository.getVehicleProfile(customEndPoint, customMessage)
+        return iVehicleRepository.getVehicleProfile(customEndPoint)
     }
 
     /**
@@ -126,13 +117,12 @@ class VehicleService : VehicleServiceInterface {
      *
      * @param deviceId unique id of device
      * @param postVehicleAttributeData vehicle profile data need to pass with updated value
-     * @param customMessage this is the call back function to pass the API response value
+     * @return [CustomMessage] of [String] as response value
      */
     override suspend fun updateVehicleProfile(
         deviceId: String,
         postVehicleAttributeData: PostVehicleAttributeData,
-        customMessage: (CustomMessage<String>) -> Unit,
-    ) {
+    ): CustomMessage<String> {
         val endPoint = VehicleEndPoint.UpdateVehicleProfile
         val customEndPoint =
             CustomEndPoint(
@@ -142,19 +132,16 @@ class VehicleService : VehicleServiceInterface {
                 endPoint.header,
                 postVehicleAttributeData,
             )
-        iVehicleRepository.updateVehicleProfile(customEndPoint, customMessage)
+        return iVehicleRepository.updateVehicleProfile(customEndPoint)
     }
 
     /**
      * This function is to terminate the device associated with user using API call via retrofit service by invoking the vehicle repository function
      *
      * @param terminateDeviceData holds the device related data to do termination
-     * @param customMessage this is the call back function to pass the API response value
+     * @return [CustomMessage] of [String] as response value
      */
-    override suspend fun terminateVehicle(
-        terminateDeviceData: TerminateDeviceData,
-        customMessage: (CustomMessage<String>) -> Unit,
-    ) {
+    override suspend fun terminateVehicle(terminateDeviceData: TerminateDeviceData): CustomMessage<String> {
         val endPoint = VehicleEndPoint.TerminateDevice
         val customEndPoint =
             CustomEndPoint(
@@ -164,7 +151,7 @@ class VehicleService : VehicleServiceInterface {
                 endPoint.header,
                 terminateDeviceData,
             )
-        iVehicleRepository.terminateDevice(customEndPoint, customMessage)
+        return iVehicleRepository.terminateDevice(customEndPoint)
     }
 }
 
@@ -176,66 +163,53 @@ interface VehicleServiceInterface {
     /**
      * Represents to get the associated device list
      *
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [DeviceAssociationListData] value as response
      */
-    suspend fun associatedDeviceList(customMessage: (CustomMessage<DeviceAssociationListData>) -> Unit)
+    suspend fun associatedDeviceList(): CustomMessage<DeviceAssociationListData>
 
     /**
      * Represents to verify the IMEI of device
      *
      * @param imeiNumber holds device IMEI number
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [DeviceVerificationData] value as response
      */
-    suspend fun verifyDeviceImei(
-        imeiNumber: String,
-        customMessage: (CustomMessage<DeviceVerificationData>) -> Unit,
-    )
+    suspend fun verifyDeviceImei(imeiNumber: String): CustomMessage<DeviceVerificationData>
 
     /**
      * Represents to do device association
      *
      * @param serialNumber holds vehicle serial number
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [AssociatedDeviceInfo] value as response
      */
-    suspend fun associateDevice(
-        serialNumber: String,
-        customMessage: (CustomMessage<AssociatedDeviceInfo>) -> Unit,
-    )
+    suspend fun associateDevice(serialNumber: String): CustomMessage<AssociatedDeviceInfo>
 
     /**
      * Represents to get the vehicle profile details
      *
      * @param deviceId holds device id
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [VehicleProfileData] value as response
      */
-    suspend fun getVehicleProfile(
-        deviceId: String,
-        customMessage: (CustomMessage<VehicleProfileData>) -> Unit,
-    )
+    suspend fun getVehicleProfile(deviceId: String): CustomMessage<VehicleProfileData>
 
     /**
      * Represents to update the vehicle profile details
      *
      * @param deviceId holds device id
      * @param postVehicleAttributeData holds device [PostVehicleAttributeData]
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [String] value as response
      */
     suspend fun updateVehicleProfile(
         deviceId: String,
         postVehicleAttributeData: PostVehicleAttributeData,
-        customMessage: (CustomMessage<String>) -> Unit,
-    )
+    ): CustomMessage<String>
 
     /**
      * Represents to do termination of a vehicle
      *
      * @param terminateDeviceData holds the device data of terminating device
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [String] value as response
      */
-    suspend fun terminateVehicle(
-        terminateDeviceData: TerminateDeviceData,
-        customMessage: (CustomMessage<String>) -> Unit,
-    )
+    suspend fun terminateVehicle(terminateDeviceData: TerminateDeviceData): CustomMessage<String>
 
     companion object {
         /**

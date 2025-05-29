@@ -42,19 +42,16 @@ class NotificationRepository
         /**
          * This function is to call the API for updating the Notification config using retrofit service
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the response value
+         * @return [String] of [CustomMessage] which hold response value
          */
-        override suspend fun updateNotificationConfig(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<String>) -> Unit,
-        ) {
+        override suspend fun updateNotificationConfig(customEndPoint: CustomEndPoint): CustomMessage<String> {
             retrofitManager.sendRequest(customEndPoint).also {
-                if (it != null && it.isSuccessful) {
+                return if (it != null && it.isSuccessful) {
                     val resp = CustomMessage<String>(Status.Success)
                     resp.setResponseData("Successfully updated the notification configuration data")
-                    customMessage(resp)
+                    resp
                 } else {
-                    customMessage(networkError(it?.errorBody(), it?.code()))
+                    networkError(it?.errorBody(), it?.code())
                 }
             }
         }
@@ -79,10 +76,13 @@ class NotificationRepository
     }
 
 interface NotificationRepoInterface {
-    suspend fun updateNotificationConfig(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<String>) -> Unit,
-    )
+    /**
+     * Represents to call the notification configuration update API
+     *
+     * @param customEndPoint
+     * @return [CustomMessage] of [String] value as response
+     */
+    suspend fun updateNotificationConfig(customEndPoint: CustomEndPoint): CustomMessage<String>
 
     /**
      * Represents to call the notification alert history api
