@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.cyclonedx.bom")
-    id("jacoco")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 android {
@@ -41,84 +41,6 @@ android {
     lint {
         abortOnError = false
     }
-
-    testOptions {
-        animationsDisabled = true
-
-        unitTests {
-            isReturnDefaultValues = true
-
-            all {
-                it.extensions.configure<JacocoTaskExtension>("jacoco") {
-                    isIncludeNoLocationClasses = true // Include all classes for coverage
-                }
-            }
-        }
-    }
-}
-
-jacoco{
-    toolVersion = "0.8.11"
-}
-
-tasks.withType<Test>().configureEach {
-    extensions.configure<JacocoTaskExtension>("jacoco") {
-        isIncludeNoLocationClasses = true
-        excludes = listOf("jdk.internal.*") // Exclude unwanted classes
-    }
-}
-
-tasks.register<JacocoReport>("jacocoTestReport") {
-    group  = "Code coverage verification"
-    description = "Generates JaCoCo coverage reports for unit tests."
-    dependsOn("testDebugUnitTest")
-
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
-    }
-
-    val fileFilter = listOf(
-        "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*"
-    )
-
-    // App module class files
-    val appJavaClasses = fileTree("build/intermediates/javac/debug/classes") {
-        exclude(fileFilter)
-    }
-
-    val appKotlinClasses = fileTree("build/tmp/kotlin-classes/debug") {
-        exclude(fileFilter)
-    }
-
-    // Library module class files
-    val libraryJavaClasses = fileTree(
-        "${project.rootDir}/androidVehicleConnectSDK/build/intermediates/javac/debug/classes") {
-        exclude(fileFilter)
-    }
-
-    val libraryKotlinClasses =
-        fileTree("${project.rootDir}/androidVehicleConnectSDK/build/tmp/kotlin-classes/debug") {
-        exclude(fileFilter)
-    }
-
-    // Combine all source and class directories
-    classDirectories.setFrom(project.layout.files(
-        appJavaClasses, appKotlinClasses, libraryJavaClasses, libraryKotlinClasses)
-    )
-    sourceDirectories.setFrom(
-        project.layout.files(
-            "${project.projectDir}/src/main/java",
-            "${project.projectDir}/src/main/kotlin",
-            "${project.rootDir}/androidVehicleConnectSDK/src/main/java",
-            "${project.rootDir}/androidVehicleConnectSDK/src/main/kotlin"
-        )
-    )
-
-    executionData.setFrom(
-        fileTree(layout.buildDirectory).include("jacoco/testDebugUnitTest.exec")
-    )
 }
 
 dependencies {
@@ -148,6 +70,7 @@ dependencies {
     implementation ("com.google.code.gson:gson:$appGsonVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpLoggingVersion")
     implementation(kotlin("reflect"))
+    kover(project(":androidVehicleConnectSDK"))
 
     testImplementation("junit:junit:$junitVersion")
     testImplementation("org.mockito:mockito-core:$mockitoCoreVersion")
