@@ -67,9 +67,7 @@ class LoginActivityModule : ComponentActivity(), AuthInterface {
     fun fetchUserData() {
         AuthManager.sharedInterface(this)
         CoroutineScope(Dispatchers.IO).launch {
-            userServiceInterface.fetchUserProfile {
-
-            }
+            userServiceInterface.fetchUserProfile()
         }
     }
 

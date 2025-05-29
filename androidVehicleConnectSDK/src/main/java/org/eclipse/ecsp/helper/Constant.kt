@@ -57,4 +57,7 @@ object Constant {
     const val INVALID_REQUEST = "Invalid request"
     const val WRONG_INTENT = "Wrong Intent action"
     const val SERVER_ERROR = "Internal Server error"
+
+    const val RO_REGEX = "[^a-zA-Z0-9_]"
+    const val NOTIFICATION_REGEX = "[^a-zA-Z0-9]"
 }

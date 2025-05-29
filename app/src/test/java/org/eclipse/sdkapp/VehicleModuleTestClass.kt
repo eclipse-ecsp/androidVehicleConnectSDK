@@ -101,7 +101,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.associatedDeviceList()
-            vehicleRepository.associatedDeviceList {}
+            vehicleRepository.associatedDeviceList()
             val result = vehicleRepository.retrofitManager.sendRequest(endPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -123,7 +123,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.associatedDeviceList()
-            vehicleRepository.associatedDeviceList {}
+            vehicleRepository.associatedDeviceList()
             val result = vehicleRepository.retrofitManager.sendRequest(endPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()
@@ -152,7 +152,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.verifyDeviceImei()
-            vehicleRepository.verifyDeviceImei(customEndPoint) {}
+            vehicleRepository.verifyDeviceImei(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()
@@ -185,7 +185,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.verifyDeviceImei()
-            vehicleRepository.verifyDeviceImei(customEndPoint) {}
+            vehicleRepository.verifyDeviceImei(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -215,7 +215,7 @@ class VehicleModuleTestClass {
             )
             TokenData("","","","","",0)
             activity.associateDevice()
-            vehicleRepository.associateDevice(customEndPoint) {}
+            vehicleRepository.associateDevice(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()
@@ -246,7 +246,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.associateDevice()
-            vehicleRepository.associateDevice(customEndPoint) {}
+            vehicleRepository.associateDevice(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -274,7 +274,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.getVehicleProfile()
-            vehicleRepository.getVehicleProfile(customEndPoint) {}
+            vehicleRepository.getVehicleProfile(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()
@@ -318,7 +318,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.getVehicleProfile()
-            vehicleRepository.getVehicleProfile(customEndPoint) {}
+            vehicleRepository.getVehicleProfile(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -346,7 +346,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.updateVehicleProfile()
-            vehicleRepository.updateVehicleProfile(customEndPoint) {}
+            vehicleRepository.updateVehicleProfile(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()
@@ -374,7 +374,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.updateVehicleProfile()
-            vehicleRepository.updateVehicleProfile(customEndPoint) {}
+            vehicleRepository.updateVehicleProfile(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -402,7 +402,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.terminateDevice()
-            vehicleRepository.terminateDevice(customEndPoint) {}
+            vehicleRepository.terminateDevice(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()
@@ -430,7 +430,7 @@ class VehicleModuleTestClass {
                 responseJsonElement
             )
             activity.terminateDevice()
-            vehicleRepository.terminateDevice(customEndPoint) {}
+            vehicleRepository.terminateDevice(customEndPoint)
             val result = vehicleRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result

@@ -79,11 +79,10 @@ class UserService(val activity: Activity) : UserServiceInterface {
     /**
      * This function is to fetch the user profile data
      *
-     * @param customMessage this is the callback higher order lambda function
-     * to pass the result (UserProfileCollection) to client application
+     * @return [CustomMessage] of [UserProfile]
      */
-    override suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit) {
-        iUserRepository.fetchUserProfile(UserEndPoint.Profile, customMessage)
+    override suspend fun fetchUserProfile(): CustomMessage<UserProfile> {
+        return iUserRepository.fetchUserProfile(UserEndPoint.Profile)
     }
 
     /**
@@ -133,9 +132,9 @@ interface UserServiceInterface {
     /**
      * Represent to fetch the user profile data
      *
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [UserProfile] value as response
      */
-    suspend fun fetchUserProfile(customMessage: (CustomMessage<UserProfile>) -> Unit)
+    suspend fun fetchUserProfile(): CustomMessage<UserProfile>
 
     /**
      * Represents the interface method to trigger the password changing API request

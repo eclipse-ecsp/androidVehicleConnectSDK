@@ -4,6 +4,9 @@ import android.text.TextUtils
 import org.eclipse.ecsp.CustomEndPoint
 import org.eclipse.ecsp.helper.AppManager
 import org.eclipse.ecsp.helper.Constant
+import org.eclipse.ecsp.helper.Constant.NOTIFICATION_REGEX
+import org.eclipse.ecsp.helper.Constant.REQUEST_ID
+import org.eclipse.ecsp.helper.getAlphaNumericId
 import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.notificationservice.endpoint.NotificationEndPoint
 import org.eclipse.ecsp.notificationservice.model.AlertAnalysisData
@@ -46,15 +49,14 @@ class NotificationService : NotificationServiceInterface {
      * @param vehicleId vehicle id which the RO state to change
      * @param contactId this is the unique contact id by default it is {self}
      * @param notificationConfigList configuration data list
-     * @param customMessage this is the call back function to pass the response value
+     * @return [String] value of [CustomMessage]
      */
     override suspend fun updateNotificationConfig(
         userId: String,
         vehicleId: String,
         contactId: String?,
         notificationConfigList: ArrayList<NotificationConfigData>,
-        customMessage: (CustomMessage<String>) -> Unit,
-    ) {
+    ): CustomMessage<String> {
         val endPoint = NotificationEndPoint.NotificationConfig
         val path = "${
             endPoint.path?.replace(Constant.USER_ID, userId)
@@ -63,15 +65,19 @@ class NotificationService : NotificationServiceInterface {
                     contactId ?: Constant.CONTACT_SELF,
                 )
         }"
+        val header =
+            endPoint.header?.apply {
+                put(REQUEST_ID, getAlphaNumericId(NOTIFICATION_REGEX))
+            }
         val customEndPoint =
             CustomEndPoint(
                 endPoint.baseUrl,
                 path,
                 endPoint.method,
-                endPoint.header,
+                header,
                 notificationConfigList,
             )
-        notificationRepoInterface.updateNotificationConfig(customEndPoint, customMessage)
+        return notificationRepoInterface.updateNotificationConfig(customEndPoint)
     }
 
     /**
@@ -122,15 +128,14 @@ interface NotificationServiceInterface {
      * @param vehicleId holds vehicle Id
      * @param contactId holds contact Id
      * @param notificationConfigList holds notification Config List
-     * @param customMessage holds customMessage
+     * @return [CustomMessage] contain the success or failure details
      */
     suspend fun updateNotificationConfig(
         userId: String,
         vehicleId: String,
         contactId: String?,
         notificationConfigList: ArrayList<NotificationConfigData>,
-        customMessage: (CustomMessage<String>) -> Unit,
-    )
+    ): CustomMessage<String>
 
     /**
      * function is to get the notification alert history API

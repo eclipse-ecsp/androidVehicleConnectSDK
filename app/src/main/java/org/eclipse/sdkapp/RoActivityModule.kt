@@ -53,9 +53,7 @@ class RoActivityModule : ComponentActivity(), AuthInterface {
             roServiceInterface.getRemoteOperationHistory(
                 DUMMY_USER,
                 DUMMY_VALUE
-            ) {
-
-            }
+            )
         }
     }
 
@@ -65,9 +63,7 @@ class RoActivityModule : ComponentActivity(), AuthInterface {
                 DUMMY_USER,
                 DUMMY_VALUE,
                 "requestId"
-            ) {
-
-            }
+            )
         }
     }
 
@@ -77,9 +73,7 @@ class RoActivityModule : ComponentActivity(), AuthInterface {
                 DUMMY_USER,
                 DUMMY_VALUE,
                 8, 10, RemoteOperationState.AlarmOff
-            ) {
-
-            }
+            )
         }
     }
 
