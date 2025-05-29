@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.cyclonedx.bom")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 android {
@@ -69,6 +70,7 @@ dependencies {
     implementation ("com.google.code.gson:gson:$appGsonVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpLoggingVersion")
     implementation(kotlin("reflect"))
+    kover(project(":androidVehicleConnectSDK"))
 
     testImplementation("junit:junit:$junitVersion")
     testImplementation("org.mockito:mockito-core:$mockitoCoreVersion")

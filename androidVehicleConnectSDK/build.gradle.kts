@@ -25,6 +25,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
     id("signing")
     id("maven-publish")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 android {
