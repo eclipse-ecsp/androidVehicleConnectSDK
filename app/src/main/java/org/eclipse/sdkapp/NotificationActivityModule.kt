@@ -55,9 +55,7 @@ class NotificationActivityModule : ComponentActivity(), AuthInterface {
             val channelData = ChannelData(arrayListOf(), false, "", "","")
             val notificationConfigData = NotificationConfigData(arrayListOf(channelData), false, "")
             iNotificationServiceInterface.updateNotificationConfig("", "",
-                "", arrayListOf(notificationConfigData)) {
-
-            }
+                "", arrayListOf(notificationConfigData))
         }
     }
 
