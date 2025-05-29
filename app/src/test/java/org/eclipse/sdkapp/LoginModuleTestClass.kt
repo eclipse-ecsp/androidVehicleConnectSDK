@@ -94,7 +94,7 @@ class LoginModuleTestClass {
                 responseJsonElement
             )
             activity.fetchUserData()
-            userRepository.fetchUserProfile(customEndPoint) {}
+            userRepository.fetchUserProfile(customEndPoint)
             val result = userRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -122,7 +122,7 @@ class LoginModuleTestClass {
             `when`(userRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
                 responseJsonElement
             )
-            userRepository.fetchUserProfile(customEndPoint) {}
+            userRepository.fetchUserProfile(customEndPoint)
             val result = userRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertNotEquals(200, result?.code())
         }

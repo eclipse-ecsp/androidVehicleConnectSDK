@@ -92,7 +92,7 @@ class ROModuleTestClass {
                 responseJsonElement
             )
             activity.getRoHistory()
-            roRepository.getRemoteOperationHistory(customEndPoint) {}
+            roRepository.getRemoteOperationHistory(customEndPoint)
             val result = roRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -125,7 +125,7 @@ class ROModuleTestClass {
             `when`(roRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
                 responseJsonElement
             )
-            roRepository.getRemoteOperationHistory(customEndPoint) {}
+            roRepository.getRemoteOperationHistory(customEndPoint)
             val result = roRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertNotEquals(
                 200, result?.code()
@@ -157,7 +157,7 @@ class ROModuleTestClass {
                 responseJsonElement
             )
             activity.checkRoRequest()
-            roRepository.checkRemoteOperationRequestStatus(customEndPoint) {}
+            roRepository.checkRemoteOperationRequestStatus(customEndPoint)
             val result = roRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement, result
@@ -187,7 +187,7 @@ class ROModuleTestClass {
             `when`(roRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
                 responseJsonElement
             )
-            roRepository.checkRemoteOperationRequestStatus(customEndPoint) {}
+            roRepository.checkRemoteOperationRequestStatus(customEndPoint)
             val result = roRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertNotEquals(
                 200, result?.code()
@@ -222,7 +222,7 @@ class ROModuleTestClass {
                     responseJsonElement
                 )
                 activity.updateRoState()
-                roRepository.updateROStateRequest(customEndPoint) {}
+                roRepository.updateROStateRequest(customEndPoint)
                 val result = roRepository.retrofitManager.sendRequest(customEndPoint)
                 Assert.assertEquals(
                     responseJsonElement, result
@@ -250,13 +250,12 @@ class ROModuleTestClass {
         val responseJsonElement =
             Response.error<JsonElement>(400, "Bad request".toResponseBody(null))
 
-
         runBlocking {
             `when`(roRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
                 responseJsonElement
             )
             activity.updateRoState()
-            roRepository.updateROStateRequest(customEndPoint) {}
+            roRepository.updateROStateRequest(customEndPoint)
             val result = roRepository.retrofitManager.sendRequest(customEndPoint)
             Assert.assertEquals(
                 responseJsonElement.code(), result?.code()

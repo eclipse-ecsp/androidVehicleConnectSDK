@@ -57,7 +57,7 @@ class RoService : RoServiceInterface {
      * @param remoteOperationState represents the RO state
      * @param percent RO state percent
      * @param duration RO state duration
-     * @param customMessage this is the call back function to pass the response value
+     * @return [CustomMessage] of [RoStatusResponse]
      */
     override suspend fun updateROStateRequest(
         userId: String,
@@ -65,8 +65,7 @@ class RoService : RoServiceInterface {
         percent: Int?,
         duration: Int?,
         remoteOperationState: RemoteOperationState,
-        customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
-    ) {
+    ): CustomMessage<RoStatusResponse> {
         val endPoint = RoEndPoint.UpdateRemoteOperation
         val tempHeader =
             endPoint.header?.apply {
@@ -86,7 +85,7 @@ class RoService : RoServiceInterface {
                 tempHeader,
                 RoRequestData(remoteOperationState.state!!, percent, duration),
             )
-        roRepositoryInterface.updateROStateRequest(customEndPoint, customMessage)
+        return roRepositoryInterface.updateROStateRequest(customEndPoint)
     }
 
     /**
@@ -94,13 +93,12 @@ class RoService : RoServiceInterface {
      *
      * @param userId this is user id of user logged in
      * @param vehicleId vehicle id which the RO state to change
-     * @param customMessage this is the call back function to pass the response value
+     * @return [CustomMessage] with [List] of [RoEventHistoryResponse]
      */
     override suspend fun getRemoteOperationHistory(
         userId: String,
         vehicleId: String,
-        customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
-    ) {
+    ): CustomMessage<List<RoEventHistoryResponse>> {
         val endPoint = RoEndPoint.RemoteOperationHistory
         val tempHeader =
             endPoint.header?.apply {
@@ -120,7 +118,7 @@ class RoService : RoServiceInterface {
                 tempHeader,
                 endPoint.body,
             )
-        roRepositoryInterface.getRemoteOperationHistory(customEndPoint, customMessage)
+        return roRepositoryInterface.getRemoteOperationHistory(customEndPoint)
     }
 
     /**
@@ -129,14 +127,13 @@ class RoService : RoServiceInterface {
      * @param userId this is user id of user logged in
      * @param vehicleId vehicle id which the RO state to change
      * @param roRequestId this is Ro request id gets after the updating of state
-     * @param customMessage this is the call back function to pass the response value
+     * @return [CustomMessage] of [RoEventHistoryResponse]
      */
     override suspend fun checkRemoteOperationRequestStatus(
         userId: String,
         vehicleId: String,
         roRequestId: String,
-        customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
-    ) {
+    ): CustomMessage<RoEventHistoryResponse> {
         val endPoint = RoEndPoint.RemoteOperationRequestStatus
         val tempHeader =
             endPoint.header?.apply {
@@ -156,7 +153,7 @@ class RoService : RoServiceInterface {
                 tempHeader,
                 endPoint.body,
             )
-        roRepositoryInterface.checkRemoteOperationRequestStatus(customEndPoint, customMessage)
+        return roRepositoryInterface.checkRemoteOperationRequestStatus(customEndPoint)
     }
 }
 
@@ -169,7 +166,7 @@ interface RoServiceInterface {
      * @param percent holds the percent value
      * @param duration holds the duration value
      * @param remoteOperationState holds the remote Operation State value
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [RoStatusResponse] value as response
      */
     suspend fun updateROStateRequest(
         userId: String,
@@ -177,21 +174,19 @@ interface RoServiceInterface {
         percent: Int? = null,
         duration: Int? = null,
         remoteOperationState: RemoteOperationState,
-        customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
-    )
+    ): CustomMessage<RoStatusResponse>
 
     /**
      * represents to get the RO history request
      *
      * @param userId holds the user id value
      * @param vehicleId holds the vehicleId value
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [RoEventHistoryResponse] value as response
      */
     suspend fun getRemoteOperationHistory(
         userId: String,
         vehicleId: String,
-        customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
-    )
+    ): CustomMessage<List<RoEventHistoryResponse>>
 
     /**
      * represents to check the RO request status
@@ -199,14 +194,13 @@ interface RoServiceInterface {
      * @param userId holds the user id value
      * @param vehicleId holds the vehicleId value
      * @param roRequestId holds the ro request id
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @return [CustomMessage] of [RoEventHistoryResponse] value as response
      */
     suspend fun checkRemoteOperationRequestStatus(
         userId: String,
         vehicleId: String,
         roRequestId: String,
-        customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
-    )
+    ): CustomMessage<RoEventHistoryResponse>
 
     companion object {
         /**

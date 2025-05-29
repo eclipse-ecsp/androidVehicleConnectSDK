@@ -55,7 +55,7 @@ class NotificationService : NotificationServiceInterface {
         userId: String,
         vehicleId: String,
         contactId: String?,
-        notificationConfigList: ArrayList<NotificationConfigData>
+        notificationConfigList: ArrayList<NotificationConfigData>,
     ): CustomMessage<String> {
         val endPoint = NotificationEndPoint.NotificationConfig
         val path = "${
@@ -128,13 +128,13 @@ interface NotificationServiceInterface {
      * @param vehicleId holds vehicle Id
      * @param contactId holds contact Id
      * @param notificationConfigList holds notification Config List
-     * @param customMessage holds customMessage
+     * @return [CustomMessage] contain the success or failure details
      */
     suspend fun updateNotificationConfig(
         userId: String,
         vehicleId: String,
         contactId: String?,
-        notificationConfigList: ArrayList<NotificationConfigData>
+        notificationConfigList: ArrayList<NotificationConfigData>,
     ): CustomMessage<String>
 
     /**

@@ -1,4 +1,5 @@
 package org.eclipse.ecsp.roservice.repository
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -47,20 +48,17 @@ class RoRepository
         /**
          * This function is to call the API for update the RO state using retrofit service
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the response value
+         * @return [CustomMessage] of [RoStatusResponse]
          */
-        override suspend fun updateROStateRequest(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
-        ) {
+        override suspend fun updateROStateRequest(customEndPoint: CustomEndPoint): CustomMessage<RoStatusResponse> {
             retrofitManager.sendRequest(customEndPoint).also {
-                if (it != null && it.isSuccessful) {
+                return if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<RoStatusResponse>(it.body().toString())
                     val resp = CustomMessage<RoStatusResponse>(Status.Success)
                     resp.setResponseData(data)
-                    customMessage(resp)
+                    resp
                 } else {
-                    customMessage(networkError(it?.errorBody(), it?.code()))
+                    networkError(it?.errorBody(), it?.code())
                 }
             }
         }
@@ -69,20 +67,17 @@ class RoRepository
          * This function is to call the API for getting the RO history of the provided vehicle using retrofit service
          *
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the response value
+         * @return [CustomMessage] with [List] of [RoEventHistoryResponse]
          */
-        override suspend fun getRemoteOperationHistory(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
-        ) {
+        override suspend fun getRemoteOperationHistory(customEndPoint: CustomEndPoint): CustomMessage<List<RoEventHistoryResponse>> {
             retrofitManager.sendRequest(customEndPoint).also {
-                if (it != null && it.isSuccessful) {
+                return if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<List<RoEventHistoryResponse>>(it.body().toString())
                     val resp = CustomMessage<List<RoEventHistoryResponse>>(Status.Success)
                     resp.setResponseData(data)
-                    customMessage(resp)
+                    resp
                 } else {
-                    customMessage(networkError(it?.errorBody(), it?.code()))
+                    networkError(it?.errorBody(), it?.code())
                 }
             }
         }
@@ -91,20 +86,17 @@ class RoRepository
          * This function is to call the API for checking the RO state which is updated using retrofit service
          *
          * @param customEndPoint this holds the customized endpoints of API Call
-         * @param customMessage this is the call back function to pass the response value
+         * @return [CustomMessage] of [RoEventHistoryResponse]
          */
-        override suspend fun checkRemoteOperationRequestStatus(
-            customEndPoint: CustomEndPoint,
-            customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
-        ) {
+        override suspend fun checkRemoteOperationRequestStatus(customEndPoint: CustomEndPoint): CustomMessage<RoEventHistoryResponse> {
             retrofitManager.sendRequest(customEndPoint).also {
-                if (it != null && it.isSuccessful) {
+                return if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<RoEventHistoryResponse>(it.body().toString())
                     val resp = CustomMessage<RoEventHistoryResponse>(Status.Success)
                     resp.setResponseData(data)
-                    customMessage(resp)
+                    resp
                 } else {
-                    customMessage(networkError(it?.errorBody(), it?.code()))
+                    networkError(it?.errorBody(), it?.code())
                 }
             }
         }
@@ -119,32 +111,23 @@ interface RoRepositoryInterface {
      * represents to update the RO state
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the CustomMessage<AlertAnalysisData> value as response
+     * @return [CustomMessage] of [RoStatusResponse] value as response
      */
-    suspend fun updateROStateRequest(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<RoStatusResponse>) -> Unit,
-    )
+    suspend fun updateROStateRequest(customEndPoint: CustomEndPoint): CustomMessage<RoStatusResponse>
 
     /**
      * represents to get the RO history
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the CustomMessage<List<RoEventHistoryResponse>> value as response
+     * @return [CustomMessage] with [List] of [RoEventHistoryResponse] value as response
      */
-    suspend fun getRemoteOperationHistory(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<List<RoEventHistoryResponse>>) -> Unit,
-    )
+    suspend fun getRemoteOperationHistory(customEndPoint: CustomEndPoint): CustomMessage<List<RoEventHistoryResponse>>
 
     /**
      * represents to check the status of RO request
      *
      * @param customEndPoint holds the end point of API
-     * @param customMessage higher order function to emit the CustomMessage<RoEventHistoryResponse> value as response
+     * @return [CustomMessage] of [RoEventHistoryResponse] value as response
      */
-    suspend fun checkRemoteOperationRequestStatus(
-        customEndPoint: CustomEndPoint,
-        customMessage: (CustomMessage<RoEventHistoryResponse>) -> Unit,
-    )
+    suspend fun checkRemoteOperationRequestStatus(customEndPoint: CustomEndPoint): CustomMessage<RoEventHistoryResponse>
 }

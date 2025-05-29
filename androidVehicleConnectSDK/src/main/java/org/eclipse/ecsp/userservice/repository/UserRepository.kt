@@ -97,21 +97,17 @@ class UserRepository
          * This function is to fetch the user profile data via retrofit service
          *
          * @param endPoint this holds the required details like header, path, query, body...etc for API Call
-         * @param customMessage this is the callback higher order lambda function
-         * to pass the result (UserProfileCollection) to client application
+         * @return [CustomMessage] of [UserProfile]
          */
-        override suspend fun fetchUserProfile(
-            endPoint: EndPoint,
-            customMessage: (CustomMessage<UserProfile>) -> Unit,
-        ) {
+        override suspend fun fetchUserProfile(endPoint: EndPoint): CustomMessage<UserProfile> {
             retrofitManager.sendRequest(endPoint).also {
-                if (it != null && it.isSuccessful) {
+                return if (it != null && it.isSuccessful) {
                     val data = Gson().fromJson<UserProfile>(it.body().toString())
                     val resp = CustomMessage<UserProfile>(Status.Success)
                     resp.setResponseData(data)
-                    customMessage(resp)
+                    resp
                 } else {
-                    customMessage(networkError(it?.errorBody(), it?.code()))
+                    networkError(it?.errorBody(), it?.code())
                 }
             }
         }
@@ -161,7 +157,7 @@ interface IUserRepository {
     /**
      * Represents to do SIGN IN using SDK UI
      *
-     * @param activity holds application activity
+     * @param context holds application Context
      * @param requestCode holds activity result request code
      * @param launcher holds [ActivityResultLauncher] object
      */
@@ -174,7 +170,7 @@ interface IUserRepository {
     /**
      * represents to do SIGN UP using SDK UI
      *
-     * @param activity holds application activity
+     * @param context holds application Context
      * @param requestCode holds activity result request code
      * @param launcher holds [ActivityResultLauncher] object
      */
@@ -194,13 +190,10 @@ interface IUserRepository {
     /**
      * Represents to fetch the user profile data
      *
-     * @param customEndPoint End points of API
-     * @param customMessage higher order function to emit the [CustomMessage] value as response
+     * @param endPoint End points of API
+     * @return [CustomMessage] of [UserProfile] value as response
      */
-    suspend fun fetchUserProfile(
-        endPoint: EndPoint,
-        customMessage: (CustomMessage<UserProfile>) -> Unit,
-    )
+    suspend fun fetchUserProfile(endPoint: EndPoint): CustomMessage<UserProfile>
 
     /**
      * Represents the interface method to trigger the password change API request
