@@ -52,6 +52,6 @@ jobs:
           GPG_SUBKEY_ID: ${{ secrets.GPG_SUBKEY_ID }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: ./gradlew :androidVehicleConnectSDK:publishReleasesPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+          CENTRAL_SONATYPE_USERNAME: ${{ secrets.CENTRAL_SONATYPE_TOKEN_USERNAME }}
+          CENTRAL_SONATYPE_PASSWORD: ${{ secrets.CENTRAL_SONATYPE_TOKEN_PASSWORD }}
+        run: ./gradlew :androidVehicleConnectSDK:publishReleasesPublicationToReleasesRepository
