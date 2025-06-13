@@ -18,7 +18,7 @@ plugins {
     id("org.jetbrains.dokka") version ("1.9.10")
     id("org.cyclonedx.bom") version ("2.2.0")
     id("org.jlleitschuh.gradle.ktlint") version ("12.2.0")
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+//    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
     id("org.jetbrains.kotlinx.kover") version "0.9.1"
 }
 
@@ -42,7 +42,7 @@ buildscript {
 }
 
 group = "org.eclipse.ecsp"
-version = "1.1.7"
+version = "1.1.8"
 project.allprojects {
     tasks.cyclonedxBom {
         outputs.cacheIf { true }
@@ -65,13 +65,13 @@ project.allprojects {
     }
 }
 
-nexusPublishing {
+/*nexusPublishing {
     packageGroup = "org.eclipse.ecsp"
     repositories {
         sonatype {
-            username = System.getenv("OSSRH_USERNAME")
-            password = System.getenv("OSSRH_PASSWORD")
+            username = System.getenv("CENTRAL_SONATYPE_USERNAME")
+            password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
             nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
         }
     }
-}
+}*/

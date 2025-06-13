@@ -81,7 +81,7 @@ publishing {
         register<MavenPublication>("Releases") {
             groupId = "org.eclipse.ecsp"
             artifactId = "vehicleconnectsdk"
-            version = "1.1.7"
+            version = "1.1.8"
             artifact(javadocJar)
             artifact(file("build/reports/bom.xml")) {
                 classifier = "cyclonedx"
@@ -93,7 +93,7 @@ publishing {
             pom {
                 groupId = "org.eclipse.ecsp"
                 artifactId = "vehicleconnectsdk"
-                version = "1.1.7"
+                version = "1.1.8"
                 name = "$groupId:$artifactId"
                 description.set("Android Library with vehicle related APIs, contains set of Login and Remote operation API")
                 url.set("https://github.com/eclipse-ecsp/androidVehicleConnectSDK.git")
@@ -126,6 +126,18 @@ publishing {
         useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
         publishing.publications.all {
             sign(this)
+        }
+    }
+
+    repositories {
+        maven {
+            name = "Releases"
+            url = uri("https://central.sonatype.com/api/v1/publisher/upload")
+
+            credentials {
+                username = System.getenv("CENTRAL_SONATYPE_USERNAME")
+                password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
+            }
         }
     }
 }
