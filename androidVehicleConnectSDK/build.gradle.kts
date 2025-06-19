@@ -26,6 +26,8 @@ plugins {
     id("signing")
     id("maven-publish")
     id("org.jetbrains.kotlinx.kover")
+    id("org.jreleaser") version "1.17.0"
+    id("java-base")
 }
 
 android {
@@ -128,15 +130,20 @@ publishing {
             sign(this)
         }
     }
+}
 
-    repositories {
+jreleaser {
+    deploy {
         maven {
-            name = "Releases"
-            url = uri("https://central.sonatype.com/api/v1/publisher/upload")
-
-            credentials {
-                username = System.getenv("CENTRAL_SONATYPE_USERNAME")
-                password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
+            mavenCentral {
+                create("app") {
+                    setActive("ALWAYS")
+                    uri("https://central.sonatype.com/api/v1/publisher")
+                    stagingRepository("target/staging-deploy")
+                    username = System.getenv("CENTRAL_SONATYPE_USERNAME")
+                    password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
+                    sign = true
+                }
             }
         }
     }

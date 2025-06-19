@@ -54,4 +54,4 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           CENTRAL_SONATYPE_USERNAME: ${{ secrets.CENTRAL_SONATYPE_TOKEN_USERNAME }}
           CENTRAL_SONATYPE_PASSWORD: ${{ secrets.CENTRAL_SONATYPE_TOKEN_PASSWORD }}
-        run: ./gradlew :androidVehicleConnectSDK:publishReleasesPublicationToReleasesRepository
+        run: ./gradlew :androidVehicleConnectSDK:publish jreleaserFullRelease
