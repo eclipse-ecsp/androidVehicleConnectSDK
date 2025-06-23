@@ -16,6 +16,8 @@ package org.eclipse.ecsp.helper.dicomponent
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
 import org.eclipse.ecsp.notificationservice.repository.NotificationRepository
 import org.eclipse.ecsp.notificationservice.service.NotificationService
@@ -34,6 +36,13 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [ContextModule::class, RepositoryModule::class])
 interface AppComponent {
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance application: Application,
+        ): AppComponent
+    }
+
     /**
      * Dependency injection for VehicleService class
      *

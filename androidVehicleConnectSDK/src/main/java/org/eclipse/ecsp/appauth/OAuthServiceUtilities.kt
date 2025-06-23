@@ -24,6 +24,7 @@ import org.eclipse.ecsp.environment.EnvironmentManager
 import org.eclipse.ecsp.helper.Constant.CLIENT_SECRET
 import org.eclipse.ecsp.userservice.endpoint.UserEndPoint
 import java.util.Locale
+import androidx.core.net.toUri
 
 /**
  * OAuthServiceUtilities is a kotlin singleton class which has method to configure the OAuth service
@@ -75,7 +76,7 @@ object OAuthServiceUtilities {
         val baseUrl = EnvironmentManager.environment()?.signinUrl.toString()
         val accessUrl = "${baseUrl}${UserEndPoint.SignIn.path}"
         val tokenUrl = "${baseUrl}${UserEndPoint.AuthToken.path}"
-        return AuthorizationServiceConfiguration(Uri.parse(accessUrl), Uri.parse(tokenUrl))
+        return AuthorizationServiceConfiguration(accessUrl.toUri(), tokenUrl.toUri())
     }
 
     /**
@@ -87,6 +88,6 @@ object OAuthServiceUtilities {
         val baseUrl = EnvironmentManager.environment()?.signupUrl.toString()
         val accessUrl = "${baseUrl}${UserEndPoint.SignUp.path}"
         val tokenUrl = "${baseUrl}${UserEndPoint.AuthToken.path}"
-        return AuthorizationServiceConfiguration(Uri.parse(accessUrl), Uri.parse(tokenUrl))
+        return AuthorizationServiceConfiguration(accessUrl.toUri(), tokenUrl.toUri())
     }
 }

@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img src="./images/logo.png" width="300" height="150"/>
+  <img src="./images/logo.png" width="300" height="150" alt="logo"/>
 </div>
 
 # Android Vehicle Connect SDK
@@ -33,7 +33,7 @@ Take clone of the project using the command (git clone https://github.com/eclips
 
 Design Overview of VehicleConnectSDK
 <div align="center">
-  <img src="./images/arch_diagrampng.png" width="550" height="250"/>
+  <img src="./images/arch_diagrampng.png" width="550" height="250" alt="architecture diagram"/>
 </div>
 
 

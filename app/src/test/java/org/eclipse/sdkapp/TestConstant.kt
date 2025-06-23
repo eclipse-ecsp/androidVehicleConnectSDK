@@ -19,7 +19,7 @@ package org.eclipse.sdkapp
  */
 object TestConstant {
     const val HEADER_AUTHORIZATION = "Authorization"
-    const val SuccessTestToken = "dummy"
-    const val FailureTestToken = "test_token"
+    const val SUCCESS_TEST_TOKEN = "dummy"
+    const val FAILURE_TEST_TOKEN = "test_token"
     const val BASE_URL = "https://localhost.com"
 }

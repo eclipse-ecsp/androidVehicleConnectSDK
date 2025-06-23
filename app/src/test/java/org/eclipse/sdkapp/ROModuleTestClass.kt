@@ -62,7 +62,7 @@ class ROModuleTestClass {
     fun getRoHistory_success_test_case() {
         val endPoint = RoEndPoint.RemoteOperationHistory
         val header = endPoint.header?.apply {
-            put(TestConstant.HEADER_AUTHORIZATION, "Bearer ${TestConstant.SuccessTestToken}")
+            put(TestConstant.HEADER_AUTHORIZATION, "Bearer ${TestConstant.SUCCESS_TEST_TOKEN}")
         }
         val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",
@@ -104,7 +104,7 @@ class ROModuleTestClass {
     fun getRoHistory_failure_test_case() {
         val endPoint = RoEndPoint.RemoteOperationHistory
         val header = endPoint.header?.apply {
-            put(TestConstant.HEADER_AUTHORIZATION, "Bearer ${TestConstant.FailureTestToken}")
+            put(TestConstant.HEADER_AUTHORIZATION, "Bearer ${TestConstant.FAILURE_TEST_TOKEN}")
         }
         val customEndPoint = CustomEndPoint(
             endPoint.baseUrl ?: "",

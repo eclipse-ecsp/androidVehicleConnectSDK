@@ -16,6 +16,7 @@ import org.eclipse.ecsp.notificationservice.model.PayLoadData
 import org.eclipse.ecsp.notificationservice.repository.NotificationRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -106,7 +107,7 @@ class NotificationModuleTestCase {
         val notificationRepository = PowerMockito.spy(NotificationRepository())
         notificationRepository.retrofitManager = retrofitManager
         val responseJsonElement =
-            Response.error<JsonElement>(500, ResponseBody.create(null, "Server error"))
+            Response.error<JsonElement>(500, "Server error".toResponseBody(null))
 
         runBlocking {
             `when`(notificationRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(
@@ -191,7 +192,7 @@ class NotificationModuleTestCase {
         val notificationRepository = PowerMockito.spy(NotificationRepository())
         notificationRepository.retrofitManager = retrofitManager
         val responseJsonElement =
-            Response.error<JsonElement>(403, ResponseBody.create(null, "Forbidden"))
+            Response.error<JsonElement>(403, "Forbidden".toResponseBody(null))
 
         runBlocking {
             `when`(notificationRepository.retrofitManager.sendRequest(customEndPoint)).thenReturn(

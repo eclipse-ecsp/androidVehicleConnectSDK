@@ -66,6 +66,9 @@ android {
             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
             reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.HTML)
         }
+        filter {
+            exclude("**/build/**")
+        }
     }
     publishing {
         singleVariant("release") {
@@ -168,8 +171,8 @@ dependencies {
     implementation("net.openid:appauth:$appAuthVersion")
     implementation("androidx.multidex:multidex:$multiDexVersion")
     implementation("androidx.core:core-ktx:$coreKtxVersion")
-    implementation("androidx.concurrent:concurrent-futures:$androidxConcurrentVersion")
-    implementation("androidx.lifecycle:lifecycle-common:$lifeCycleCommonVersion")
+//    implementation("androidx.concurrent:concurrent-futures:$androidxConcurrentVersion")
+//    implementation("androidx.lifecycle:lifecycle-common:$lifeCycleCommonVersion")
 
     implementation("com.google.dagger:dagger:$daggerVersion")
     implementation("com.google.dagger:dagger-android:$daggerVersion")

@@ -34,6 +34,7 @@ import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.helper.response.error.CustomError
 import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
+import androidx.core.net.toUri
 
 /**
  * This class is used to handle the OAuth library operations to fetch the token
@@ -74,7 +75,7 @@ class AppAuthProvider(
     ): AuthorizationRequest {
         environmentData.let {
             val clientId: String = environmentData!!.clientId!!
-            val redirectUri = Uri.parse(environmentData!!.redirectUrl)
+            val redirectUri = (environmentData!!.redirectUrl ?: "").toUri()
             val builder =
                 AuthorizationRequest.Builder(
                     authServiceConfig,
@@ -84,7 +85,7 @@ class AppAuthProvider(
                 )
             builder.setScopes(environmentData!!.scopes)
             builder.setAdditionalParameters(authParams)
-            builder.setPrompt(AppAuthProvider.Companion.AUTHORIZATION_LOGIN_KEY)
+            builder.setPrompt(AUTHORIZATION_LOGIN_KEY)
             return builder.build()
         }
     }

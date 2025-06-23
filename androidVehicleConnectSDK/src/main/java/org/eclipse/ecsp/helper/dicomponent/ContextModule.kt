@@ -15,6 +15,7 @@ package org.eclipse.ecsp.helper.dicomponent
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
+import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -23,19 +24,18 @@ import javax.inject.Singleton
 /**
  * ContextModule class is a module class for dependency injection
  * Used to inject the context of the application
- *
- * @property context application context need to provide
  */
 @Module
-class ContextModule constructor(private var context: Context) {
+class ContextModule {
     /**
      * This function is to provide the Context of application which is received using dependency injection
      *
+     * @param application holds the instance of [Application]
      * @return Context of the application
      */
     @Singleton
     @Provides
-    fun provideContext(): Context {
-        return context
+    fun provideContext(application: Application): Context {
+        return application.applicationContext
     }
 }

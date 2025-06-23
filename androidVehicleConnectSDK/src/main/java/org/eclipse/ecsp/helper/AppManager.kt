@@ -1,4 +1,5 @@
 package org.eclipse.ecsp.helper
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -25,9 +26,7 @@ import org.eclipse.ecsp.appauth.AuthInterface
 import org.eclipse.ecsp.appauth.AuthManager
 import org.eclipse.ecsp.helper.Constant.CUSTOM_MESSAGE_VALUE
 import org.eclipse.ecsp.helper.dicomponent.AppComponent
-import org.eclipse.ecsp.helper.dicomponent.ContextModule
 import org.eclipse.ecsp.helper.dicomponent.DaggerAppComponent
-import org.eclipse.ecsp.helper.dicomponent.RepositoryModule
 import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
 import org.eclipse.ecsp.network.debugprint.DebugPrint
@@ -53,11 +52,7 @@ object AppManager {
         application: Application,
         enableLog: Boolean = true,
     ) {
-        appComponent =
-            DaggerAppComponent.builder()
-                .contextModule(ContextModule(application))
-                .repositoryModule(RepositoryModule())
-                .build()
+        appComponent = DaggerAppComponent.factory().create(application)
         AppDataStorage.getInstance(application)
         if (enableLog) {
             DebugPrint.setLogger(DebugPrintLogger())
@@ -104,7 +99,10 @@ object AppManager {
                     CustomMessage::class.java,
                 )
 
-            else -> intent.getParcelableExtra(CUSTOM_MESSAGE_VALUE) as? CustomMessage<*>
+            else -> {
+                @Suppress("DEPRECATION")
+                intent.getParcelableExtra(CUSTOM_MESSAGE_VALUE) as? CustomMessage<*>
+            }
         }
     }
 
