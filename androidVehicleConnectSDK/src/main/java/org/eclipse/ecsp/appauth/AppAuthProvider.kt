@@ -18,8 +18,8 @@ package org.eclipse.ecsp.appauth
  ********************************************************************************/
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.net.toUri
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationResponse
@@ -34,7 +34,6 @@ import org.eclipse.ecsp.helper.response.CustomMessage
 import org.eclipse.ecsp.helper.response.error.CustomError
 import org.eclipse.ecsp.helper.response.error.Status
 import org.eclipse.ecsp.helper.sharedpref.AppDataStorage
-import androidx.core.net.toUri
 
 /**
  * This class is used to handle the OAuth library operations to fetch the token

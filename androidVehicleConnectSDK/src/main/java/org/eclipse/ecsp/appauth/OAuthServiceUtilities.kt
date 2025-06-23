@@ -15,7 +15,7 @@ package org.eclipse.ecsp.appauth
  *
  * SPDX-License-Identifier: Apache-2.0
  ********************************************************************************/
-import android.net.Uri
+import androidx.core.net.toUri
 import net.openid.appauth.AppAuthConfiguration
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.browser.BrowserAllowList
@@ -24,7 +24,6 @@ import org.eclipse.ecsp.environment.EnvironmentManager
 import org.eclipse.ecsp.helper.Constant.CLIENT_SECRET
 import org.eclipse.ecsp.userservice.endpoint.UserEndPoint
 import java.util.Locale
-import androidx.core.net.toUri
 
 /**
  * OAuthServiceUtilities is a kotlin singleton class which has method to configure the OAuth service
