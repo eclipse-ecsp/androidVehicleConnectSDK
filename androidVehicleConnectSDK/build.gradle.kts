@@ -138,17 +138,20 @@ publishing {
 jreleaser {
     release {
         gitRootSearch = true
+        github {
+           token = System.getenv("GITHUB_TOKEN")
+        }
     }
     deploy {
         maven {
             mavenCentral {
                 create("app") {
                     setActive("ALWAYS")
-                    uri("https://central.sonatype.com/api/v1/publisher")
+                    url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository("target/staging-deploy")
                     username = System.getenv("CENTRAL_SONATYPE_USERNAME")
                     password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
-                    sign = true
+                    checksums = false
                 }
             }
         }
