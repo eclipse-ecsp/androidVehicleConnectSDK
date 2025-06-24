@@ -136,6 +136,9 @@ publishing {
 }
 
 jreleaser {
+    release {
+        gitRootSearch = true
+    }
     deploy {
         maven {
             mavenCentral {
