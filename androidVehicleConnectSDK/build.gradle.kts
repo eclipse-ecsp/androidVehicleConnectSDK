@@ -1,3 +1,5 @@
+import com.ctc.wstx.shaded.msv_core.util.Uri
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -145,6 +147,9 @@ jreleaser {
     signing {
         setActive("ALWAYS")
         armored = true
+        passphrase = System.getenv("GPG_PASSPHRASE")
+        secretKey = System.getenv("GPG_PRIVATE_KEY")
+        publicKey = System.getenv("GPG_SUBKEY_ID")
     }
     deploy {
         maven {
