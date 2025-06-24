@@ -142,6 +142,10 @@ jreleaser {
             token = System.getenv("GITHUB_TOKEN")
         }
     }
+    signing {
+        setActive("ALWAYS")
+        armored = true
+    }
     deploy {
         maven {
             mavenCentral {
@@ -151,7 +155,6 @@ jreleaser {
                     stagingRepository("target/staging-deploy")
                     username = System.getenv("CENTRAL_SONATYPE_USERNAME")
                     password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
-                    checksums = false
                 }
             }
         }
