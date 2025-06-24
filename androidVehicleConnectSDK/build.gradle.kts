@@ -139,7 +139,7 @@ jreleaser {
     release {
         gitRootSearch = true
         github {
-           token = System.getenv("GITHUB_TOKEN")
+            token = System.getenv("GITHUB_TOKEN")
         }
     }
     deploy {
