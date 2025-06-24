@@ -1,5 +1,3 @@
-import com.ctc.wstx.shaded.msv_core.util.Uri
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -128,13 +126,6 @@ publishing {
             }
         }
     }
-
-    signing {
-        useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
-        publishing.publications.all {
-            sign(this)
-        }
-    }
 }
 
 jreleaser {
@@ -160,6 +151,7 @@ jreleaser {
                     stagingRepository("target/staging-deploy")
                     username = System.getenv("CENTRAL_SONATYPE_USERNAME")
                     password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
+                    checksums = true
                 }
             }
         }
