@@ -151,8 +151,8 @@ jreleaser {
         armored = true
         mode = Signing.Mode.COMMAND
     }
-    distributions{
-        create("androidVehicleConnectSDK"){
+    distributions {
+        create("androidVehicleConnectSDK") {
             artifacts {
                 artifact {
                     path = file("androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar")
