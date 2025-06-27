@@ -1,3 +1,5 @@
+import org.jreleaser.model.Signing
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -126,6 +128,12 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            url = uri(layout.buildDirectory.dir("staging-deploy"))
+        }
+    }
 }
 
 jreleaser {
@@ -137,10 +145,11 @@ jreleaser {
     }
     signing {
         setActive("ALWAYS")
-        armored = true
         passphrase = System.getenv("GPG_PASSPHRASE")
         secretKey = System.getenv("GPG_PRIVATE_KEY")
         publicKey = System.getenv("GPG_SUBKEY_ID")
+        armored = true
+        mode = Signing.Mode.COMMAND
     }
     deploy {
         maven {
@@ -151,7 +160,6 @@ jreleaser {
                     stagingRepository("target/staging-deploy")
                     username = System.getenv("CENTRAL_SONATYPE_USERNAME")
                     password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
-                    checksums = true
                 }
             }
         }
