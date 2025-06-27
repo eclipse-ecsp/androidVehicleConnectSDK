@@ -131,7 +131,7 @@ publishing {
 
     repositories {
         maven {
-            url = uri(layout.buildDirectory.dir("staging-deploy"))
+            url = uri(layout.buildDirectory.dir("build/staging-deploy"))
         }
     }
 }
@@ -151,13 +151,31 @@ jreleaser {
         armored = true
         mode = Signing.Mode.COMMAND
     }
+    distributions{
+        create("androidVehicleConnectSDK"){
+            artifacts {
+                artifact {
+                    path = file("androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar")
+                }
+                artifact {
+                    path = file("build/reports/bom.xml")
+                }
+                artifact {
+                    path = file("build/dokka/html")
+                }
+                artifact {
+                    path = file("build/libs/androidVehicleConnectSDK-1.6-javadoc.jar")
+                }
+            }
+        }
+    }
     deploy {
         maven {
             mavenCentral {
                 create("app") {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
-                    stagingRepository("target/staging-deploy")
+                    stagingRepository("build/staging-deploy")
                     username = System.getenv("CENTRAL_SONATYPE_USERNAME")
                     password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
                 }
