@@ -1,5 +1,3 @@
-import org.jreleaser.model.Signing
-
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -127,57 +125,29 @@ publishing {
                 }
             }
         }
+        signing {
+            useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
+            publishing.publications.all {
+                sign(this)
+            }
+        }
     }
 
     repositories {
         maven {
-            url = uri(layout.buildDirectory.dir("build/staging-deploy"))
+            url = uri(layout.buildDirectory.dir("staging-deploy"))
         }
     }
 }
 
 jreleaser {
-    release {
-        gitRootSearch = true
-        github {
-            token = System.getenv("GITHUB_TOKEN")
-        }
-    }
-    signing {
-        setActive("ALWAYS")
-        passphrase = System.getenv("GPG_PASSPHRASE")
-        secretKey = System.getenv("GPG_PRIVATE_KEY")
-        publicKey = System.getenv("GPG_SUBKEY_ID")
-        armored = true
-        mode = Signing.Mode.COMMAND
-    }
-    distributions {
-        create("androidVehicleConnectSDK") {
-            artifacts {
-                artifact {
-                    path = file("androidVehicleConnectSDK/build/outputs/aar/androidVehicleConnectSDK-release.aar")
-                }
-                artifact {
-                    path = file("build/reports/bom.xml")
-                }
-                artifact {
-                    path = file("build/dokka/html")
-                }
-                artifact {
-                    path = file("build/libs/androidVehicleConnectSDK-1.6-javadoc.jar")
-                }
-            }
-        }
-    }
     deploy {
         maven {
             mavenCentral {
-                create("app") {
+                create("sonatype") {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository("build/staging-deploy")
-                    username = System.getenv("CENTRAL_SONATYPE_USERNAME")
-                    password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
                 }
             }
         }
