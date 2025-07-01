@@ -154,6 +154,9 @@ jreleaser {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository("build/staging-deploy")
+                    username = System.getenv("CENTRAL_SONATYPE_USERNAME")
+                    password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
+                    sign = false
                 }
             }
         }
