@@ -1,3 +1,5 @@
+import org.jreleaser.model.Active
+
 /********************************************************************************
  * Copyright (c) 2023-24 Harman International
  *
@@ -125,12 +127,6 @@ publishing {
                 }
             }
         }
-        signing {
-            useInMemoryPgpKeys(System.getenv("GPG_SUBKEY_ID"), System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
-            publishing.publications.all {
-                sign(this)
-            }
-        }
     }
 
     repositories {
@@ -147,6 +143,27 @@ jreleaser {
             token = System.getenv("GITHUB_TOKEN")
         }
     }
+    project{
+        name = "vehicleconnectsdk"
+        version = "1.1.8"
+    }
+    distributions {
+        create("vehicleconnectsdk"){
+            distributionType = org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY
+            artifacts {
+                artifact {
+                    path.set(file("build/outputs/aar/androidVehicleConnectSDK-release.aar"))
+                }
+            }
+        }
+    }
+    signing {
+        active = Active.ALWAYS
+        armored = true
+        publicKey = System.getenv("GPG_SUBKEY_ID")
+        secretKey = System.getenv("GPG_PRIVATE_KEY")
+        passphrase = System.getenv("GPG_PASSPHRASE")
+    }
     deploy {
         maven {
             mavenCentral {
@@ -156,7 +173,6 @@ jreleaser {
                     stagingRepository("build/staging-deploy")
                     username = System.getenv("CENTRAL_SONATYPE_USERNAME")
                     password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
-                    sign = false
                 }
             }
         }
