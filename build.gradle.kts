@@ -19,6 +19,7 @@ plugins {
     id("org.cyclonedx.bom") version ("2.2.0")
     id("org.jlleitschuh.gradle.ktlint") version ("12.2.0")
     id("org.jetbrains.kotlinx.kover") version "0.9.1"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 subprojects {
@@ -61,5 +62,16 @@ project.allprojects {
         )
         setProjectType("library")
         outputFormat = "xml"
+    }
+}
+
+nexusPublishing {
+    packageGroup="org.eclipse.ecsp"
+    repositories {
+        sonatype {
+            username = System.getenv("CENTRAL_SONATYPE_USERNAME")
+            password = System.getenv("CENTRAL_SONATYPE_PASSWORD")
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+        }
     }
 }
