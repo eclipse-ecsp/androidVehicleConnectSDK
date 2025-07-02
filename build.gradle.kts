@@ -66,7 +66,7 @@ project.allprojects {
 }
 
 nexusPublishing {
-    packageGroup="org.eclipse.ecsp"
+    packageGroup = "org.eclipse.ecsp"
     repositories {
         sonatype {
             username = System.getenv("CENTRAL_SONATYPE_USERNAME")
