@@ -143,12 +143,12 @@ jreleaser {
             token = System.getenv("GITHUB_TOKEN")
         }
     }
-    project{
+    project {
         name = "vehicleconnectsdk"
         version = "1.1.8"
     }
     distributions {
-        create("vehicleconnectsdk"){
+        create("vehicleconnectsdk") {
             distributionType = org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY
             artifacts {
                 artifact {
