@@ -26,7 +26,7 @@ plugins {
     id("signing")
     id("maven-publish")
     id("org.jetbrains.kotlinx.kover")
-    id("org.jreleaser") version "1.17.0"
+    id("org.jreleaser") version "1.19.0"
     id("java-base")
 }
 
