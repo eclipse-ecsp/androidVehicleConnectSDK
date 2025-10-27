@@ -43,7 +43,7 @@ jobs:
       
       # Upload Artifact Build
     - name: Upload AAR - ${{ env.main_project_module }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: androidVehicleConnectSDK.aar
         path: androidVehicleConnectSDK/build/outputs/aar/
